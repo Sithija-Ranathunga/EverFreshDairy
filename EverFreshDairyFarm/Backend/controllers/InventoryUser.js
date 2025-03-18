@@ -6,7 +6,7 @@ import userModel from '../models/InventoryUser.js';
 export const register = async (req,res) =>{
     const {name, email, password} = req.body;
 
-    if(!name || !email || !password){
+    if(!name || !email || !password || !workExperience || !NIC){
         return res.status(400).json({success: false, message: 'Missing Details'})
     }
 
@@ -20,7 +20,7 @@ export const register = async (req,res) =>{
 
     const hashedPassword = await bcrypt.hash(password,10);
 
-    const user = new userModel({name, email, password:hashedPassword});
+    const user = new userModel({name, email, password:hashedPassword, workExperience, NIC});
     await user.save();
 
     const token = jwt.sign({id: user._id}, process.env.JWT_SECRET,{expiresIn: '7d'});

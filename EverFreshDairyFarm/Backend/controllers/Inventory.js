@@ -4,12 +4,12 @@ import Inventorymodel from '../models/Inventory.js';
 export const AddInventoryDetails = async (req,res) => {
     const {itemName, quantity, lastUpdate} = req.body;
 
-    if(!itemName || !quantity || !lastUpdate){
+    if(!itemName || !quantity || !lastUpdate || !supplier){
         return res.status(400).json({})
     }
 
     try{
-       const inventory = new Inventorymodel({itemName,quantity,lastUpdate});
+       const inventory = new Inventorymodel({itemName,quantity,lastUpdate,supplier});
        await inventory.save();
 
        return res.status(201).json({success:true, message:"Inventory Details are added."})
