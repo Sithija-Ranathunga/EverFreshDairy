@@ -1,9 +1,9 @@
-import milkingData from '../models/milkingData.js';
+import MilkingDatamodel from '../models/MilkingData.js';
 
 //create a new milking record
-export const createmilkingData = async (req, res) => {
+export const createMilkingData = async (req, res) => {
     try {
-        const newmilkingData = new milkingData(req.body);
+        const newmilkingData = new MilkingDatamodel(req.body);
         await newmilkingData.save();
         res.status(201).json(newmilkingData);
 
@@ -14,10 +14,10 @@ export const createmilkingData = async (req, res) => {
 };
 
 // Get all milking records
-export const getmilkingData = async (req, res) => {
+export const getMilkingData = async (req, res) => {
     try{
-        const milkingRecords = await milkingData.find();
-        res.status(200).json({ message: error.message});
+        const milkingRecords = await MilkingDatamodel.find();
+        res.status(200).json( milkingRecords);
 
     } catch (error){
         res.status(500).json({ message: error.message });
@@ -26,9 +26,9 @@ export const getmilkingData = async (req, res) => {
 };
 
 //Get a single milking record by ID
-export const getmilkingDataById = async (req, res) => {
+export const getMilkingDataById = async (req, res) => {
     try{
-        const milkingRecord = await milkingData.findById(req.params.id);
+        const milkingRecord = await MilkingDatamodel.findById(req.params.id);
         if(!milkingRecord) return res.status(404).json({ message: "Record not found" });
         res.status(200).json(milkingRecord);
 
@@ -39,9 +39,9 @@ export const getmilkingDataById = async (req, res) => {
 };
 
 //Update a milking record by ID
-export const updatemilkingData = async (req, res) => {
+export const updateMilkingData = async (req, res) => {
     try {
-        const updatemilkingDataRecord = await milkingData.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatemilkingDataRecord = await MilkingDatamodel.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (! updatemilkingDataRecord) return res.status(404).json({ message: "Record not found" });
         res.status(200).json( updatemilkingDataRecord);
 
@@ -52,10 +52,10 @@ export const updatemilkingData = async (req, res) => {
 };
 
 //Delete a milking record by ID
-export const DeletemilkingData = async (req, res) => {
+export const deleteMilkingData = async (req, res) => {
     try {
-        const DeletemilkingDataRecords = await milkingData.findByIdAndDelete(req.params.id);
-        if (!DeletemilkingDataRecords) return res.status(404).json({ message: "Record not found" });
+        const deletemilkingDataRecords = await MilkingDatamodel.findByIdAndDelete(req.params.id);
+        if (!deletemilkingDataRecords) return res.status(404).json({ message: "Record not found" });
         res.status(200).json({ message: "Record deleted successfully" });
 
     } catch (error) {
