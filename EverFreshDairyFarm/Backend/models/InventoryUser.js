@@ -10,6 +10,14 @@ const userSChema = new mongoose.SchemaTypeOptions({
         required: true,
         unique: true
     },
+    NIC:{
+        type: String,
+        required: true
+    },
+    workExperience:{
+        type: String,
+        required: true
+    },
     password:{
         type: String,
         required: true
