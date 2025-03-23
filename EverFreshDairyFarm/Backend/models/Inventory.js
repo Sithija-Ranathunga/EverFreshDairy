@@ -17,7 +17,7 @@ const InventorySchema  = new mongoose.Schema({
     lastUpdate:{
         type: Date,
         required: true,
-        default: Date.now,
+        
     },
     
 });
