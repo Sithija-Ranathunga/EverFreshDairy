@@ -4,7 +4,7 @@ import userModel from '../models/InventoryUser.js';
 
 //register
 export const register = async (req,res) =>{
-    const {name, email, password} = req.body;
+    const {name, email, password, workExperience, NIC } = req.body;
 
     if(!name || !email || !password || !workExperience || !NIC){
         return res.status(400).json({success: false, message: 'Missing Details'})
