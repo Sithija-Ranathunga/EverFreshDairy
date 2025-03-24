@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken'
-import userModel from '../models/milkingUser.js';
+import userModel from '../models/MilkingUser.js';
 
 //rejister
 export const register = async (req,res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password } = req.body;
 
-    if(!name ||  !email || !password){
+    if(!name ||  !email || !password ){
         return res.status(400).json ({success: false, message: 'Missing Details'})
     }
 
@@ -21,6 +21,8 @@ export const register = async (req,res) => {
 
     const user = new userModel({name, email, password:hashedPassword});
     await user.save();
+
+    const token = jwt.sign({id: user._id}, process.env.JWT_SECRET,{expiresIn: '7d'});
 
     res.cookie('token',token,{
         httpOnly: true,
@@ -92,9 +94,9 @@ export const logout = async (req, res) => {
 // Get user data
 export const getUserData = async (req, res) => {
     try {
-        const user = await userModel.find();
+        const users = await userModel.find();
 
-        if (!user) {
+        if (!users || users.length === 0) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
 
@@ -116,7 +118,7 @@ export const getbyIdUser = async (req, res) => {
       }
       res.status(200).json({success:true,user});
   
-    } catch {
+    } catch (error) {
       res.status(500).json({ success:false,message: error.message });
     }
   };

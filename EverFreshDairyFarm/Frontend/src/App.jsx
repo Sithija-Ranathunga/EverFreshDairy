@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom"
 import Home from './pages/Home'
+<<<<<<< Updated upstream
 import Login from "./pages/InventoryManager/Login/Login";
 import GrassingSession from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Grassing from "./pages/InventoryManager/Grassing/Grassing.jsx";
@@ -11,6 +12,9 @@ import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
 
+=======
+import milkingData from './pages/MilkingManagement/milkingData'
+>>>>>>> Stashed changes
 
 
 
@@ -20,6 +24,7 @@ const App = () => {
  
   <Routes>
     <Route path='/' element={<Home/>}/>
+<<<<<<< Updated upstream
     <Route path='/loginInventory' element={<Login/>}/>
     <Route path='/grassingsession' element={<GrassingSession/>}/>
     <Route path='/grassing' element={<Grassing/>}/>
@@ -29,6 +34,9 @@ const App = () => {
     <Route path='/grassingupdate/:id' element={<GrassingUpdate/>}/>
     <Route path='/addgrass' element={<AddGrassing/>}/>
     <Route path='/alerts' element={<Alerts/>}/>
+=======
+    <Route path='/milkingData' element={<milkingData/>}/>
+>>>>>>> Stashed changes
   </Routes>
  
 
