@@ -1,29 +1,30 @@
-
 import React, { useState } from "react";
 
 export function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <nav className="bg-blue-600 p-4 shadow-md">
+    <nav className="bg-gray-200 p-4 shadow-md relative z-50">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Brand Name */}
-        <h1 className="text-white text-2xl font-bold">Ever Fresh Dairy</h1>
+        {/* Logo */}
+        <a href="/">
+          <img src="/images/logo.png" alt="Ever Fresh Dairy Logo" className="h-12 w-20"/>
+        </a>
 
         {/* Navigation Links */}
         <ul className="flex space-x-4">
-          <li><a href="#features" className="text-white hover:underline">Features</a></li>
-          <li><a href="#about" className="text-white hover:underline">About</a></li>
-          <li><a href="#contact" className="text-white hover:underline">Contact</a></li>
+          <li><a href="#features" className="text-green hover:underline">Features</a></li>
+          <li><a href="#about" className="text-green hover:underline">About</a></li>
+          <li><a href="#contact" className="text-green hover:underline">Contact</a></li>
         </ul>
 
         {/* Login/Sign-In Dropdown */}
-        <div className="relative">
+        <div className="relative z-50">
           <button 
             onClick={() => setDropdownOpen(!dropdownOpen)} 
-            className="bg-white text-green-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200 transition"
+            className="bg-white text-[#2C3E50]-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200 transition"
           >
-            Login / Sign In ▼
+            Login / Sign In
           </button>
 
           {/* Dropdown Menu */}

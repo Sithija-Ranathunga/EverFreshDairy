@@ -9,6 +9,9 @@ import UpdateProfile from "./pages/InventoryManager/Profile/UpdateProfile.jsx";
 import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/GrassingSessionUpdate.jsx";
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
+import Alerts from "./components/Alerts";
+
+
 
 
 const App = () => {
@@ -17,7 +20,6 @@ const App = () => {
  
   <Routes>
     <Route path='/' element={<Home/>}/>
-
     <Route path='/loginInventory' element={<Login/>}/>
     <Route path='/grassingsession' element={<GrassingSession/>}/>
     <Route path='/grassing' element={<Grassing/>}/>
@@ -26,6 +28,7 @@ const App = () => {
     <Route path='/grassingsessionupdate' element={<GrassingSessionUpdate/>}/>
     <Route path='/grassingupdate/:id' element={<GrassingUpdate/>}/>
     <Route path='/addgrass' element={<AddGrassing/>}/>
+    <Route path='/alerts' element={<Alerts/>}/>
   </Routes>
  
 
