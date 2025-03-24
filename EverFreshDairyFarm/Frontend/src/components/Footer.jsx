@@ -21,13 +21,13 @@ export function Footer() {
               </ul>
             </div>
           </div>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-white text-xl"><i className="fab fa-facebook"></i></a>
-            <a href="#" className="text-white text-xl"><i className="fab fa-instagram"></i></a>
-            <a href="#" className="text-white text-xl"><i className="fab fa-twitter"></i></a>
+          <div className="flex mt-4 space-x-4 md:mt-0">
+            <a href="#" className="text-xl text-white"><i className="fab fa-facebook"></i></a>
+            <a href="#" className="text-xl text-white"><i className="fab fa-instagram"></i></a>
+            <a href="#" className="text-xl text-white"><i className="fab fa-twitter"></i></a>
           </div>
         </div>
-        <p className="text-center text-gray-400 text-sm mt-4">Ever Fresh Dairy &copy; 2025. All Rights Reserved.</p>
+        <p className="mt-4 text-sm text-center text-gray-400">Ever Fresh Dairy &copy; 2025. All Rights Reserved.</p>
       </footer>
     );
   }
