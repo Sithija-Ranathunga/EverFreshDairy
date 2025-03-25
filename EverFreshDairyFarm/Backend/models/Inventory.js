@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const InventorySchema  = new mongoose.Schema({
-    itemName:{
+    location:{
         type: String,
         required: true,
 
@@ -17,7 +17,7 @@ const InventorySchema  = new mongoose.Schema({
     lastUpdate:{
         type: Date,
         required: true,
-        default: Date.now,
+        
     },
     
 });
