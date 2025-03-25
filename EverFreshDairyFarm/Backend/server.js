@@ -5,6 +5,10 @@ import cookieParser from "cookie-parser";
 import connectDB from './config/mongodb.js'
 import userRouter from "./routes/InventoryUserRoute.js";
 import inventoryRouter from "./routes/InventoryRoute.js";
+import vetuserRouter from "./routes/vetuserRoute.js";
+import Cowregister from "./routes/cowregisterRoutes.js";
+import CheckupRouter from "./routes/checkupRoute.js";
+
 
 const app = express();
 const port = process.env.PORT || 8000
@@ -17,5 +21,8 @@ app.use(cors({credentials: true}))
 app.get('/',(req,res)=>res.send("API Working"));
 app.use('/inventoryManager',userRouter);
 app.use('/inventory',inventoryRouter);
+app.use('/veterinarySurgeon',vetuserRouter);
+app.use('/vetCowRegister',Cowregister);
+app.use('/vetCheckups',CheckupRouter);
 
 app.listen(port, ()=> console.log(`Server started on PORT:${port}`));
