@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import InventorySideBar from "../../../components/InventorySideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AppContent } from "../../../Content/AppContent";
 
 function Grassing() {
   const navigate = useNavigate();
   const [grass, setGrass] = useState([]);
   const [expiredCount, setExpiredCount] = useState(0);
   const [inStoreQuantity, setInStoreQuantity] = useState(0);
+  const {userData} = useContext(AppContent);
+  
 
   useEffect(() => {
     axios
@@ -67,17 +70,18 @@ function Grassing() {
         <InventorySideBar />
 
         <div className="flex-1 pl-8">
-          <h1 className="mt-10 mb-6 text-3xl font-bold">Dashboard</h1>
+          <h1 className="mt-10 mb-6 text-3xl font-bold">Dashboard </h1>
+          {/*} <h2 className="text-2xl font-bold text-red-500">Welcome {userData.name} 🍃</h2>*/}
 
           <div className="flex items-center justify-center gap-20 mb-10">
-            <div className="flex flex-col items-center px-20 py-5 bg-green-400 rounded-md shadow-md">
-              <h2 className="text-xl font-bold">{inStoreQuantity}kg</h2>
+            <div className="flex flex-col items-center px-20 py-5 bg-green-600 rounded-md shadow-md">
+              <h2 className="text-xl font-bold">{inStoreQuantity} kg</h2>
               <p className="text-xl font-bold">In-Store</p>
             </div>
 
-            <div className="flex flex-col items-center px-20 py-5 bg-red-400 rounded-md shadow-md">
+            <div className="flex flex-col items-center px-20 py-5 bg-green-600 rounded-md shadow-md">
               <h2 className="text-xl font-bold">{expiredCount}</h2>
-              <p className="text-xl font-bold">Expired</p>
+              <p className="text-xl font-bold">Expired </p>
             </div>
           </div>
 
@@ -87,12 +91,12 @@ function Grassing() {
               className="px-4 py-2 text-white bg-green-900 rounded-md hover:bg-green-600"
               onClick={() => navigate("/addgrass")}
             >
-              Add Item
+              + Add Item
             </button>
           </div>
 
           <table className="w-4/5 mx-auto my-6 bg-white rounded-lg shadow-md">
-            <thead className="text-white bg-green-600">
+            <thead className="text-white bg-green-700">
               <tr>
                 <th className="p-4 text-center">Location</th>
                 <th className="p-4 text-center">Quantity</th>
@@ -123,13 +127,13 @@ function Grassing() {
                       <td className="p-4 text-center">
                         <button
                           onClick={() => navigate(`/grassingupdate/${g._id}`)}
-                          className="px-3 py-1 mr-4 text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
+                          className="px-3 py-1 mr-4 text-white bg-blue-900 rounded-md hover:bg-blue-600"
                         >
                           Update
                         </button>
                         <button
                           onClick={() => handleDelete(g._id)}
-                          className="px-3 py-1 text-white bg-red-600 rounded-md hover:bg-red-700"
+                          className="px-3 py-1 text-white bg-red-700 rounded-md hover:bg-red-600"
                         >
                           Delete
                         </button>

@@ -14,7 +14,7 @@ import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx"
 import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
 import Report from "./pages/InventoryManager/Report/Report.jsx";
-import { AppContent } from "./Content/AppContent.jsx";
+
 
 const App = () => {
   return (
@@ -35,7 +35,7 @@ const App = () => {
     <Route path='/session' element={<Session/>}/>
     <Route path='/logout' element={<Logout/>}/>
     <Route path='/report' element={<Report/>}/>
-    <Route path='/app' element={<AppContent/>}/>
+    
   </Routes>
  
 

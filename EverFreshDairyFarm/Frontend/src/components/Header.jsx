@@ -3,9 +3,7 @@ import { AppContent } from "../Content/AppContent";
 
 export function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  //const { userData } = useContext(AppContent); 
-
- 
+  const {userData} = useContext(AppContent);
 
   return (
     <nav className="relative z-50 p-4 bg-gray-200 shadow-md">
@@ -28,7 +26,7 @@ export function Header() {
           </li>
           <li>
             <a href="#about" className="text-green hover:underline">
-              About
+              About 
             </a>
           </li>
           <li>
@@ -37,9 +35,16 @@ export function Header() {
             </a>
           </li>
         </ul>
-
-        <div>
         
+  
+
+
+        {userData ? (
+          <div className="w-8 h-8 flex justify-center items-center rounded-full bg-black text-white relative">
+          {userData.name[0].toUpperCase()}
+          </div>
+      ) : ( 
+          <div>
             <div className="relative z-50">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -77,20 +82,18 @@ export function Header() {
                     </li>
                     <hr />
                     <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100"
-                      >
+                      <a href="#" className="block px-4 py-2 hover:bg-gray-100">
                         Admin login
                       </a>
                     </li>
-                    
                   </ul>
                 </div>
               )}
             </div>
-         
-        </div>
+          </div>
+          
+        )} 
+        
       </div>
     </nav>
   );

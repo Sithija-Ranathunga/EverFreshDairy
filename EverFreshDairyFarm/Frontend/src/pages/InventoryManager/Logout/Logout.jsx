@@ -5,14 +5,16 @@ import axios from 'axios';
 
 function Logout() {
   const navigate = useNavigate();
-  const { setUserData, setIsLoggedin} = useContext(AppContent)
+  const {logout} = useContext(AppContent)
 
   const confirmLogout = async ()=>{
     try{
         axios.defaults.withCredentials = true
         const {data} = await axios.post('http://Localhost:8000/inventoryManager/logout')
-        data.success && setIsLoggedin(false)
-        data.success && setUserData(false)
+        // data.success && setIsLoggedin(false)
+        // data.success && setUserData(false)
+        logout();
+        
         navigate('/loginInventory')
     }catch(error){
        toast.error(error.message)

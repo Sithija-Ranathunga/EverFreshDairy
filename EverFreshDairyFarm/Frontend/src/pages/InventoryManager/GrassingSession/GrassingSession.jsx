@@ -69,12 +69,12 @@ function GrassingSession() {
                 className="px-4 py-2 mr-10 text-white bg-green-900 rounded-md hover:bg-green-600"
                 onClick={() => navigate("/addsession")}
               >
-                Add Session
+                +  Add Session
               </button>
             </div>
           </div>
 
-          <table className="w-4/5 mx-auto my-[2.22vh] bg-white shadow-md rounded-lg">
+          <table className="w-4/5 mx-auto my-[2.22vh] bg-white shadow-md rounded-lg mt-9">
             <thead className="text-white bg-green-600">
               <tr>
                 <th className="p-[1.6vh] text-center">Session Id</th>
@@ -105,13 +105,13 @@ function GrassingSession() {
                       onClick={() =>
                         navigate(`/grassingsessionupdate/${session._id}`)
                       }
-                      className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-yellow-500 text-white rounded-md hover:bg-yellow-600 mr-6"
+                      className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-blue-900 text-white rounded-md hover:bg-blue-600 mr-6"
                     >
                       Update
                     </button>
                     <button
                       onClick={() => handleDelete(session._id)}
-                      className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-red-600 text-white rounded-md hover:bg-red-700"
+                      className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-red-700 text-white rounded-md hover:bg-red-600"
                     >
                       Delete
                     </button>
