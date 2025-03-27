@@ -7,6 +7,7 @@ import report_icon from './report_icon.svg'
 import logout_icon from './logout_icon.svg'
 import profile_icon from './profile_icon.svg'
 import session_icon from './session_icon.svg'
+import bg from './bg.jpg'
 
 
 export const assets = {
@@ -18,5 +19,6 @@ export const assets = {
     report_icon,
     logout_icon,
     profile_icon,
-    session_icon
+    session_icon,
+    bg
 }

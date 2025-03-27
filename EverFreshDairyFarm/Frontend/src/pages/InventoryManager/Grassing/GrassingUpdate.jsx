@@ -4,6 +4,7 @@ import { Footer } from "../../../components/Footer";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import InventorySideBar from "../../../components/InventorySideBar";
+import { assets } from "../../../assets/assets";
 
 function GrassingUpdate() {
   const { id } = useParams();
@@ -93,6 +94,10 @@ function GrassingUpdate() {
       <Header />
       <div className="flex">
         <InventorySideBar />
+        <div
+          className="flex items-center justify-center flex-1 bg-center bg-cover"
+          
+        >
         <div className="flex flex-col items-center w-full">
           <h1 className="my-6 text-3xl font-bold text-center">Update Grasses</h1>
 
@@ -154,6 +159,7 @@ function GrassingUpdate() {
               </button>
             </form>
           </div>
+        </div>
         </div>
       </div>
       <Footer />

@@ -10,9 +10,11 @@ import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/Gras
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
-
-
-
+import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
+import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
+import Report from "./pages/InventoryManager/Report/Report.jsx";
+import { AppContent } from "./Content/AppContent.jsx";
 
 const App = () => {
   return (
@@ -25,10 +27,15 @@ const App = () => {
     <Route path='/grassing' element={<Grassing/>}/>
     <Route path='/inventory' element={<Profile/>}/>
     <Route path='/updateprofile' element={<UpdateProfile/>}/>
-    <Route path='/grassingsessionupdate' element={<GrassingSessionUpdate/>}/>
+    <Route path='/grassingsessionupdate/:id' element={<GrassingSessionUpdate/>}/>
     <Route path='/grassingupdate/:id' element={<GrassingUpdate/>}/>
     <Route path='/addgrass' element={<AddGrassing/>}/>
     <Route path='/alerts' element={<Alerts/>}/>
+    <Route path='/addsession' element={<AddSession/>}/>
+    <Route path='/session' element={<Session/>}/>
+    <Route path='/logout' element={<Logout/>}/>
+    <Route path='/report' element={<Report/>}/>
+    <Route path='/app' element={<AppContent/>}/>
   </Routes>
  
 

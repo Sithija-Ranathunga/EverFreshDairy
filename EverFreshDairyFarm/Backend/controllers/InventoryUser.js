@@ -119,7 +119,7 @@ export const getbyIdUser = async (req, res) => {
     res.status(200).json({success:true,user});
 
   } catch {
-    res.status(500).json({ success:false,message: error.message });
+    res.status(500).json({ success:false});
   }
 };
 
@@ -140,3 +140,28 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ success:false,message: error.message });
   }
 };
+
+//Check if user is authenticated
+export const isAuthenicated = async(req,res)=>{
+    try{
+         return res.json({ success: true});
+    }catch(error){
+        res.json({success: false, message: error.message})
+    }
+}
+
+// Get logged-in user's profile
+export const getUserProfile = async (req, res) => {
+    try {
+      const user = await userModel.findById(req.body.userId).select("-password"); // Exclude password
+  
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      res.status(200).json({ success: true, user });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+  

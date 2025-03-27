@@ -1,5 +1,5 @@
 import axios from "axios"
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 
 export const AppContent = createContext()
 
@@ -7,6 +7,19 @@ export const AppContextProvider = (props)=>{
 
     const [isLoggedin, setIsLoggedin] = useState(false)
     const [userData, setUserData] = useState(false)
+
+
+    const getAuthState = async ()=>{
+        try{
+           const {data} = await axios.post( 'http://localhost:8000/inventoryManager/is-auth')
+           if(data.success){
+            setIsLoggedin(true)
+            getUserData()
+           }
+        }catch(error){
+          console.log(error.message)
+        }
+    }
 
     const getUserData = async ()=> {
         try{
@@ -16,6 +29,10 @@ export const AppContextProvider = (props)=>{
             alert(error.message);
         }
     }
+
+    useEffect(()=>{
+        getAuthState();
+    },[]) 
 
 
     const value = {
