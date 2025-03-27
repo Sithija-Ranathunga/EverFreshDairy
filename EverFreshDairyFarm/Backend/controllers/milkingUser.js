@@ -4,9 +4,9 @@ import userModel from '../models/milkingUser.js';
 
 //rejister
 export const register = async (req,res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password, workExperience, NIC } = req.body;
 
-    if(!name ||  !email || !password){
+    if(!name ||  !email || !password || !workExperience || !NIC ){
         return res.status(400).json ({success: false, message: 'Missing Details'})
     }
 
@@ -21,6 +21,8 @@ export const register = async (req,res) => {
 
     const user = new userModel({name, email, password:hashedPassword});
     await user.save();
+
+     const token = jwt.sign({id: user._id}, process.env.JWT_SECRET,{expiresIn: '7d'});
 
     res.cookie('token',token,{
         httpOnly: true,
