@@ -44,8 +44,8 @@ function UpdateMilkingData() {
             newErrors.duration = "Valid duration is required";
         
         if (!qualityCheckResult.trim()) newErrors.qualityCheckResult = "Quality check result is required";
-        else if (!["Pass", "Fail"].includes(qualityCheckResult))
-            newErrors.qualityCheckResult = "Must be 'Pass' or 'Fail'";
+        else if (!["pass", "Fail"].includes(qualityCheckResult))
+            newErrors.qualityCheckResult = "Must be 'pass' or 'Fail'";
         
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -111,13 +111,13 @@ function UpdateMilkingData() {
                             <label className="block font-semibold">Quality Check Result:</label>
                             <select value={qualityCheckResult} onChange={(e) => setQualityCheckResult(e.target.value)} className="w-full p-2 border rounded-md">
                                 <option value="">Select Result</option>
-                                <option value="Pass">Pass</option>
+                                <option value="pass">pass</option>
                                 <option value="Fail">Fail</option>
                             </select>
                             {errors.qualityCheckResult && <p className="text-red-500">{errors.qualityCheckResult}</p>}
                         </div> 
 
-                        <button type="submit" className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                        <button type="submit" className="w-full py-2  text-white bg-blue-500 rounded-md hover:bg-blue-600">
                             Update
                         </button>
 

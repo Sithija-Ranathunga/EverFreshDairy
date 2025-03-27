@@ -9,7 +9,8 @@ const MilkingDataSchema = new mongoose.Schema({
     qualityCheckResult: { type: String, enum: ['pass', 'Fail'], required: true },  
     
 
-}
+} ,
+{ timestamps: true}
 );
 
 const MilkingData = mongoose.model('MilkingData', MilkingDataSchema);

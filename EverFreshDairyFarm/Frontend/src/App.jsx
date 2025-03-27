@@ -17,7 +17,9 @@ import AddMilkingData from "./pages/MilkingManagement/MilkingData/AddMilkingData
 import MilkingUpdate from "./pages/MilkingManagement/MilkingData/MilkingUpdate.jsx";
 import MilkingSession from "./pages/MilkingManagement/MilkingSession/MilkingSession.jsx";
 import AddMikingSession from "./pages/MilkingManagement/MilkingSession/AddMilkingSession.jsx";
-import UpdateMilkingSession from "./pages/MilkingManagement/MilkingSession/UpdateMilkingSession.jsx"
+import UpdateMilkingSession from "./pages/MilkingManagement/MilkingSession/UpdateMilkingSession.jsx";
+import MilkingReport from "./pages/MilkingManagement/Report/MilkingReport.jsx";
+
 
 const App = () => {
   return (
@@ -42,6 +44,9 @@ const App = () => {
     <Route path='/milkingsession' element={<MilkingSession/>}/>
     <Route path='/addmilkingsession'element={<AddMikingSession/>}/>
     <Route path='/milkingsessionupdate/:id'element={<UpdateMilkingSession/>}/>
+    <Route path='/milkingreport'element={<MilkingReport/>}/>
+   
+    
   </Routes>
  
 

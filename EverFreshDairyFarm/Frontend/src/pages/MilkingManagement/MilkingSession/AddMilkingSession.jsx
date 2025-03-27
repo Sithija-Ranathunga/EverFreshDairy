@@ -87,7 +87,7 @@ function AddMikingSession(){
 
                       <button
                         type="submit"
-                        className="mt-6 px-4 py-2 bg-green-900 text-white rounded-md hover:bg-green-700 ml-40 "
+                        className="mt-6 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-700 ml-40 "
                       >
                         Add Session
                       </button>

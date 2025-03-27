@@ -40,17 +40,17 @@ function MilkingSession() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-200">
+        <div className="min-h-screen bg-gray-100">
             <Header />
             <div className="flex h-screen">
                 <MilkingSideBar />
                 <div className="flex-1 pl-8">
                 <h1 className="mt-10  mb-6 text-3xl font-bold ">Milking Sessions</h1>
 
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-8">
                     <h3 className="text-2xl font-semibold">Milking Session Details</h3>
                     <button 
-                       className="px-4 py-2 text-white bg-green-900 rounded-md hover:bg-green-600"
+                       className="px-4 py-2 text-white bg-blue-800 rounded-lg hover:bg-blue-600"
                        onClick={() => navigate("/addmilkingsession")}
                     >
                         Add Session
@@ -58,7 +58,7 @@ function MilkingSession() {
                 </div>
 
                 <table className="w-4/5 mx-auto my-[2.22vh] bg-white shadow-md rounded-lg">
-                <thead className="text-white bg-gray-600">
+                <thead className="text-white bg-blue-900">
                     <tr> 
                         <th className="p-[1.6vh] text-center">Session Id</th>
                         <th className="p-[1.6vh] text-center">Shed Id</th>
@@ -90,7 +90,7 @@ function MilkingSession() {
                               onClick={() => 
                                 navigate(`/milkingsessionupdate/${session._id}`)
                               }
-                              className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-blue-700 text-white rounded-md hover:bg-yellow-600 mr-6"
+                              className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-yellow-600 text-white rounded-md hover:bg-yellow-600 mr-6"
                             >
                                 Update
                             </button>
