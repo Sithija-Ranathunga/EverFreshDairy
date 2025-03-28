@@ -10,6 +10,9 @@ import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/Gras
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
+import Admin from "./components/admin/AdminDashboard.jsx";
+import AdminLogin from "./components/admin/AdminLogin.jsx";
+import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";
 
 
 
@@ -20,6 +23,7 @@ const App = () => {
  
   <Routes>
     <Route path='/' element={<Home/>}/>
+    <Route path='/admin' element={<Admin/>}/>
     <Route path='/loginInventory' element={<Login/>}/>
     <Route path='/grassingsession' element={<GrassingSession/>}/>
     <Route path='/grassing' element={<Grassing/>}/>
@@ -29,6 +33,9 @@ const App = () => {
     <Route path='/grassingupdate/:id' element={<GrassingUpdate/>}/>
     <Route path='/addgrass' element={<AddGrassing/>}/>
     <Route path='/alerts' element={<Alerts/>}/>
+    <Route element={<ProtectedRoute />}>
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
+    </Route>
   </Routes>
  
 

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate()
 
   return (
-    <nav className="bg-gray-200 p-4 shadow-md relative z-50">
+    <nav className="bg-gray-100 p-4 shadow-md relative z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <a href="/">
