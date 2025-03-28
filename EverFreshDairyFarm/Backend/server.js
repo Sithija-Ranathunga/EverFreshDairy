@@ -11,6 +11,7 @@ import MilkingUserRoute from "./routes/MilkingUserRoute.js";
 import MilkingDataRoute from "./routes/MilkingDataRoute.js";
 import MilkingSessionRoute from "./routes/MilkingSessionRoute.js";
 
+
 const app = express();
 const port = process.env.PORT || 8000
 connectDB();
@@ -29,5 +30,6 @@ app.use('/alerts',alertRoutes);
 app.use('/milkingManager',MilkingUserRoute);
 app.use('/milkingData' , MilkingDataRoute);
 app.use('/milkingSession' , MilkingSessionRoute);
+
 
 app.listen(port, ()=> console.log(`Server started on PORT:${port}`));

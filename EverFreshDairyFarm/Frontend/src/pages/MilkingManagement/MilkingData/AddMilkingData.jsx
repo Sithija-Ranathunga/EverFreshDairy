@@ -65,7 +65,7 @@ function AddMilkingData() {
     };
 
     return (
-        <div className="min-h-screen font-sans bg-gray-100">
+        <div className="min-h-screen font-sans bg-sky-100">
             <Header />
 
             <div className="flex items-center justify-center min-h-screen bg-center bg-cover"

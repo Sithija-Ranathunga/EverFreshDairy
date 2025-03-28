@@ -40,7 +40,7 @@ function MilkingSession() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-sky-50">
             <Header />
             <div className="flex h-screen">
                 <MilkingSideBar />

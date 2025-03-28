@@ -1,142 +1,193 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { jsPDF } from "jspdf";
+import React, { useContext, useState } from 'react';
+import { assets } from '../../../assets/assets';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { AppContent } from '../../../Content/AppContent';
+import { Header } from '../../../components/Header';
+import { Footer } from '../../../components/Footer';
 
-function Grassingreport() {
-  const navigate = useNavigate();
-  const [grass, setGrass] = useState([]);
-  const [expiredCount, setExpiredCount] = useState(0);
-  const [inStoreCount, setInStoreCount] = useState(0);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/inventory")
-      .then((response) => {
-        if (Array.isArray(response.data.inventory)) {
-          const inventory = response.data.inventory;
-          const today = new Date();
-          let expired = 0;
-          let inStore = 0;
 
-          inventory.forEach((item) => {
-            const lastUpdateDate = new Date(item.lastUpdate);
-            const diffInDays =
-              (today - lastUpdateDate) / (1000 * 3600 * 24);
-            if (diffInDays > 5) expired++;
-            else inStore++;
-          });
+function MLogin  ()  {
 
-          setExpiredCount(expired);
-          setInStoreCount(inStore);
-          setGrass(inventory);
-        } else {
-          console.error("Expected an array but got:", response.data);
-          setGrass([]);
+    const navigate = useNavigate();
+    const { setIsLoggedin, getUserData } = useContext(AppContent);
+
+    const [state, setState] = useState('Sign Up');
+    const [name, setName] = useState('');
+    const [email, setemail] = useState('');
+    const [NIC, setNIC] = useState('');
+    const [WorkExperience, setWorkExperience] = useState('');
+    const [password, setPassword] = useState({});
+
+    const Validate = () => {
+        let formErrors = {};
+
+        if (state === "Sign up"){
+        if (!name.trim()) formErrors.name = "Name is required";
+        if(!NIC.trim()) formErrors.NIC = "NIC is required";
+        if(!WorkExperience.trim()) formErrors.WorkExperience = "work experience is required";
+    }
+    
+    if (!email.trim()){
+        formErrors.email = "Email is required";
+    } else if (!/\s+@\s+\.\s+/.test(email)){
+        formErrors.email = "Email is invalid"
+    }
+
+    if (!password.trim()) {
+        formErrors.password = "password is required";
+    } else if (password.length < 6){
+        formErrors.password = "password must be at least 6 characters";
+    }
+
+    setErrors(formErrors);
+    return object.keys(formErrors).length === 0;
+
+    };
+
+    const SubmitHandler = async (e) => {
+        e.preventDefault();
+        try{
+            axios.defaults.withCredentials = true;
+
+            if (state === 'Sign up' ) {
+                const {data} = await axios.post('http://Localhost:8000/milkingManager/register',{
+                    name,
+                    NIC,
+                    WorkExperience,
+                    email,
+                    password
+                });
+
+                if (data.success) {
+                    setIsLoggedin(true);
+                    getUserData();
+                    navigate('/');
+                } else {
+                    alert(data.message);
+                }
+
+            }else {
+                const { data } = await axios.post('http://localhost:8000/milkingManager/login', {email,password});
+
+                if (data.success) {
+                    setIsLoggedin(true);
+                    getUserData();
+                    navigate('/');
+                } else {
+                    alert(data.message);
+                }
+            }
+        } catch (error) {
+            alert(error.response?.data?.message || 'An error occurred');
         }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    };
 
-  const downloadPDF = () => {
-    const doc = new jsPDF();
 
-    // Add a title
-    doc.setFontSize(16);
-    doc.text("Grassing Report", 10, 20);
 
-    // Set header text (adjust X coordinates as needed)
-    doc.setFontSize(12);
-    const startY = 30;
-    doc.text("Location", 10, startY);
-    doc.text("Quantity", 60, startY);
-    doc.text("Supplier", 110, startY);
-    doc.text("Last Update", 160, startY);
+    return (
+        <div className="min-h-screen bg-gray-100">
 
-    // Start printing table rows
-    let yPosition = startY + 10;
-    grass.forEach((g) => {
-      // If we run out of space, add a new page.
-      if (yPosition > doc.internal.pageSize.getHeight() - 10) {
-        doc.addPage();
-        yPosition = 20; // reset yPosition for new page
-      }
-      doc.text(${g.location}, 10, yPosition);
-      doc.text(${g.quantity}, 60, yPosition);
-      doc.text(${g.supplier}, 110, yPosition);
-      const formattedDate = new Intl.DateTimeFormat("en-GB").format(
-        new Date(g.lastUpdate)
-      );
-      doc.text(${formattedDate}, 160, yPosition);
-      yPosition += 10;
-    });
+    <Header/>
+        
+        <div className='flex items-center justify-center min-h-screen  bg-gray-100'>
+        <div className='bg-green-700 p-10 rounded-[10px] shadow-[0_4px_10px_rgba(0,0,0,0.2)] w-full max-w-[400px] text-indigo-300 text-sm text-center'>
+           <h2 className='text-2xl font-semibold text-white text-center mb-[10px]'>{state === 'Sign Up' ? 'Create  account' : 'Login '}  </h2>
+           <p className='mb-5 text-sm'>{state === 'Sign Up' ? 'Create your account' : 'Login to your account'} </p>
 
-    // Optionally add summary information
-    yPosition += 10;
-    doc.setFontSize(14);
-    doc.text(Expired: ${expiredCount}, 10, yPosition);
-    doc.text(In Store: ${inStoreCount}, 80, yPosition);
+           <form onSubmit={SubmitHandler}>
+                {state === 'Sign Up' && (
+                    <>
+                    <div className='flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-[15px]'>
+                    <img className='w-[20px]' src={assets.person_icon} alt="" />
+                    <input
+                        className='flex-1 text-white bg-transparent border-none outline-none'
+                        onChange={(e) => setName(e.target.value)}
+                        value= {name}
+                        type= "text"
+                        placeholder="Enter The Name"
+                        required
+                    />
+                </div>
+            
+                
 
-    // Save the PDF
-    doc.save("grassing-report.pdf");
-  };
+                <div className='flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-[15px]'>
+                    <img className='w-[20px]' src={assets.NIC_icon} alt="" />
+                    <input
+                        className='flex-1 text-white bg-transparent border-none outline-none'
+                        onChange={(e) => setNIC(e.target.value)}
+                        value= {NIC}
+                        type= "text"
+                        placeholder="Enter The NIC"
+                        required
+                    /> 
+                </div>
 
-  return (
-    <div className="p-6 mb-10 bg-white rounded-lg shadow-md">
-      {/* Report Content */}
-      <div>
-        <h2 className="mb-4 text-2xl font-bold">Grassing Report</h2>
-        <table className="w-full bg-white rounded-lg shadow-md">
-          <thead className="text-white bg-green-600">
-            <tr>
-              <th className="p-4 text-center">Location</th>
-              <th className="p-4 text-center">Quantity</th>
-              <th className="p-4 text-center">Supplier</th>
-              <th className="p-4 text-center">Last Update</th>
-            </tr>
-          </thead>
-          <tbody>
-            {grass.length > 0 ? (
-              grass.map((g) => {
-                const diffDays =
-                  (new Date() - new Date(g.lastUpdate)) / (1000 * 3600 * 24);
-                const isExpired = diffDays > 5;
-                return (
-                  <tr
-                    key={g._id}
-                    className={`border-b hover:bg-gray-100 ${
-                      isExpired ? "bg-red-100 text-red-700" : ""
-                    }`}
-                  >
-                    <td className="p-4 text-center">{g.location}</td>
-                    <td className="p-4 text-center">{g.quantity}</td>
-                    <td className="p-4 text-center">{g.supplier}</td>
-                    <td className="p-4 text-center">
-                      {new Intl.DateTimeFormat("en-GB").format(
-                        new Date(g.lastUpdate)
-                      )}
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan="4" className="p-4 text-center text-gray-500">
-                  No data available
-                </td>
-              </tr>
+                <div className='flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-[15px]'>
+                    <img className='w-[20px]' src={assets.person_icon} alt="" />
+                    <input
+                        className='flex-1 text-white bg-transparent border-none outline-none'
+                        onChange={(e) => setWorkExperience(e.target.value)}
+                        value= {WorkExperience}
+                        type= "text"
+                        placeholder="Enter The Work Experience duration"
+                        required
+                    />
+                </div>
+                </>
+
+                )}
+
+                <div className='flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-[15px]'>
+                    <img className='w-[20px]' src={assets.mail_icon} alt="" />
+                    <input
+                        className='flex-1 text-white bg-transparent border-none outline-none'
+                        onChange={(e) => setemail(e.target.value)}
+                        value= {email}
+                        type= "email"
+                        placeholder="Enter The Email"
+                        required
+                    />
+                </div>
+
+
+                <div className='flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-[15px]'>
+                    <img className='w-[20px]' src={assets.lock_icon} alt="" />
+                    <input
+                        className='flex-1 text-white bg-transparent border-none outline-none'
+                        onChange={(e )=> setPassword(e.target.value)}
+                        value= {password}
+                        type= "password"
+                        placeholder="Enter The Password"
+                        required
+                    />
+                </div>
+
+                <button className=" pt-3 pb-3 pr-6 pl-6  rounded-full bg-gradient-to-r from-[#63f163] to-[#2e8140] text-white font-medium border-none cursor-pointer" type="submit">{state}</button>
+           </form>
+
+           {state === 'Sign Up' ? (
+                <p className='text-slate-400 text-xs mt-2.5'>
+                    Already have an account?{' '}
+                    <span onClick={()=> setState('Login')} className='text-blue-400 underline cursor-pointer'>
+                        Login here
+                    </span>
+                </p>
+           )  : ( 
+                <p className='text-slate-400 text-xs mt-2.5'>
+                  Don't have an account?{' '}
+                  <span onClick={()=> setState('Sign Up')} className='text-blue-400 underline cursor-pointer'>
+                       Sign up 
+                    </span>
+                 </p>
             )}
-          </tbody>
-        </table>
-      </div>
-      <button
-        className="px-4 py-2 mt-4 text-white bg-green-900 rounded-md hover:bg-green-600"
-        onClick={downloadPDF}
-      >
-        Generate Report
-      </button>
+           </div>
+        </div>
+        <Footer/>
     </div>
-  );
+    );
 }
 
-export default Grassingreport;
+export default MLogin;

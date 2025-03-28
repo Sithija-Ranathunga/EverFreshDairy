@@ -8,6 +8,7 @@ import logout_icon from './logout_icon.svg'
 import profile_icon from './profile_icon.svg'
 import session_icon from './session_icon.svg'
 import milkingdata_icon from './milkingdata_icon.svg'
+import Mlogin_icon from './Mlogin.jpg'
 
 
 
@@ -21,5 +22,6 @@ export const assets = {
     logout_icon,
     profile_icon,
     session_icon,
-    milkingdata_icon
+    milkingdata_icon,
+    Mlogin_icon
 }

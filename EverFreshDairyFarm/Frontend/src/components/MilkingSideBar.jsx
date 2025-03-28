@@ -33,7 +33,7 @@ function MilkingSideBar() {
                     </a>
 
                     <img className='w-[20px] mt-3' src={assets.profile_icon} alt="" />
-                    <a href="#" className="mt-2 mb-5 font-bold hover:underlline">
+                    <a href="milkingprofile" className="mt-2 mb-5 font-bold hover:underlline">
                         Profile
                     </a>
 

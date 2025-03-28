@@ -43,7 +43,7 @@ function MilkingData() {
             <Header />
             <div className="flex h-screen">
                 <MilkingSideBar />
-                <div className="flex-1 pl-8 bg-gray-100">
+                <div className="flex-1 pl-8 bg-sky-50">
                     <h1 className="mt-10 mb-8 text-3xl font-bold">Milking Data</h1>
 
                     <div className="flex items-center justify-between mb-5">

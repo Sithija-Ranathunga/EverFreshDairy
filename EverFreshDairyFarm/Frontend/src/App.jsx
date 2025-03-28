@@ -19,6 +19,7 @@ import MilkingSession from "./pages/MilkingManagement/MilkingSession/MilkingSess
 import AddMikingSession from "./pages/MilkingManagement/MilkingSession/AddMilkingSession.jsx";
 import UpdateMilkingSession from "./pages/MilkingManagement/MilkingSession/UpdateMilkingSession.jsx";
 import MilkingReport from "./pages/MilkingManagement/Report/MilkingReport.jsx";
+import MProfile  from "./pages/MilkingManagement/MProfile/MProfile.jsx";
 
 
 const App = () => {
@@ -45,6 +46,8 @@ const App = () => {
     <Route path='/addmilkingsession'element={<AddMikingSession/>}/>
     <Route path='/milkingsessionupdate/:id'element={<UpdateMilkingSession/>}/>
     <Route path='/milkingreport'element={<MilkingReport/>}/>
+    <Route path='/milkingprofile'element={<MProfile/>}/>
+   
    
     
   </Routes>
