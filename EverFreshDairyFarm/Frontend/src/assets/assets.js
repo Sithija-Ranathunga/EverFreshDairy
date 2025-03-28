@@ -9,7 +9,7 @@ import profile_icon from './profile_icon.svg'
 import session_icon from './session_icon.svg'
 import Registry_icon from './Registry_icon.svg'
 import Checkups_icon from  './Checkups_icon.svg'
-import vetlogin_icon from  './vetlogin.jpeg'
+import vetlogin_icon from  './vet3.jpg'
 
 
 

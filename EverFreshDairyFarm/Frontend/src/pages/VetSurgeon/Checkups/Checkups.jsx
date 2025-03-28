@@ -91,7 +91,7 @@ function CheckupsPage() {
 
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <table className="w-full">
-              <thead className="bg-blue-600 text-white">
+              <thead className="bg-sky-900 text-white">
                 <tr>
                   <th className="p-3 text-left">Cow ID</th>
                   <th className="p-3 text-left">Location</th>

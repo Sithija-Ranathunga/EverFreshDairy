@@ -91,9 +91,9 @@ function AddCheckups() {
         </div>
         
         <div className="flex flex-col items-center w-full pl-4">
-          <h1 className="my-6 text-3xl font-bold text-center">Add Checkup Record</h1>
+          <h1 className="my-6 text-3xl font-bold text-center">Add Checkup Records</h1>
 
-          <div className="w-full max-w-4xl p-8 bg-white rounded-md shadow-md">
+          <div className="w-full max-w-4xl p-8 bg-sky-50 rounded-md shadow-md">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Left Column - First 3 Fields */}
