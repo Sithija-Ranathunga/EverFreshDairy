@@ -77,7 +77,7 @@ function MilkingReport() {
                     </div>
 
                     <table className="w-4/5 mx-auto my-4 bg-white shadow-md rounded-lg">
-                        <thead className="text-white bg-green-800">
+                        <thead className="text-white bg-blue-900">
                             <tr>
                                 <th className="p-4 text-center">Cow ID</th>
                                 <th className="p-4 text-center">Milk Amount</th>
@@ -91,7 +91,7 @@ function MilkingReport() {
                                 milkingData.map((g) => (
                                     <tr key={g._id} className="border-b border-gray-800 hover:bg-gray-100">
                                         <td className="p-4 text-center">{g.cowId}</td>
-                                        <td className="p-4 text-center">{g.amountofMilk} L</td>
+                                        <td className="p-4 text-center">{g.amountofMilk} </td>
                                         <td className="p-4 text-center">{g.temperature}°C</td>
                                         <td className="p-4 text-center">{g.duration} min</td>
                                         <td className={`p-4 text-center font-bold ${g.qualityCheckResult === "pass" ? "text-green-600" : "text-red-600"}`}>

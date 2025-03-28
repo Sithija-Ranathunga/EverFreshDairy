@@ -49,7 +49,7 @@ function MilkingData() {
                     <div className="flex items-center justify-between mb-5">
                         <h2 className="text-xl font-semibold">Milking Records</h2>
                         <button
-                            className="px-4 py-2 text-white bg-green-800 rounded-lg hover:bg-green-700"
+                            className="px-4 py-2 text-white bg-blue-900 rounded-lg hover:bg-blue-700"
                             onClick={() => navigate("/addmilkingdata")}
                         >
                             Add Record
@@ -60,7 +60,7 @@ function MilkingData() {
                     <div className="mb-6">
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="🔍Search..."
                             className="w-1/6 px-4 py-2 border rounded-lg shadow-sm"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -68,7 +68,7 @@ function MilkingData() {
                     </div>
 
                     <table className="w-4/5 mx-auto my-4 bg-white shadow-md rounded-lg">
-                        <thead className="text-white bg-green-800">
+                        <thead className="text-white bg-blue-900">
                             <tr>
                                 <th className="p-4 text-center">Cow ID</th>
                                 <th className="p-4 text-center">Milk Amount</th>
@@ -85,7 +85,7 @@ function MilkingData() {
                                         <td className="p-4 text-center">{data.cowId}</td>
                                         <td className="p-4 text-center">{data.amountofMilk}</td>
                                         <td className="p-4 text-center">{data.temperature}°C</td>
-                                        <td className="p-4 text-center">{data.duration}</td>
+                                        <td className="p-4 text-center">{data.duration} min</td>
                                         <td
                                             className={`p-4 text-center font-bold ${
                                                 data.qualityCheckResult === "pass" ? "text-green-600" : "text-red-600"

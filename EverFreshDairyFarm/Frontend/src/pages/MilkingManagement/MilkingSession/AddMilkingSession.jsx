@@ -4,6 +4,8 @@ import { Footer } from "../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MilkingSideBar from "../../../components/MilkingSideBar";
+import bgImage from "../../../assets/bg.jpg";
+
 
 function AddMikingSession(){
     const navigate = useNavigate();
@@ -30,11 +32,13 @@ function AddMikingSession(){
     return (
         <div className="min-h-screen bg-gray-200">
             <Header />
-            <div className="flex h-screen">
+            <div className="flex h-screen  items-center justify-center min-h-screen bg-center bg-cover"
+               style={{ backgroundImage: `url(${bgImage})`}}>
                 <MilkingSideBar />
-                <div className="flex flex-1 justify-center items-center flex-col">
-                    <h1 className="text-3xl font-bold mb-6 ">Add Milking Session</h1>
-                    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md w-1/3">
+                <div className="flex flex-col items-center w-full ml-[-200px]">
+                    
+                    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md w-1/4">
+                    <h1 className="text-3xl font-bold mb-4 my-4 ">Add Milking Session </h1>
 
                       <label className="block mb-2 font-semibold">SessionId: </label>
                       <input 

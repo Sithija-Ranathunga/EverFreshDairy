@@ -4,6 +4,8 @@ import { Footer } from "../../../components/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import MilkingSideBar from "../../../components/MilkingSideBar";
+import { assets } from "../../../assets/assets";
+import bgImage from "../../../assets/bg.jpg";
 
 function AddMilkingData() {
     const [cowId, setCowId] = useState("");
@@ -65,12 +67,15 @@ function AddMilkingData() {
     return (
         <div className="min-h-screen font-sans bg-gray-100">
             <Header />
-            <div className="flex">
+
+            <div className="flex items-center justify-center min-h-screen bg-center bg-cover"
+                  style={{ backgroundImage: `url(${bgImage})`}}>
                 <MilkingSideBar />
-                <div className="flex flex-col items-center w-full">
-                    <h1 className="my-6 text-3xl font-bold text-center">Add Milking Data</h1>
+                <div className="flex flex-col items-center w-full ml-[-200px]">
+                    
                     <div className="flex flex-col items-center p-8 bg-white rounded-md shadow-md">
                         <form onSubmit={handleSubmit} className="space-y-3 w-80">
+                        <h1 className="my-5 mb-10 text-3xl font-bold  text-center">Add Milking Data</h1>
                             <div>
                                 <label className="block font-semibold">Cow ID:</label>
                                 <input
