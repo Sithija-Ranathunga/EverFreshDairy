@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import React, { useContext } from 'react';
 import { AppContent } from '../../../Content/AppContent';
 import { Header } from '../../../components/Header';
@@ -15,6 +16,8 @@ const Profile = () => {
       <div className="flex min-h-screen">
         <InventorySideBar />
 =======
+=======
+>>>>>>> Stashed changes
 import React, { useEffect, useState } from 'react'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'

@@ -1,7 +1,11 @@
 import axios from "axios"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { createContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+=======
+import { createContext, useEffect, useState } from "react"
+>>>>>>> Stashed changes
 =======
 import { createContext, useEffect, useState } from "react"
 >>>>>>> Stashed changes
@@ -42,6 +46,19 @@ export const AppContextProvider = ({ children }) => {
         }
     }
 
+    const getAuthState = async ()=>{
+        try{
+            const {data} = await axios.get('http://localhost:8000/inventoryManager/is-auth')
+            if(data.success){
+                setIsLoggedin(true)
+                getUserData()
+            }
+
+        }catch(error){
+            alert(error.message)
+        }
+    }
+
     const getUserData = async ()=> {
         try{
             const {data} = await axios.get('http://localhost:8000/inventoryManager')
@@ -52,6 +69,7 @@ export const AppContextProvider = ({ children }) => {
         }
         const parseToken = JSON.parse(token);
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
         try {
             const response = await axios.get("http://localhost:8000/inventoryManager/getcurrentuser", {
@@ -70,6 +88,12 @@ export const AppContextProvider = ({ children }) => {
     useEffect(()=>{
         getAuthState();
     },[])
+=======
+    useEffect(()=>{
+        getAuthState();
+    },[])
+
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
 

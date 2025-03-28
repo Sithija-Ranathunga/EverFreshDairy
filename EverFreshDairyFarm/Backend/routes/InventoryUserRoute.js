@@ -1,6 +1,10 @@
 import express from 'express';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { getCurrentUser,  getbyIdUser, isAuthenicated, login, logout, register, updateUser } from '../controllers/InventoryUser.js';
+=======
+import { getUserData, getbyIdUser, isAuthenticated, login, logout, register, updateUser } from '../controllers/InventoryUser.js';
+>>>>>>> Stashed changes
 =======
 import { getUserData, getbyIdUser, isAuthenticated, login, logout, register, updateUser } from '../controllers/InventoryUser.js';
 >>>>>>> Stashed changes
@@ -15,8 +19,12 @@ userRouter.get('/getcurrentuser',UserAuth,getCurrentUser);
 userRouter.get('/:id',getbyIdUser);
 userRouter.put('/:id',updateUser);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 userRouter.get('/is-auth',UserAuth,isAuthenicated);
 
+=======
+userRouter.get('/is-auth',UserAuth,isAuthenticated);
+>>>>>>> Stashed changes
 =======
 userRouter.get('/is-auth',UserAuth,isAuthenticated);
 >>>>>>> Stashed changes
