@@ -103,8 +103,8 @@ function Login() {
         className="flex items-center justify-center min-h-screen bg-center bg-cover"
         style={{ backgroundImage: `url(${assets.vetlogin_icon})`}}
       >
-        <div className="bg-[#8cc5a2] p-10 rounded-[10px] shadow-[0_4px_10px_rgba(0,0,0,0.2)] w-full max-w-[400px] text-gray-200 text-sm text-center">
-          <h2 className="mb-3 text-2xl font-semibold text-black">
+        <div className="bg-emerald-50 p-10 rounded-[10px] shadow-[0_4px_10px_rgba(0,0,0,0.2)] w-full max-w-[400px] text-gray-200 text-sm text-center">
+          <h2 className="mb-1 text-3xl font-semibold text-black">
             
             {state === "Sign Up" ? "Create Account" : "Login"}
           </h2>
@@ -118,8 +118,8 @@ function Login() {
             {state === "Sign Up" && (
               <>
                 <div className="flex flex-col">
-                  <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#1e4d2b] mb-3">
-                    <img className="w-5" src={assets.person_icon} alt="" />
+                  <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                    <img className="w-4" src={assets.person_icon} alt="" />
                     <input
                       className="flex-1 text-white bg-transparent border-none outline-none"
                       onChange={(e) => setName(e.target.value)}
@@ -134,8 +134,8 @@ function Login() {
                     </p>
                   )}
 
-                  <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#1e4d2b] mb-3">
-                    <img className="w-5" src={assets.NIC_icon} alt="" />
+                  <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                    <img className="w-4" src={assets.NIC_icon} alt="" />
                     <input
                       className="flex-1 text-white bg-transparent border-none outline-none"
                       onChange={(e) => setNIC(e.target.value)}
@@ -150,8 +150,8 @@ function Login() {
                     </p>
                   )}
 
-                  <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#1e4d2b] mb-3">
-                    <img className="w-5" src={assets.person_icon} alt="" />
+                  <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                    <img className="w-4" src={assets.person_icon} alt="" />
                     <input
                       className="flex-1 text-white bg-transparent border-none outline-none"
                       onChange={(e) => setWorkExperience(e.target.value)}
@@ -161,7 +161,7 @@ function Login() {
                     />
                   </div>
                   {errors.workExperience && (
-                    <p className="mb-2 text-xs text-left text-red-500">
+                    <p className="mb-1 text-xs text-left text-red-500">
                       {errors.workExperience}
                     </p>
                   )}
@@ -170,8 +170,8 @@ function Login() {
             )}
 
             <div className="flex flex-col">
-              <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#1e4d2b] mb-3">
-                <img className="w-5" src={assets.mail_icon} alt="" />
+              <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                <img className="w-4" src={assets.mail_icon} alt="" />
                 <input
                   className="flex-1 text-white bg-transparent border-none outline-none"
                   onChange={(e) => setEmail(e.target.value)}
@@ -188,8 +188,8 @@ function Login() {
             </div>
 
             <div className="flex flex-col">
-              <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#1e4d2b] mb-3">
-                <img className="w-5" src={assets.lock_icon} alt="" />
+              <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                <img className="w-3" src={assets.lock_icon} alt="" />
                 <input
                   className="flex-1 text-white bg-transparent border-none outline-none"
                   onChange={(e) => setPassword(e.target.value)}
@@ -214,10 +214,10 @@ function Login() {
           </form>
 
           {state === "Sign Up" ? (
-            <p className="text-black text-xs mt-2.5">
-              Already have an account?{" "}
+            <p className="text-black text-xs mt-3">
+              Already have an account?{"    "}
               <span
-                className="text-black underline cursor-pointer"
+                className="text-green-600 underline cursor-pointer"
                 onClick={() => setState("Login")}
               >
                 Login here
@@ -227,7 +227,7 @@ function Login() {
             <p className="text-black text-xs mt-2.5">
               Don't have an account?{" "}
               <span
-                className="text-black underline cursor-pointer"
+                className="text-green-600 underline cursor-pointer"
                 onClick={() => setState("Sign Up")}
               >
                 Sign up

@@ -78,10 +78,10 @@ function CheckupsPage() {
         </div>
         
         <div className="flex-1 pl-8 pr-4">
-          <h1 className="mt-10 mb-6 text-3xl font-bold text-gray-800">Checkup Records</h1>
+          <h1 className="mt-10 mb-6 text-3xl font-bold text-gray-800">Checkup Reports </h1>
 
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-semibold text-gray-700">Checkup Details</h3>
+            <h3 className="text-2xl font-semibold text-gray-700">Checkup Details....</h3>
             <button
               onClick={downloadPDF}
               className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -95,7 +95,7 @@ function CheckupsPage() {
 
           <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
             <table className="w-full">
-              <thead className="bg-blue-600 text-white">
+              <thead className="bg-sky-900 text-white">
                 <tr>
                   <th className="p-3 text-left">Cow ID</th>
                   <th className="p-3 text-left">Location</th>

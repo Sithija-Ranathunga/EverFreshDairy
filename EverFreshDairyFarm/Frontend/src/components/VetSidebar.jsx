@@ -34,12 +34,12 @@ function CowRegistrationSidebar() {
         {/* Bottom Navigation Items */}
         <div className="mt-auto flex flex-col items-center">
           <img className='w-[20px] mt-6' src={assets.profile_icon} alt="Profile" /> {/* Increased from mt-3 to mt-6 */}
-          <a href="#" className="mt mb-3 font-bold hover:underline"> {/* Increased mt-2 to mt-4, mb-5 to mb-8 */}
+          <a href="/Vetprofile" className="mt mb-3 font-bold hover:underline"> {/* Increased mt-2 to mt-4, mb-5 to mb-8 */}
             Profile
           </a>
 
           <img className='w-[20px] mt-6' src={assets.logout_icon} alt="Logout" /> {/* Increased from mt-3 to mt-6 */}
-          <a href="#" className="mt mb-3 font-bold hover:underline"> {/* Increased mt-2 to mt-4 */}
+          <a href="/" className="mt mb-3 font-bold hover:underline"> {/* Increased mt-2 to mt-4 */}
             Logout
           </a>
         </div>

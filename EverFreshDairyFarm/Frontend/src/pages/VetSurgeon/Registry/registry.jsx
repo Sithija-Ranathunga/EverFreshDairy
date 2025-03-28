@@ -99,7 +99,7 @@ function CowRegistration() {
             <h2 className="text-2xl font-semibold text-center text-gray-800">Registration Details</h2>
             <div className="absolute right-0 top-0">
               <button
-                className="px-6 py-2 text-white bg-sky-900 rounded-lg hover:bg-sky-900 transition-colors shadow-md"
+                className="px-6 py-2 text-white bg-blue-700 rounded-lg hover:bg-sky-900 transition-colors shadow-md"
                 onClick={() => navigate("/Addregistry")}
               >
                 +  Add Details
