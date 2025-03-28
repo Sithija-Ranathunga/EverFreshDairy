@@ -2,8 +2,8 @@ import React from 'react'
 
 export function Footer() {
     return (
-      <footer className="p-6 bg-gray-200 text-green ">
-        <div className="container flex flex-col items-center justify-between mx-auto md:flex-row">
+      <footer className="bg-neutral-400 text-green p-6 mt-16">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="flex space-x-10 text-sm">
             <div>
               <ul>

@@ -10,7 +10,8 @@ import session_icon from './session_icon.svg'
 import bg from './bg.jpg'
 import login from './login.jpg'
 import grass from './grass.jpg'
-
+import Registry_icon from './Registry_icon.svg'
+import Checkups_icon from  './Checkups_icon.svg'
 
 export const assets = {
     lock_icon,
@@ -25,4 +26,6 @@ export const assets = {
     bg,
     login,
     grass
+    Registry_icon,
+    Checkups_icon,
 }

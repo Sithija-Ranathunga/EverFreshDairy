@@ -7,8 +7,8 @@ export function Header() {
   const { userData } = useContext(AppContent);
 
   return (
-    <nav className="relative z-50 p-4 bg-gray-200 shadow-md">
-      <div className="container flex items-center justify-between mx-auto">
+    <nav className="bg-neutral-400 p-4 shadow-md relative z-50">
+      <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <a href="/">
           <img
