@@ -9,6 +9,13 @@ import profile_icon from './profile_icon.svg'
 import session_icon from './session_icon.svg'
 import Registry_icon from './Registry_icon.svg'
 import Checkups_icon from  './Checkups_icon.svg'
+import vetlogin_icon from  './vetlogin.jpeg'
+
+
+
+
+
+
 
 export const assets = {
     lock_icon,
@@ -22,4 +29,6 @@ export const assets = {
     session_icon,
     Registry_icon,
     Checkups_icon,
+    vetlogin_icon,
+   
 }
