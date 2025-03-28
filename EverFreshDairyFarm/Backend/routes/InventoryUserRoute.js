@@ -1,5 +1,13 @@
 import express from 'express';
-import { getUserData, getbyIdUser, login, logout, register, updateUser } from '../controllers/InventoryUser.js';
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+import { getCurrentUser,  getbyIdUser, isAuthenicated, login, logout, register, updateUser } from '../controllers/InventoryUser.js';
+=======
+import { getUserData, getbyIdUser, isAuthenticated, login, logout, register, updateUser } from '../controllers/InventoryUser.js';
+>>>>>>> Stashed changes
+=======
+import { getUserData, getbyIdUser, isAuthenticated, login, logout, register, updateUser } from '../controllers/InventoryUser.js';
+>>>>>>> Stashed changes
 import UserAuth from '../middleware/UserAuth.js'
 
 const userRouter = express.Router();
@@ -7,8 +15,18 @@ const userRouter = express.Router();
 userRouter.post('/register',register);
 userRouter.post('/login',login);
 userRouter.post('/logout',logout);
-userRouter.get('/',UserAuth,getUserData);
+userRouter.get('/getcurrentuser',UserAuth,getCurrentUser);
 userRouter.get('/:id',getbyIdUser);
 userRouter.put('/:id',updateUser);
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+userRouter.get('/is-auth',UserAuth,isAuthenicated);
+
+=======
+userRouter.get('/is-auth',UserAuth,isAuthenticated);
+>>>>>>> Stashed changes
+=======
+userRouter.get('/is-auth',UserAuth,isAuthenticated);
+>>>>>>> Stashed changes
 
 export default userRouter;
