@@ -61,7 +61,7 @@ function Sessionreport() {
     <div className="p-6 bg-white rounded-lg shadow-md">
       <h2 className="mb-4 text-2xl font-bold">Grassing Session Report</h2>
       <table className="w-full bg-white rounded-lg shadow-md">
-        <thead className="text-white bg-green-600">
+        <thead className="text-white bg-blue-600">
           <tr>
             <th className="p-4 text-center">Session ID</th>
             <th className="p-4 text-center">Shed ID</th>
@@ -94,7 +94,7 @@ function Sessionreport() {
         </tbody>
       </table>
       <button
-        className="px-4 py-2 mt-4 text-white bg-green-900 rounded-md hover:bg-green-600"
+        className="px-4 py-2 mt-4 text-white bg-blue-900 rounded-md hover:bg-blue-600"
         onClick={downloadPDF}
       >
         Generate Report

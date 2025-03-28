@@ -41,7 +41,8 @@ function GrassingSessionUpdate() {
       .then((response) => {
         console.log("Fetched Data:",response.data.session);
 
-        const sessionData = response.data.session || response.data;
+        const sessionData = response.data.session;
+        //console.log(sessionData.CowGroup);
 
         setCowGroup(sessionData.CowGroup);
         setSessionId(sessionData.SessionId);
@@ -88,7 +89,7 @@ function GrassingSessionUpdate() {
          
         >
         <div className="flex flex-col items-center w-full">
-          <h1 className="my-6 text-3xl font-bold text-center">Add Session</h1>
+          <h1 className="my-6 text-3xl font-bold text-center">Update Session</h1>
 
           <div className="flex flex-col items-center p-8 bg-white rounded-md shadow-md">
             <form onSubmit={handleUpdate} className="space-y-4 w-96">

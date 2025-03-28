@@ -87,7 +87,7 @@ function Grassingreport() {
       <div>
         <h2 className="mb-4 text-2xl font-bold">Grassing Report</h2>
         <table className="w-full bg-white rounded-lg shadow-md">
-          <thead className="text-white bg-green-600">
+          <thead className="text-white bg-blue-600">
             <tr>
               <th className="p-4 text-center">Location</th>
               <th className="p-4 text-center">Quantity</th>
@@ -130,7 +130,7 @@ function Grassingreport() {
         </table>
       </div>
       <button
-        className="px-4 py-2 mt-4 text-white bg-green-900 rounded-md hover:bg-green-600"
+        className="px-4 py-2 mt-4 text-white bg-blue-900 rounded-md hover:bg-blue-600"
         onClick={downloadPDF}
       >
         Generate Report

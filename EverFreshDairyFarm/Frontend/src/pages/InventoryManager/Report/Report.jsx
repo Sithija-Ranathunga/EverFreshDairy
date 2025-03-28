@@ -11,7 +11,7 @@ function Report() {
  
   
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-sky-100">
       <Header />
       <div className="flex min-h-screen">
         <InventorySideBar />

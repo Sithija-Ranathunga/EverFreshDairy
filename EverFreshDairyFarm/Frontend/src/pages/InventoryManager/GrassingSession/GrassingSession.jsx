@@ -48,7 +48,7 @@ function GrassingSession() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-sky-100">
       <Header />
       <div className="flex h-screen">
         <InventorySideBar />
@@ -62,20 +62,20 @@ function GrassingSession() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search sessions..."
-                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-600"
+                placeholder="🔎 Search sessions..."
+                className="px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-blue-600"
               />
               <button
-                className="px-4 py-2 mr-10 text-white bg-green-900 rounded-md hover:bg-green-600"
+                className="px-4 py-2 mr-10 text-white bg-blue-600 rounded-md hover:bg-blue-700"
                 onClick={() => navigate("/addsession")}
               >
-                +  Add Session
+                + Add Session
               </button>
             </div>
           </div>
 
           <table className="w-4/5 mx-auto my-[2.22vh] bg-white shadow-md rounded-lg mt-9">
-            <thead className="text-white bg-green-600">
+            <thead className="text-white bg-blue-900">
               <tr>
                 <th className="p-[1.6vh] text-center">Session Id</th>
                 <th className="p-[1.6vh] text-center">ShedId</th>
@@ -100,18 +100,19 @@ function GrassingSession() {
                       day: "2-digit",
                     }).format(new Date(session.Date))}
                   </td>
-                  <td className="p-[1.6vh] text-center">
+                  <td className="p-4 text-center">
                     <button
                       onClick={() =>
                         navigate(`/grassingsessionupdate/${session._id}`)
                       }
-                      className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-blue-900 text-white rounded-md hover:bg-blue-600 mr-6"
+                      className="px-3 py-1 mr-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
                     >
                       Update
                     </button>
+                    
                     <button
                       onClick={() => handleDelete(session._id)}
-                      className="px-[1.25vh] py-[0.9vh] text-[1.42vh] bg-red-700 text-white rounded-md hover:bg-red-600"
+                      className="px-3 py-1 text-white bg-red-600 rounded-md hover:bg-red-700"
                     >
                       Delete
                     </button>

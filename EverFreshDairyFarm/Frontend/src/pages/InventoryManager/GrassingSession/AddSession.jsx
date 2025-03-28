@@ -4,6 +4,7 @@ import { Footer } from "../../../components/Footer";
 import InventorySideBar from "../../../components/InventorySideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { assets } from "../../../assets/assets";
 
 function AddSession() {
   const [SessionId, setSessionId] = useState("");
@@ -62,11 +63,13 @@ function AddSession() {
   return (
     <div className="min-h-screen font-sans bg-gray-100">
       <Header />
-      <div className="flex">
+      <div className="flex min-h-screen bg-center bg-cover"
+      style={{ backgroundImage: `url(${assets.grass})`}}
+      >
         <InventorySideBar />
         <div
           className="flex items-center justify-center flex-1 bg-center bg-cover"
-        
+          
         >
         <div className="flex flex-col items-center w-full">
           <h1 className="my-6 text-3xl font-bold text-center">Add Session</h1>

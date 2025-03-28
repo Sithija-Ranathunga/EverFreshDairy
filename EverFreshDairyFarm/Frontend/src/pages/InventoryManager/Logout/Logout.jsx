@@ -15,7 +15,7 @@ function Logout() {
         // data.success && setUserData(false)
         logout();
         
-        navigate('/loginInventory')
+        navigate('/')
     }catch(error){
        toast.error(error.message)
     }

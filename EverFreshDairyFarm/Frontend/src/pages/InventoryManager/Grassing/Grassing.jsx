@@ -5,6 +5,8 @@ import InventorySideBar from "../../../components/InventorySideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContent } from "../../../Content/AppContent";
+import { assets } from "../../../assets/assets";
+
 
 function Grassing() {
   const navigate = useNavigate();
@@ -64,96 +66,100 @@ function Grassing() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header />
-      <div className="flex min-h-screen">
-        <InventorySideBar />
+    // inside return()
+<div className="min-h-screen bg-sky-100"> 
 
-        <div className="flex-1 pl-8">
-          <h1 className="mt-10 mb-6 text-3xl font-bold">Dashboard </h1>
-          {/*} <h2 className="text-2xl font-bold text-red-500">Welcome {userData.name} 🍃</h2>*/}
 
-          <div className="flex items-center justify-center gap-20 mb-10">
-            <div className="flex flex-col items-center px-20 py-5 bg-green-600 rounded-md shadow-md">
-              <h2 className="text-xl font-bold">{inStoreQuantity} kg</h2>
-              <p className="text-xl font-bold">In-Store</p>
-            </div>
+  <Header />
+  <div className="flex min-h-screen ">
+    <InventorySideBar />
 
-            <div className="flex flex-col items-center px-20 py-5 bg-green-600 rounded-md shadow-md">
-              <h2 className="text-xl font-bold">{expiredCount}</h2>
-              <p className="text-xl font-bold">Expired </p>
-            </div>
-          </div>
+    <div className="flex-1 pl-8">
+      <h1 className="mt-10 mb-6 text-3xl font-bold text-[#14532d]">Dashboard</h1>
 
-          <div className="flex items-center justify-around mb-4">
-            <h2 className="text-2xl font-semibold">Grassing Details</h2>
-            <button
-              className="px-4 py-2 text-white bg-green-900 rounded-md hover:bg-green-600"
-              onClick={() => navigate("/addgrass")}
-            >
-              + Add Item
-            </button>
-          </div>
+      <div className="flex items-center justify-center gap-20 mb-10">
+        <div className="flex flex-col items-center px-20 py-5 bg-[#34d399] text-white rounded-md shadow-md">
+          <h2 className="text-xl font-bold">{inStoreQuantity} kg</h2>
+          <p className="text-xl font-bold">In-Store</p>
+        </div>
 
-          <table className="w-4/5 mx-auto my-6 bg-white rounded-lg shadow-md">
-            <thead className="text-white bg-green-700">
-              <tr>
-                <th className="p-4 text-center">Location</th>
-                <th className="p-4 text-center">Quantity</th>
-                <th className="p-4 text-center">Supplier</th>
-                <th className="p-4 text-center">Last Update</th>
-                <th className="p-4 text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white">
-              {grass.length > 0 ? (
-                grass.map((g) => {
-                  const diffDays = (new Date() - new Date(g.lastUpdate)) / (1000 * 3600 * 24);
-                  const isExpired = diffDays > 5;
-
-                  return (
-                    <tr
-                      key={g._id}
-                      className={`border-b hover:bg-gray-100 ${
-                        isExpired ? "bg-red-100 text-red-700" : ""
-                      }`}
-                    >
-                      <td className="p-4 text-center">{g.location}</td>
-                      <td className="p-4 text-center">{g.quantity}kg</td>
-                      <td className="p-4 text-center">{g.supplier}</td>
-                      <td className="p-4 text-center">
-                        {new Intl.DateTimeFormat("en-GB").format(new Date(g.lastUpdate))}
-                      </td>
-                      <td className="p-4 text-center">
-                        <button
-                          onClick={() => navigate(`/grassingupdate/${g._id}`)}
-                          className="px-3 py-1 mr-4 text-white bg-blue-900 rounded-md hover:bg-blue-600"
-                        >
-                          Update
-                        </button>
-                        <button
-                          onClick={() => handleDelete(g._id)}
-                          className="px-3 py-1 text-white bg-red-700 rounded-md hover:bg-red-600"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <tr>
-                  <td colSpan="5" className="p-4 text-center text-gray-500">
-                    No data available
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+        <div className="flex flex-col items-center px-20 py-5 bg-[#059669] text-white rounded-md shadow-md">
+          <h2 className="text-xl font-bold">{expiredCount}</h2>
+          <p className="text-xl font-bold">Expired</p>
         </div>
       </div>
-      <Footer />
+
+      <div className="flex items-center justify-around mb-4">
+        <h2 className="text-2xl font-semibold text-[#14532d]">Grassing Details</h2>
+        <button
+          className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+          onClick={() => navigate("/addgrass")}
+        >
+          + Add Item
+        </button>
+      </div>
+
+      <table className="w-4/5 mx-auto my-6 bg-white rounded-lg shadow-md">
+        <thead className="text-white bg-blue-900">
+          <tr>
+            <th className="p-4 text-center">Location</th>
+            <th className="p-4 text-center">Quantity</th>
+            <th className="p-4 text-center">Supplier</th>
+            <th className="p-4 text-center">Last Update</th>
+            <th className="p-4 text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody className="bg-white">
+          {grass.length > 0 ? (
+            grass.map((g) => {
+              const diffDays = (new Date() - new Date(g.lastUpdate)) / (1000 * 3600 * 24);
+              const isExpired = diffDays > 5;
+
+              return (
+                <tr
+                  key={g._id}
+                  className={`border-b hover:bg-[#f0fdf4] ${
+                    isExpired ? "bg-red-100 text-red-700" : ""
+                  }`}
+                >
+                  <td className="p-4 text-center">{g.location}</td>
+                  <td className="p-4 text-center">{g.quantity}kg</td>
+                  <td className="p-4 text-center">{g.supplier}</td>
+                  <td className="p-4 text-center">
+                    {new Intl.DateTimeFormat("en-GB").format(new Date(g.lastUpdate))}
+                  </td>
+                  <td className="p-4 text-center">
+  <button
+    onClick={() => navigate(`/grassingupdate/${g._id}`)}
+    className="px-3 py-1 mr-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
+  >
+    Update
+  </button>
+  <button
+    onClick={() => handleDelete(g._id)}
+    className="px-3 py-1 text-white bg-red-600 rounded-md hover:bg-red-700"
+  >
+    Delete
+  </button>
+</td>
+
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="5" className="p-4 text-center text-gray-500">
+                No data available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
+  </div>
+  <Footer />
+</div>
+
   );
 }
 

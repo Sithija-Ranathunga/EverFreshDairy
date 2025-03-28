@@ -57,16 +57,18 @@ function AddGrassing() {
   };
 
   return (
-    <div className="min-h-screen font-sans bg-gray-100">
+    <div className="min-h-screen font-sans">
       <Header />
 
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen bg-center bg-cover"
+      style={{ backgroundImage: `url(${assets.grass})`}}
+      >
         <InventorySideBar />
 
         {/* Background Image Section */}
         <div
           className="flex items-center justify-center flex-1 bg-center bg-cover"
-         
+          
         >
           <div className="flex flex-col items-center w-full">
             <h1 className="my-6 text-3xl font-bold text-black shadow-md">Add Grasses</h1>
