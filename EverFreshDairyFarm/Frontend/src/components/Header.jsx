@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from "react";
 import { AppContent } from "../Content/AppContent";
 import { assets } from "../assets/assets";
@@ -8,6 +9,7 @@ export function Header() {
 
   return (
     <nav className="bg-neutral-400 p-4 shadow-md relative z-50">
+
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <a href="/">
