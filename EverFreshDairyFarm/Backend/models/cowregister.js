@@ -23,11 +23,14 @@ const AnimalregisterSchema  = new mongoose.Schema({
         required: true,
         
     },
-    Status:{
+    Status: {
         type: String,
-        required: true,   
+        required: true,
+        enum: ['Select', 'Sick', 'Pregnant', 'Vaccinated'], // Dropdown options
+        default: 'Select' // Default value
+    }  
     }
-});
+);
 
 const  VetAnimalRegistery= mongoose.model('Vetanimalregistery',AnimalregisterSchema);
 export default VetAnimalRegistery;

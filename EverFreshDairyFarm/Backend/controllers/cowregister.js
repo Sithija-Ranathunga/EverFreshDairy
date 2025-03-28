@@ -46,13 +46,13 @@ export const getbyId = async (req,res) =>{
             return res.status(404).json({success:false,message:"Cow registration is not found."})
          }
 
-         return res.status(200).json({success:true,});
+         return res.status(200).json({success:true, Cowregister});
     }catch(error){
         return res.status(500).json({success:false,message:error.message});
     }
 }
 
-//update inventory details
+//update cowregister details
 export const updateCowRegisterDetails= async (req, res)=>{
     try{
         const {id} = req.params;
@@ -63,14 +63,14 @@ export const updateCowRegisterDetails= async (req, res)=>{
         }
 
         const updateCowregister = await cowregister.findById(id);
-        res.status(200).json({success:true,updateCowregister});
+        res.status(200).json({success:true, updateCowregister});
 
     }catch(error){
         res.status(500).json({success:false,message:error.message})
     }
 }
 
-//delete the inventory details
+//delete the cowregister details
 export const deleteCowRegisterDetails = async (req, res) => {
     try {
       const { id } = req.params;
