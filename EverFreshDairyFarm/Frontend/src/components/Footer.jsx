@@ -2,8 +2,7 @@ import React from 'react'
 
 export function Footer() {
     return (
-      <footer className="bg-green-700 text-green p-6 mt-16">
-
+      <footer className="bg-neutral-400 text-green p-6 mt-16">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="flex space-x-10 text-sm">
             <div>
