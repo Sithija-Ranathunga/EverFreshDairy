@@ -4,6 +4,7 @@ import { Footer } from "../../../components/Footer";
 import VetSidebar from "../../../components/VetSidebar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { assets } from "../../../assets/assets";
 
 function CheckupsPage() {
   const navigate = useNavigate();
@@ -56,9 +57,12 @@ function CheckupsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="flex">
+
+      
+
+     <div className="flex flex-1">
         <div className="ml-4 my-4 rounded-xl overflow-hidden h-[calc(100vh-8rem)]">
           <VetSidebar />
         </div>
@@ -73,8 +77,8 @@ function CheckupsPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search ..."
-                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder=" 🔍   Search ..."
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
@@ -134,6 +138,7 @@ function CheckupsPage() {
           </div>
         </div>
       </div>
+      
       <Footer />
     </div>
   );

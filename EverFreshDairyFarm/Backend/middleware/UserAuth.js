@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+
 const userAuth = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -8,10 +9,10 @@ const userAuth = async (req, res, next) => {
     return res.status(422).json({ message: "Token not found." });
   }
 
+
   try {
     const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
     console.log("DECODED:", tokenDecode);
-
     req.user = { id: tokenDecode.id };
 
     next();

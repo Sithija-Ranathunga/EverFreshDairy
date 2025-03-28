@@ -21,9 +21,16 @@ import UpdateVetRegistry from "./pages/VetSurgeon/Registry/UpdateRegistry.jsx";
 import AddCheckups from "./pages/VetSurgeon/Checkups/AddCheckups.jsx";
 import Checkups from "./pages/VetSurgeon/Checkups/Checkups.jsx";
 import UpdateCheckups from "./pages/VetSurgeon/Checkups/UpdateCheckups.jsx";
+
+import VetLogout from  "./pages/VetSurgeon/Vetlogout/Vetlogout.jsx";
+import VetReport from  "./pages/VetSurgeon/Vetreport/Vetreport.jsx";
+import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
+//import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";
+
 /*import VetProfile from "./pages/VetSurgeon/VetProfile/VetProfile.jsx";
 import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";*/
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
+
 
 
 const App = () => {
@@ -47,6 +54,9 @@ const App = () => {
         <Route path="/AddCheckups" element={<AddCheckups />} />
         <Route path="/Checkups" element={<Checkups />} />
         <Route path="/updatechekups/:id" element={<UpdateCheckups />} />
+        <Route path="/Logout" element={<VetLogout />} />
+        <Route path="/Vetreport" element={<VetReport />} />
+        <Route path="/Vetprofile" element={<VetProfile />} />
        
       </Routes>
  

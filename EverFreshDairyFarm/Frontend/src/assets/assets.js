@@ -12,6 +12,13 @@ import login from './login.jpg'
 import grass from './grass.jpg'
 import Registry_icon from './Registry_icon.svg'
 import Checkups_icon from  './Checkups_icon.svg'
+import vetlogin_icon from  './vetlogin.jpeg'
+
+
+
+
+
+
 
 export const assets = {
     lock_icon,
@@ -28,4 +35,6 @@ export const assets = {
     grass,
     Registry_icon,
     Checkups_icon,
+    vetlogin_icon,
+   
 }

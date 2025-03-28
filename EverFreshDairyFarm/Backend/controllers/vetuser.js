@@ -2,43 +2,41 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userModel from '../models/vetuser.js';
 
-//register
-export const register = async (req,res) =>{
-    console.log(req.body); 
-    const {name, email, password,workExperience,NIC} = req.body;
+// Register
+export const register = async (req, res) => {
+    const { name, email, password, workExperience, NIC } = req.body;
 
-    if(!name || !email || !password || !workExperience || !NIC){
-        return res.status(400).json({success: false, message: 'Missing Details'})
+    if (!name || !email || !password || !workExperience || !NIC) {
+        return res.status(400).json({ success: false, message: "Missing Details" });
     }
 
-    try{
-         const existingUser = await userModel.findOne({email})
+    try {
+        const existingUser = await userModel.findOne({ email });
 
-         if(existingUser){
-            return res.status(409).json({success:false, message: "User alreeady exists."})
-         }
-    
+        if (existingUser) {
+            return res.status(409).json({ success: false, message: "User already exists." });
+        }
 
-    const hashedPassword = await bcrypt.hash(password,10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new userModel({name, email, password:hashedPassword, workExperience, NIC});
-    await user.save();
+        const user = new userModel({ name, email, password: hashedPassword, NIC, workExperience });
+        await user.save();
 
-    const token = jwt.sign({id: user._id}, process.env.JWT_SECRET,{expiresIn: '7d'});
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-    res.cookie('token',token,{
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-        maxAge: 7 *24 * 60 * 60 * 1000
-    });
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
 
-    return res.status(201).json({success:true, message: "Register is succefull"});
+        return res.status(201).json({ success: true, message: "Registration successful" });
 
-    }catch(error){
-        return res.status(500).json({success:false, message:error.message})
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
     }
-}
+};
 
 //login
 export const login = async (req, res) => {
@@ -63,14 +61,26 @@ export const login = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-        res.cookie('token', token, {
+      /*  res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
+*/
 
-        return res.status(200).json({ success: true, message: 'Login successful' });
+        const userDetails ={
+            id:user._id,
+            name:user.name,
+            email:user.email,
+            NIC: user.NIC,
+            workExperience:user.workExperience,
+            token
+
+        }
+
+         return res.status(200).json({success:true,userDetails});
+       
 
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });
@@ -95,7 +105,7 @@ export const logout = async (req, res) => {
 // Get user data
 export const getUserData = async (req, res) => {
     try {
-        const user = await userModel.find();
+        const user = await userModel.findOne({_id:req.user.id});
 
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });

@@ -4,6 +4,7 @@ import { Footer } from "../../../components/Footer";
 import VetSidebar from "../../../components/VetSidebar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import bgImage from "../../../assets/vet2.jpg";
 
 function AddCheckups() {
   const [formData, setFormData] = useState({
@@ -81,7 +82,10 @@ function AddCheckups() {
   return (
     <div className="min-h-screen font-sans bg-gray-100">
       <Header />
-      <div className="flex">
+<div className="flex">
+<div className="flex items-center justify-center min-h-screen bg-screen bg-cover"
+        style = {{ backgroundImage: `url(${bgImage})`}}></div>
+        
         <div className="ml-4 my-4 rounded-xl overflow-hidden">
           <VetSidebar />
         </div>
@@ -89,91 +93,97 @@ function AddCheckups() {
         <div className="flex flex-col items-center w-full pl-4">
           <h1 className="my-6 text-3xl font-bold text-center">Add Checkup Record</h1>
 
-          <div className="w-full max-w-2xl p-8 bg-white rounded-md shadow-md">
+          <div className="w-full max-w-4xl p-8 bg-white rounded-md shadow-md">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {/* Cow ID Field */}
-                <div>
-                  <label className="block font-semibold">Cow ID:</label>
-                  <input
-                    type="text"
-                    name="cowID"
-                    value={formData.cowID}
-                    onChange={handleChange}
-                    className={`w-full p-2 mt-1 border rounded-md ${errors.cowID ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Enter Cow ID"
-                  />
-                  {errors.cowID && <p className="mt-1 text-sm text-red-500">{errors.cowID}</p>}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Left Column - First 3 Fields */}
+                <div className="space-y-6">
+                  {/* Cow ID Field */}
+                  <div>
+                    <label className="block font-semibold">Cow ID:</label>
+                    <input
+                      type="text"
+                      name="cowID"
+                      value={formData.cowID}
+                      onChange={handleChange}
+                      className={`w-full p-2 mt-1 border rounded-md ${errors.cowID ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Enter Cow ID"
+                    />
+                    {errors.cowID && <p className="mt-1 text-sm text-red-500">{errors.cowID}</p>}
+                  </div>
+
+                  {/* Checkup Reason Field */}
+                  <div>
+                    <label className="block font-semibold">Checkup Reason:</label>
+                    <input
+                      type="text"
+                      name="CheckupReason"
+                      value={formData.CheckupReason}
+                      onChange={handleChange}
+                      className={`w-full p-2 mt-1 border rounded-md ${errors.CheckupReason ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Enter checkup reason"
+                    />
+                    {errors.CheckupReason && <p className="mt-1 text-sm text-red-500">{errors.CheckupReason}</p>}
+                  </div>
+
+                  {/* Date Field */}
+                  <div>
+                    <label className="block font-semibold">Date:</label>
+                    <input
+                      type="date"
+                      name="Date"
+                      value={formData.Date}
+                      onChange={handleChange}
+                      className={`w-full p-2 mt-1 border rounded-md ${errors.Date ? 'border-red-500' : 'border-gray-300'}`}
+                      max={new Date().toISOString().split('T')[0]}
+                    />
+                    {errors.Date && <p className="mt-1 text-sm text-red-500">{errors.Date}</p>}
+                  </div>
                 </div>
 
-                {/* Location Field */}
-                <div>
-                  <label className="block font-semibold">Location:</label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    className={`w-full p-2 mt-1 border rounded-md ${errors.location ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Enter location"
-                  />
-                  {errors.location && <p className="mt-1 text-sm text-red-500">{errors.location}</p>}
-                </div>
+                {/* Right Column - Last 3 Fields */}
+                <div className="space-y-6">
+                  {/* Location Field */}
+                  <div>
+                    <label className="block font-semibold">Location:</label>
+                    <input
+                      type="text"
+                      name="location"
+                      value={formData.location}
+                      onChange={handleChange}
+                      className={`w-full p-2 mt-1 border rounded-md ${errors.location ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Enter location"
+                    />
+                    {errors.location && <p className="mt-1 text-sm text-red-500">{errors.location}</p>}
+                  </div>
 
-                {/* Checkup Reason Field */}
-                <div className="md:col-span-2">
-                  <label className="block font-semibold">Checkup Reason:</label>
-                  <input
-                    type="text"
-                    name="CheckupReason"
-                    value={formData.CheckupReason}
-                    onChange={handleChange}
-                    className={`w-full p-2 mt-1 border rounded-md ${errors.CheckupReason ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Enter checkup reason"
-                  />
-                  {errors.CheckupReason && <p className="mt-1 text-sm text-red-500">{errors.CheckupReason}</p>}
-                </div>
+                  {/* Diagnosis Field */}
+                  <div>
+                    <label className="block font-semibold">Diagnosis:</label>
+                    <input
+                      type="text"
+                      name="Diagnosis"
+                      value={formData.Diagnosis}
+                      onChange={handleChange}
+                      className={`w-full p-2 mt-1 border rounded-md ${errors.Diagnosis ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Enter diagnosis"
+                    />
+                    {errors.Diagnosis && <p className="mt-1 text-sm text-red-500">{errors.Diagnosis}</p>}
+                  </div>
 
-                {/* Diagnosis Field */}
-                <div className="md:col-span-2">
-                  <label className="block font-semibold">Diagnosis:</label>
-                  <input
-                    type="text"
-                    name="Diagnosis"
-                    value={formData.Diagnosis}
-                    onChange={handleChange}
-                    className={`w-full p-2 mt-1 border rounded-md ${errors.Diagnosis ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Enter diagnosis"
-                  />
-                  {errors.Diagnosis && <p className="mt-1 text-sm text-red-500">{errors.Diagnosis}</p>}
-                </div>
-
-                {/* Date Field */}
-                <div>
-                  <label className="block font-semibold">Date:</label>
-                  <input
-                    type="date"
-                    name="Date"
-                    value={formData.Date}
-                    onChange={handleChange}
-                    className={`w-full p-2 mt-1 border rounded-md ${errors.Date ? 'border-red-500' : 'border-gray-300'}`}
-                    max={new Date().toISOString().split('T')[0]}
-                  />
-                  {errors.Date && <p className="mt-1 text-sm text-red-500">{errors.Date}</p>}
-                </div>
-
-                {/* Special Note Field */}
-                <div className="md:col-span-2">
-                  <label className="block font-semibold">Special Note:</label>
-                  <textarea
-                    name="SpecialNote"
-                    value={formData.SpecialNote}
-                    onChange={handleChange}
-                    className={`w-full p-2 mt-1 border rounded-md ${errors.SpecialNote ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Enter special notes"
-                    rows="3"
-                  />
-                  {errors.SpecialNote && <p className="mt-1 text-sm text-red-500">{errors.SpecialNote}</p>}
+                  {/* Special Note Field */}
+                  <div>
+                    <label className="block font-semibold">Special Note:</label>
+                    <textarea
+                      name="SpecialNote"
+                      value={formData.SpecialNote}
+                      onChange={handleChange}
+                      className={`w-full p-2 mt-1 border rounded-md ${errors.SpecialNote ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Enter special notes"
+                      rows="3"
+                    />
+                    {errors.SpecialNote && <p className="mt-1 text-sm text-red-500">{errors.SpecialNote}</p>}
+                  </div>
                 </div>
               </div>
 
@@ -181,13 +191,13 @@ function AddCheckups() {
                 <button
                   type="button"
                   onClick={() => navigate('/checkups')}
-                  className="px-4 py-2 font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"
+                  className="px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-400"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 font-medium text-white bg-blue-700 rounded-md hover:bg-blue-400"
                 >
                   Add Checkup
                 </button>
