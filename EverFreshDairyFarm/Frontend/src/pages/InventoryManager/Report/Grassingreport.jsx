@@ -1,0 +1,142 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { jsPDF } from "jspdf";
+
+function Grassingreport() {
+  const navigate = useNavigate();
+  const [grass, setGrass] = useState([]);
+  const [expiredCount, setExpiredCount] = useState(0);
+  const [inStoreCount, setInStoreCount] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/inventory")
+      .then((response) => {
+        if (Array.isArray(response.data.inventory)) {
+          const inventory = response.data.inventory;
+          const today = new Date();
+          let expired = 0;
+          let inStore = 0;
+
+          inventory.forEach((item) => {
+            const lastUpdateDate = new Date(item.lastUpdate);
+            const diffInDays =
+              (today - lastUpdateDate) / (1000 * 3600 * 24);
+            if (diffInDays > 5) expired++;
+            else inStore++;
+          });
+
+          setExpiredCount(expired);
+          setInStoreCount(inStore);
+          setGrass(inventory);
+        } else {
+          console.error("Expected an array but got:", response.data);
+          setGrass([]);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    // Add a title
+    doc.setFontSize(16);
+    doc.text("Grassing Report", 10, 20);
+
+    // Set header text (adjust X coordinates as needed)
+    doc.setFontSize(12);
+    const startY = 30;
+    doc.text("Location", 10, startY);
+    doc.text("Quantity", 60, startY);
+    doc.text("Supplier", 110, startY);
+    doc.text("Last Update", 160, startY);
+
+    // Start printing table rows
+    let yPosition = startY + 10;
+    grass.forEach((g) => {
+      // If we run out of space, add a new page.
+      if (yPosition > doc.internal.pageSize.getHeight() - 10) {
+        doc.addPage();
+        yPosition = 20; // reset yPosition for new page
+      }
+      doc.text(`${g.location}`, 10, yPosition);
+      doc.text(`${g.quantity}`, 60, yPosition);
+      doc.text(`${g.supplier}`, 110, yPosition);
+      const formattedDate = new Intl.DateTimeFormat("en-GB").format(
+        new Date(g.lastUpdate)
+      );
+      doc.text(`${formattedDate}`, 160, yPosition);
+      yPosition += 10;
+    });
+
+    // Optionally add summary information
+    yPosition += 10;
+    doc.setFontSize(14);
+    doc.text(`Expired: ${expiredCount}`, 10, yPosition);
+    doc.text(`In Store: ${inStoreCount}`, 80, yPosition);
+
+    // Save the PDF
+    doc.save("grassing-report.pdf");
+  };
+
+  return (
+    <div className="p-6 mb-10 bg-white rounded-lg shadow-md">
+      {/* Report Content */}
+      <div>
+        <h2 className="mb-4 text-2xl font-bold">Grassing Report</h2>
+        <table className="w-full bg-white rounded-lg shadow-md">
+          <thead className="text-white bg-blue-600">
+            <tr>
+              <th className="p-4 text-center">Location</th>
+              <th className="p-4 text-center">Quantity</th>
+              <th className="p-4 text-center">Supplier</th>
+              <th className="p-4 text-center">Last Update</th>
+            </tr>
+          </thead>
+          <tbody>
+            {grass.length > 0 ? (
+              grass.map((g) => {
+                const diffDays =
+                  (new Date() - new Date(g.lastUpdate)) / (1000 * 3600 * 24);
+                const isExpired = diffDays > 5;
+                return (
+                  <tr
+                    key={g._id}
+                    className={`border-b hover:bg-gray-100 ${
+                      isExpired ? "bg-red-100 text-red-700" : ""
+                    }`}
+                  >
+                    <td className="p-4 text-center">{g.location}</td>
+                    <td className="p-4 text-center">{g.quantity}</td>
+                    <td className="p-4 text-center">{g.supplier}</td>
+                    <td className="p-4 text-center">
+                      {new Intl.DateTimeFormat("en-GB").format(
+                        new Date(g.lastUpdate)
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  No data available
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <button
+        className="px-4 py-2 mt-4 text-white bg-blue-900 rounded-md hover:bg-blue-600"
+        onClick={downloadPDF}
+      >
+        Generate Report
+      </button>
+    </div>
+  );
+}
+
+export default Grassingreport;
