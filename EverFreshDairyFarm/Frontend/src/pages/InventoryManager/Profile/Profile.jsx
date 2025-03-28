@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useContext } from 'react';
 import { AppContent } from '../../../Content/AppContent';
 import { Header } from '../../../components/Header';
@@ -13,6 +14,33 @@ const Profile = () => {
       <Header />
       <div className="flex min-h-screen">
         <InventorySideBar />
+=======
+import React, { useEffect, useState } from 'react'
+import { Header } from '../../../components/Header'
+import { Footer } from '../../../components/Footer'
+import InventorySideBar from '../../../components/InventorySideBar'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+function Profile() {
+
+  const navigate = useNavigate();
+  const [user,setUser] = useState("")
+
+  useEffect(()=>{
+    
+  },[])
+  return (
+    <div>
+      <Header/>
+          <div>
+            <InventorySideBar/>
+          </div>
+      <Footer/>
+    </div>
+  )
+}
+>>>>>>> Stashed changes
 
         <div className="flex flex-col items-center justify-center w-full px-4 py-12">
           <div className="bg-white border-2 border-blue-700 rounded-lg p-10 max-w-2xl w-full shadow-md">

@@ -1,20 +1,31 @@
+<<<<<<< Updated upstream
 import React, { useContext, useEffect, useState } from "react";
+=======
+import React, { useEffect, useState, useContext } from "react";
+>>>>>>> Stashed changes
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import InventorySideBar from "../../../components/InventorySideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContent } from "../../../Content/AppContent";
+<<<<<<< Updated upstream
 import { assets } from "../../../assets/assets";
 
+=======
+>>>>>>> Stashed changes
 
 function Grassing() {
   const navigate = useNavigate();
   const [grass, setGrass] = useState([]);
+<<<<<<< Updated upstream
   const [expiredCount, setExpiredCount] = useState(0);
   const [inStoreQuantity, setInStoreQuantity] = useState(0);
   const {userData} = useContext(AppContent);
   
+=======
+  const {userData} = useContext(AppContent)
+>>>>>>> Stashed changes
 
   useEffect(() => {
     axios
