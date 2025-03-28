@@ -21,7 +21,8 @@ const userSChema = new mongoose.SchemaTypeOptions({
     password:{
         type: String,
         required: true
-    }
+    },
+    
 })
 
 const userModel = mongoose.model('InventoryDetails', userSChema);
