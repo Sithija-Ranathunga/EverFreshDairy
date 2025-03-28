@@ -10,11 +10,6 @@ import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/Gras
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
-
-import Admin from "./components/admin/AdminDashboard.jsx";
-import AdminLogin from "./components/admin/AdminLogin.jsx";
-import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";
-
 /*import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
 import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
@@ -32,7 +27,6 @@ import VetReport from  "./pages/VetSurgeon/Vetreport/Vetreport.jsx";
 import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
 //import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";
 
-
 /*import VetProfile from "./pages/VetSurgeon/VetProfile/VetProfile.jsx";
 import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";*/
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
@@ -43,11 +37,6 @@ const App = () => {
   return (
  <div>
   <Routes>
-
-    
-    <Route element={<ProtectedRoute />}>
-      <Route path="/admin/dashboard" element={<AdminDashboard />} />
-    </Route>
         <Route path="/" element={<Home />} />
         <Route path="/loginInventory" element={<Login />} />
         <Route path="/grassingsession" element={<GrassingSession />} />
@@ -71,7 +60,7 @@ const App = () => {
        
       </Routes>
  
-
+  
  
 
  </div>
