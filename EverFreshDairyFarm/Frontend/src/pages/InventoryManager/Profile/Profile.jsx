@@ -3,50 +3,59 @@ import { AppContent } from '../../../Content/AppContent';
 import { Header } from '../../../components/Header';
 import { Footer } from '../../../components/Footer';
 import InventorySideBar from '../../../components/InventorySideBar';
+import { Pencil } from 'lucide-react';
 
 const Profile = () => {
   const { userData } = useContext(AppContent);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-100 to-green-200 text-gray-800">
+    <div className="min-h-screen bg-white text-gray-800">
       <Header />
       <div className="flex min-h-screen">
         <InventorySideBar />
 
-      <div className="container mx-auto px-4 py-10">
-        <h2 className="text-4xl font-extrabold text-center mb-8 text-green-800">
-          User Profile
-        </h2>
-
-        <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 border border-green-200">
-          <div className="space-y-6 text-base leading-relaxed">
-            {/* Each row */}
-            <div className="flex justify-between items-center border-b pb-3">
-              <span className="font-semibold text-green-700 w-1/3">Name:</span>
-              <span className="text-right w-2/3">{userData?.name || "N/A"}</span>
+        <div className="flex flex-col items-center justify-center w-full px-4 py-12">
+          <div className="bg-white border-2 border-blue-700 rounded-lg p-10 max-w-2xl w-full shadow-md">
+            {/* Profile Picture and Name Section */}
+            <div className="flex flex-col items-center mb-6">
+              <img
+                src="https://img.freepik.com/premium-vector/person-with-blue-shirt-that-says-name-person_1029948-7040.jpg?semt=ais_hybrid"
+                alt="Profile"
+                className="w-24 h-24 rounded-full object-cover"
+              />
+              <h2 className="text-xl font-semibold mt-4">
+                {userData?.name || 'Your Name'}
+              </h2>
+              <div className="text-gray-500 flex items-center gap-1">
+                @{userData?.username || 'yourusername'}
+                <Pencil className="w-4 h-4 text-blue-500 cursor-pointer" />
+              </div>
             </div>
 
-            <div className="flex justify-between items-center border-b pb-3">
-              <span className="font-semibold text-green-700 w-1/3">Email:</span>
-              <span className="text-right w-2/3">{userData?.email || "N/A"}</span>
-            </div>
-
-            <div className="flex justify-between items-center border-b pb-3">
-              <span className="font-semibold text-green-700 w-1/3">NIC:</span>
-              <span className="text-right w-2/3">{userData?.NIC || "N/A"}</span>
-            </div>
-
-            <div className="flex justify-between items-center">
-              <span className="font-semibold text-green-700 w-1/3">Work Experience:</span>
-              <span className="text-right w-2/3">{userData?.workExperience || "N/A"}</span>
+            {/* Your Custom Fields */}
+            <div className="space-y-6">
+              <ProfileField label="Name" value={userData?.name || "N/A"} />
+              <ProfileField label="Email" value={userData?.email || "N/A"} />
+              <ProfileField label="NIC" value={userData?.NIC || "N/A"} />
+              <ProfileField label="Work Experience" value={userData?.workExperience || "N/A"} />
             </div>
           </div>
         </div>
       </div>
-</div>
       <Footer />
     </div>
   );
 };
+
+// Reusable Field Component
+const ProfileField = ({ label, value }) => (
+  <div className="flex justify-between items-center border-b pb-3">
+    <span className="font-semibold text-gray-700">{label}</span>
+    <span className="flex items-center gap-2 text-gray-600">
+      {value}
+      <Pencil className="w-4 h-4 text-blue-500 cursor-pointer" />
+    </span>
+  </div>
+);
 
 export default Profile;
