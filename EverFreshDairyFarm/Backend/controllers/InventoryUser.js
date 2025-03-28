@@ -145,8 +145,7 @@ export const updateUser = async (req, res) => {
 };
 
 //Check if user is authenticated
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 export const isAuthenicated = async(req,res)=>{
     try{
          return res.json({ success: true});
@@ -170,18 +169,12 @@ export const getUserProfile = async (req, res) => {
     }
   };
   
-=======
-=======
->>>>>>> Stashed changes
+
 export const isAuthenticated = async(req,res)=>{
     try{
       return res.json({success:true});
     }catch(error){
         res.json({success:false,message:error.message})
     }
-<<<<<<< Updated upstream
+
 }
->>>>>>> Stashed changes
-=======
-}
->>>>>>> Stashed changes

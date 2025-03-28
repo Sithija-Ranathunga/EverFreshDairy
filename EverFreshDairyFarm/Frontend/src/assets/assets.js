@@ -25,7 +25,7 @@ export const assets = {
     session_icon,
     bg,
     login,
-    grass
+    grass,
     Registry_icon,
     Checkups_icon,
 }
