@@ -30,6 +30,15 @@ import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
 /*import VetProfile from "./pages/VetSurgeon/VetProfile/VetProfile.jsx";
 import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";*/
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
+import MLogin from "./pages/MilkingManagement/MLogin/MLogin.jsx";
+import MilkingData from "./pages/MilkingManagement/MilkingData/MilkingData.jsx";
+import AddMilkingData from "./pages/MilkingManagement/MilkingData/AddMilkingData.jsx";
+import MilkingUpdate from "./pages/MilkingManagement/MilkingData/MilkingUpdate.jsx";
+import MilkingSession from "./pages/MilkingManagement/MilkingSession/MilkingSession.jsx";
+import AddMikingSession from "./pages/MilkingManagement/MilkingSession/AddMilkingSession.jsx";
+import UpdateMilkingSession from "./pages/MilkingManagement/MilkingSession/UpdateMilkingSession.jsx";
+import MilkingReport from "./pages/MilkingManagement/Report/MilkingReport.jsx";
+import MProfile  from "./pages/MilkingManagement/MProfile/MProfile.jsx";
 
 
 
@@ -57,6 +66,16 @@ const App = () => {
         <Route path="/Logout" element={<VetLogout />} />
         <Route path="/Vetreport" element={<VetReport />} />
         <Route path="/Vetprofile" element={<VetProfile />} />
+
+        <Route path='/loginMilking' element={<MLogin/>}/>
+    <Route path='/milkingdata'  element={<MilkingData/>}/>
+    <Route path='/addmilkingdata' element={<AddMilkingData/>}/>
+    <Route path='/updatemilkingdata/:id' element={<MilkingUpdate/>}/>
+    <Route path='/milkingsession' element={<MilkingSession/>}/>
+    <Route path='/addmilkingsession'element={<AddMikingSession/>}/>
+    <Route path='/milkingsessionupdate/:id'element={<UpdateMilkingSession/>}/>
+    <Route path='/milkingreport'element={<MilkingReport/>}/>
+    <Route path='/milkingprofile'element={<MProfile/>}/>
        
       </Routes>
  
