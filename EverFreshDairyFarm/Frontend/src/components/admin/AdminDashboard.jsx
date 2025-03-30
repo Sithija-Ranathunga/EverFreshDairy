@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { FiHome, FiUsers, FiDroplet, FiPackage, FiSettings, FiLogOut, FiBarChart2, FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
-/*import { adminFooter } from '../adminFooter'*/
+
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
