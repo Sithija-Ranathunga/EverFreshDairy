@@ -14,11 +14,18 @@ import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
 import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 
+
 import Admin from "./components/admin/AdminDashboard.jsx";
 /*import AdminLogin from "./components/admin/AdminLogin.jsx";
 import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";*/
 
-import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+
+
+
+import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
+import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
+import Report from "./pages/InventoryManager/Report/Report.jsx";
+
 import VetLogin from "./pages/VetSurgeon/VetLogin/VetLogin.jsx";
 import VetRegistry from "./pages/VetSurgeon/Registry/registry.jsx";
 import AddVetRegistry from "./pages/VetSurgeon/Registry/Addregistry.jsx";
@@ -31,8 +38,6 @@ import VetLogout from  "./pages/VetSurgeon/Vetlogout/Vetlogout.jsx";
 import VetReport from  "./pages/VetSurgeon/Vetreport/Vetreport.jsx";
 import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
 
-
-import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
 import MLogin from "./pages/MilkingManagement/MLogin/MLogin.jsx";
 import MilkingData from "./pages/MilkingManagement/MilkingData/MilkingData.jsx";
 import AddMilkingData from "./pages/MilkingManagement/MilkingData/AddMilkingData.jsx";
@@ -54,7 +59,7 @@ const App = () => {
 
     
     
-      <Route path="/admin" element={<Admin />} />
+      {/*<Route path="/admin" element={<Admin />} />*/}
    
         <Route path="/" element={<Home />} />
         <Route path="/loginInventory" element={<Login />} />
@@ -65,6 +70,11 @@ const App = () => {
         <Route path="/grassingsessionupdate/:id" element={<GrassingSessionUpdate />} />
         <Route path="/grassingupdate/:id" element={<GrassingUpdate />} />
         <Route path="/addgrass" element={<AddGrassing />} />
+        <Route path="/session" element={<Session/>}/>    
+        <Route path="/report" element={<Report/>}/>
+        <Route path="/addsession" element={<AddSession />} />
+
+
         <Route path="/alerts" element={<Alerts />} />
         <Route path="/VetLogin" element={<VetLogin />} />
         <Route path="/Registry" element={<VetRegistry />} />
@@ -73,9 +83,16 @@ const App = () => {
         <Route path="/AddCheckups" element={<AddCheckups />} />
         <Route path="/Checkups" element={<Checkups />} />
         <Route path="/updatechekups/:id" element={<UpdateCheckups />} />
-        <Route path="/Logout" element={<VetLogout />} />
+
+
+        
+       
+         
+
+        <Route path="/vLogout" element={<VetLogout />} />
+
         <Route path="/Vetreport" element={<VetReport />} />
-        <Route path="/addsession" element={<AddSession />} />
+        
         <Route path="/Vetprofile" element={<VetProfile />} />
 
 
@@ -89,8 +106,7 @@ const App = () => {
     <Route path='/milkingreport'element={<MilkingReport/>}/>
     <Route path='/milkingprofile'element={<MProfile/>}/>
 
-        <Route path="/session" element={<Session />} />
-        <Route path="/report" element={<Report/>} />
+      
 
 
        

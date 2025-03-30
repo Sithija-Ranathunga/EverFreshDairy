@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { AppContent } from "../Content/AppContentMilking";
+import { AppContent } from "../Content/AppContent";
 import { assets } from "../assets/assets";
 
 export function Header() {
@@ -7,9 +7,9 @@ export function Header() {
   const { userData } = useContext(AppContent);
 
   return (
-    <nav className="bg-white p-4 shadow-md relative z-50">
+    <nav className="relative z-50 p-4 bg-white shadow-md">
 
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container flex items-center justify-between mx-auto">
         {/* Logo */}
         <a href="/">
           <img
@@ -23,7 +23,7 @@ export function Header() {
         <ul className="flex space-x-4">
           <li>
             <a href="#features" className="text-green hover:underline">
-              Features
+              Features 
             </a>
           </li>
           <li>
@@ -42,7 +42,7 @@ export function Header() {
         {userData ? (
           // ✅ Wrap with a fragment or a div
           <div className="flex items-center gap-2">
-            <img className="w-8 h-8 rounded-full object-cover" src="https://img.freepik.com/premium-vector/person-with-blue-shirt-that-says-name-person_1029948-7040.jpg?semt=ais_hybrid" alt="Profile" />
+            <img className="object-cover w-8 h-8 rounded-full" src="https://img.freepik.com/premium-vector/person-with-blue-shirt-that-says-name-person_1029948-7040.jpg?semt=ais_hybrid" alt="Profile" />
             <div className="text-sm font-medium text-gray-800">
               Hi,  {userData.name}
             </div>
@@ -61,7 +61,7 @@ export function Header() {
                 <ul className="py-2">
                   <li>
                     <a
-                      href="/MLogin"
+                      href="/loginMilking"
                       className="block px-4 py-2 hover:bg-gray-100"
                     >
                       Milking Manager Login
