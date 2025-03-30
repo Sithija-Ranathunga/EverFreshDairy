@@ -10,10 +10,10 @@ import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/Gras
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
-/*import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
 import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
-import Report from "./pages/InventoryManager/Report/Report.jsx";*/
+import Report from "./pages/InventoryManager/Report/Report.jsx";
 import VetLogin from "./pages/VetSurgeon/VetLogin/VetLogin.jsx";
 import VetRegistry from "./pages/VetSurgeon/Registry/registry.jsx";
 import AddVetRegistry from "./pages/VetSurgeon/Registry/Addregistry.jsx";
@@ -23,7 +23,7 @@ import Checkups from "./pages/VetSurgeon/Checkups/Checkups.jsx";
 import UpdateCheckups from "./pages/VetSurgeon/Checkups/UpdateCheckups.jsx";
 /*import VetProfile from "./pages/VetSurgeon/VetProfile/VetProfile.jsx";
 import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";*/
-import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
+
 
 
 const App = () => {
@@ -36,7 +36,7 @@ const App = () => {
         <Route path="/grassing" element={<Grassing />} />
         <Route path="/inventory" element={<Profile />} />
         <Route path="/logout" element={<Logout/>} />
-        <Route path="/grassingsessionupdate" element={<GrassingSessionUpdate />} />
+        <Route path="/grassingsessionupdate/:id" element={<GrassingSessionUpdate />} />
         <Route path="/grassingupdate/:id" element={<GrassingUpdate />} />
         <Route path="/addgrass" element={<AddGrassing />} />
         <Route path="/alerts" element={<Alerts />} />
@@ -47,6 +47,11 @@ const App = () => {
         <Route path="/AddCheckups" element={<AddCheckups />} />
         <Route path="/Checkups" element={<Checkups />} />
         <Route path="/updatechekups/:id" element={<UpdateCheckups />} />
+         <Route path="/addsession" element={<AddSession/>}/>
+         <Route path="/session" element={<Session/>}/>
+         
+         <Route path="/report" element={<Report/>}/>
+         
        
       </Routes>
  
