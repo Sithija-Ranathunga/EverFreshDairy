@@ -5,17 +5,17 @@ import Login from "./pages/InventoryManager/Login/Login";
 import GrassingSession from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Grassing from "./pages/InventoryManager/Grassing/Grassing.jsx";
 import Profile from "./pages/InventoryManager/Profile/Profile.jsx";
+import Report from "./pages/InventoryManager/Report/Report.jsx";
+
 
 import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/GrassingSessionUpdate.jsx";
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
-
-import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
-
+import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 
 
-//import Admin from "./components/admin/AdminDashboard.jsx";
+import Admin from "./components/admin/AdminDashboard.jsx";
 /*import AdminLogin from "./components/admin/AdminLogin.jsx";
 import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";*/
 
@@ -25,6 +25,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";*/
 import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
 import Report from "./pages/InventoryManager/Report/Report.jsx";
+
 import VetLogin from "./pages/VetSurgeon/VetLogin/VetLogin.jsx";
 import VetRegistry from "./pages/VetSurgeon/Registry/registry.jsx";
 import AddVetRegistry from "./pages/VetSurgeon/Registry/Addregistry.jsx";
@@ -36,10 +37,6 @@ import UpdateCheckups from "./pages/VetSurgeon/Checkups/UpdateCheckups.jsx";
 import VetLogout from  "./pages/VetSurgeon/Vetlogout/Vetlogout.jsx";
 import VetReport from  "./pages/VetSurgeon/Vetreport/Vetreport.jsx";
 import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
-//import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";
-
-/*import VetProfile from "./pages/VetSurgeon/VetProfile/VetProfile.jsx";
-import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";*/
 
 import MLogin from "./pages/MilkingManagement/MLogin/MLogin.jsx";
 import MilkingData from "./pages/MilkingManagement/MilkingData/MilkingData.jsx";
@@ -60,12 +57,10 @@ const App = () => {
   <Routes>
 
 
-
     
     
       {/*<Route path="/admin" element={<Admin />} />*/}
    
-
         <Route path="/" element={<Home />} />
         <Route path="/loginInventory" element={<Login />} />
         <Route path="/grassingsession" element={<GrassingSession />} />
@@ -89,11 +84,13 @@ const App = () => {
         <Route path="/Checkups" element={<Checkups />} />
         <Route path="/updatechekups/:id" element={<UpdateCheckups />} />
 
+
         
        
          
 
         <Route path="/vLogout" element={<VetLogout />} />
+
         <Route path="/Vetreport" element={<VetReport />} />
         
         <Route path="/Vetprofile" element={<VetProfile />} />
@@ -110,7 +107,6 @@ const App = () => {
     <Route path='/milkingprofile'element={<MProfile/>}/>
 
       
-
 
 
        
