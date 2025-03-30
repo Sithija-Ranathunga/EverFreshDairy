@@ -11,6 +11,9 @@ import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
 
+import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+
+
 
 import Admin from "./components/admin/AdminDashboard.jsx";
 import AdminLogin from "./components/admin/AdminLogin.jsx";
@@ -19,6 +22,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";
 import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
 
 /*import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+
 
 import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
@@ -38,6 +42,7 @@ import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
 
 /*import VetProfile from "./pages/VetSurgeon/VetProfile/VetProfile.jsx";
 import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";*/
+
 
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
 import MLogin from "./pages/MilkingManagement/MLogin/MLogin.jsx";
@@ -59,10 +64,12 @@ const App = () => {
   <Routes>
 
 
+
     
     
       <Route path="/admin" element={<Admin />} />
    
+
         <Route path="/" element={<Home />} />
         <Route path="/loginInventory" element={<Login />} />
         <Route path="/grassingsession" element={<GrassingSession />} />
@@ -80,6 +87,13 @@ const App = () => {
         <Route path="/AddCheckups" element={<AddCheckups />} />
         <Route path="/Checkups" element={<Checkups />} />
         <Route path="/updatechekups/:id" element={<UpdateCheckups />} />
+
+         <Route path="/addsession" element={<AddSession/>}/>
+         <Route path="/session" element={<Session/>}/>
+         
+         <Route path="/report" element={<Report/>}/>
+         
+
         <Route path="/Logout" element={<VetLogout />} />
         <Route path="/Vetreport" element={<VetReport />} />
         <Route path="/addsession" element={<AddSession />} />
@@ -98,6 +112,7 @@ const App = () => {
 
         <Route path="/session" element={<Session />} />
         <Route path="/report" element={<Report/>} />
+
 
 
        
