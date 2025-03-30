@@ -62,7 +62,7 @@ function GrassingSessionUpdate() {
     if (!validateForm()) return;
 
     axios
-      .put(`http://localhost:8000/inventoryManager/${id}`, {
+      .put(`http://localhost:8000/Grassing/${id}`, {
         SessionId,
         sessionDate, 
         ShedId,
