@@ -13,7 +13,8 @@ import grass from './grass.jpg'
 import Registry_icon from './Registry_icon.svg'
 import Checkups_icon from  './Checkups_icon.svg'
 import vetlogin_icon from  './vet3.jpg'
-
+import milkingdata_icon from './milkingdata_icon.svg'
+import Mlogin_icon from './Mlogin.jpg'
 
 
 
@@ -36,5 +37,7 @@ export const assets = {
     Registry_icon,
     Checkups_icon,
     vetlogin_icon,
+    milkingdata_icon,
+    Mlogin_icon
    
 }

@@ -1,5 +1,5 @@
 import express from 'express';
-import { createMilkingData, getMilkingData, getMilkingDataById, updateMilkingData, deleteMilkingData } from '../controllers/milkingData.js'; 
+import { createMilkingData, getMilkingData, getMilkingDataById, updateMilkingData, deleteMilkingData } from '../controllers/MilkingData.js'; 
 
 const router = express.Router();
 
