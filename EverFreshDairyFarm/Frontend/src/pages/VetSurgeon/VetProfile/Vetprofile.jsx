@@ -1,9 +1,61 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { AppContent } from "../../../Content/AppContentvet";
+import { Header } from '../../../components/Header';
+import { Footer } from '../../../components/Footer';
+import VetSidebar from "../../../components/VetSidebar";
+import { Pencil } from 'lucide-react';
 
-function Profile() {
+const Vetprofile = () => {
+  const { userData } = useContext(AppContent);
+
   return (
-    <div>Profile</div>
-  )
-}
+    <div className="min-h-screen text-gray-800 bg-white">
+      <Header />
+      <div className="flex min-h-screen">
+        <VetSidebar />
+        
+        <div className="flex flex-col items-center justify-center w-full px-4 py-12">
+          <div className="w-full max-w-2xl p-10 bg-white border-2 border-blue-700 rounded-lg shadow-md">
+            {/* Profile Picture and Name Section */}
+            <div className="flex flex-col items-center mb-6">
+              <img
+                src="https://img.freepik.com/premium-vector/person-with-blue-shirt-that-says-name-person_1029948-7040.jpg?semt=ais_hybrid"
+                alt="Profile"
+                className="object-cover w-24 h-24 rounded-full"
+              />
+              <h2 className="mt-4 text-xl font-semibold">
+                {userData?.name}
+              </h2>
+              <div className="flex items-center gap-1 text-gray-500">
+                @{userData?.username}
+                <Pencil className="w-4 h-4 text-blue-500 cursor-pointer" />
+              </div>
+            </div>
 
-export default Profile
+            {/* Your Custom Fields */}
+            <div className="space-y-6">
+              <ProfileField label="Name" value={userData?.name } />
+              <ProfileField label="Email" value={userData?.email } />
+              <ProfileField label="NIC" value={userData?.NIC } />
+              <ProfileField label="Work Experience" value={userData?.workExperience } />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+// Reusable Field Component
+const ProfileField = ({ label, value }) => (
+  <div className="flex items-center justify-between pb-3 border-b">
+    <span className="font-semibold text-gray-700">{label}</span>
+    <span className="flex items-center gap-2 text-gray-600">
+      {value}
+      <Pencil className="w-4 h-4 text-blue-500 cursor-pointer" />
+    </span>
+  </div>
+);
+
+export default Vetprofile;

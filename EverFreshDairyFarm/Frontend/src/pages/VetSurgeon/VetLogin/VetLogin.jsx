@@ -2,9 +2,10 @@ import React, { useContext, useState } from "react";
 import { assets } from "../../../assets/assets";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AppContent } from "../../../Content/AppContent";
+import { AppContent } from "../../../Content/AppContentvet";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ function Login() {
 
       if (state === "Sign Up") {
         const { data } = await axios.post(
-          "http://localhost:8000/inventoryManager/register",
+          "http://localhost:8000/veterinarySurgeon/register",
           {
             name,
             NIC,
@@ -64,31 +65,27 @@ function Login() {
         );
 
         if (data.success) {
-          //setIsLoggedin(true);
-          //getUserData();
-          alert("You are registerd...");
+          alert("You are registered...");
         } else {
           alert(data.message);
         }
       } else {
         const { data } = await axios.post(
-          "http://localhost:8000/inventoryManager/login",
+          "http://localhost:8000/veterinarySurgeon/login",
           { email, password }
         );
         console.log(data.userDetails);
 
         if (data.userDetails) {
-          {
-            localStorage.setItem(
-              "accessToken",
-              JSON.stringify(data.userDetails.token)
-            );
-           
-          }
+          localStorage.setItem(
+            "vettoken",
+            JSON.stringify(data.userDetails.token)
+          );
         }
+
         if (data.success) {
           login();
-          navigate("/grassing");
+          navigate("/Registry");
         } else {
           alert(data.message);
         }
@@ -101,16 +98,17 @@ function Login() {
   return (
     <div className="min-h-screen">
       <Header />
-
+       
       <div
         className="flex items-center justify-center min-h-screen bg-center bg-cover"
-        style={{ backgroundImage: `url(${assets.bg})` }}
+        style={{ backgroundImage: `url(${assets.vetlogin_icon})`}}
       >
-        <div className="bg-green-800 p-10 rounded-[10px] shadow-[0_4px_10px_rgba(0,0,0,0.2)] w-full max-w-[400px] text-indigo-300 text-sm text-center">
-          <h2 className="mb-3 text-2xl font-semibold text-white">
+        <div className="bg-emerald-50 p-10 rounded-[10px] shadow-[0_4px_10px_rgba(0,0,0,0.2)] w-full max-w-[400px] text-gray-200 text-sm text-center">
+          <h2 className="mb-1 text-3xl font-semibold text-black">
+            
             {state === "Sign Up" ? "Create Account" : "Login"}
           </h2>
-          <p className="mb-5 text-sm">
+          <p className="mb-5 text-sm text-black">
             {state === "Sign Up"
               ? "Create your account"
               : "Login to your account"}
@@ -120,9 +118,8 @@ function Login() {
             {state === "Sign Up" && (
               <>
                 <div className="flex flex-col">
-                  <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-3">
-                    
-                    <img className="w-5" src={assets.person_icon} alt="" />
+                  <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                    <img className="w-4" src={assets.person_icon} alt="" />
                     <input
                       className="flex-1 text-white bg-transparent border-none outline-none"
                       onChange={(e) => setName(e.target.value)}
@@ -132,13 +129,13 @@ function Login() {
                     />
                   </div>
                   {errors.name && (
-                    <p className="mb-2 text-xs text-left text-red-300">
+                    <p className="mb-2 text-xs text-left text-red-500">
                       {errors.name}
                     </p>
                   )}
 
-                  <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-3">
-                    <img className="w-5" src={assets.NIC_icon} alt="" />
+                  <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                    <img className="w-4" src={assets.NIC_icon} alt="" />
                     <input
                       className="flex-1 text-white bg-transparent border-none outline-none"
                       onChange={(e) => setNIC(e.target.value)}
@@ -148,13 +145,13 @@ function Login() {
                     />
                   </div>
                   {errors.NIC && (
-                    <p className="mb-2 text-xs text-left text-red-300">
+                    <p className="mb-2 text-xs text-left text-red-500">
                       {errors.NIC}
                     </p>
                   )}
 
-                  <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-3">
-                    <img className="w-5" src={assets.person_icon} alt="" />
+                  <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                    <img className="w-4" src={assets.person_icon} alt="" />
                     <input
                       className="flex-1 text-white bg-transparent border-none outline-none"
                       onChange={(e) => setWorkExperience(e.target.value)}
@@ -164,7 +161,7 @@ function Login() {
                     />
                   </div>
                   {errors.workExperience && (
-                    <p className="mb-2 text-xs text-left text-red-300">
+                    <p className="mb-1 text-xs text-left text-red-500">
                       {errors.workExperience}
                     </p>
                   )}
@@ -173,8 +170,8 @@ function Login() {
             )}
 
             <div className="flex flex-col">
-              <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-3">
-                <img className="w-5" src={assets.mail_icon} alt="" />
+              <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                <img className="w-4" src={assets.mail_icon} alt="" />
                 <input
                   className="flex-1 text-white bg-transparent border-none outline-none"
                   onChange={(e) => setEmail(e.target.value)}
@@ -184,15 +181,15 @@ function Login() {
                 />
               </div>
               {errors.email && (
-                <p className="mb-2 text-xs text-left text-red-300">
+                <p className="mb-2 text-xs text-left text-red-500">
                   {errors.email}
                 </p>
               )}
             </div>
 
             <div className="flex flex-col">
-              <div className="flex items-center gap-2.5 w-full p-2.5 rounded-full bg-[#05491a] mb-3">
-                <img className="w-5" src={assets.lock_icon} alt="" />
+              <div className="flex items-center gap-5 w-full p-2.5 rounded-full bg-teal-700 mb-3">
+                <img className="w-3" src={assets.lock_icon} alt="" />
                 <input
                   className="flex-1 text-white bg-transparent border-none outline-none"
                   onChange={(e) => setPassword(e.target.value)}
@@ -202,7 +199,7 @@ function Login() {
                 />
               </div>
               {errors.password && (
-                <p className="mb-2 text-xs text-left text-red-300">
+                <p className="mb-2 text-xs text-left text-red-500">
                   {errors.password}
                 </p>
               )}
@@ -210,27 +207,27 @@ function Login() {
 
             <button
               type="submit"
-              className="pt-3 pb-3 pr-6 pl-6 mt-2 rounded-full bg-gradient-to-r from-[#4fdd4f] to-[#2e8140] text-white font-medium border-none cursor-pointer"
+              className="pt-3 pb-3 pr-6 pl-6 mt-2 rounded-full bg-gradient-to-r from-[#24a878] to-[#046848] text-black font-medium border-none cursor-pointer"
             >
               {state}
             </button>
           </form>
 
           {state === "Sign Up" ? (
-            <p className="text-slate-400 text-xs mt-2.5">
-              Already have an account?{" "}
+            <p className="text-black text-xs mt-3">
+              Already have an account?{"    "}
               <span
-                className="text-black underline cursor-pointer"
+                className="text-green-600 underline cursor-pointer"
                 onClick={() => setState("Login")}
               >
                 Login here
               </span>
             </p>
           ) : (
-            <p className="text-slate-400 text-xs mt-2.5">
+            <p className="text-black text-xs mt-2.5">
               Don't have an account?{" "}
               <span
-                className="text-black underline cursor-pointer"
+                className="text-green-600 underline cursor-pointer"
                 onClick={() => setState("Sign Up")}
               >
                 Sign up

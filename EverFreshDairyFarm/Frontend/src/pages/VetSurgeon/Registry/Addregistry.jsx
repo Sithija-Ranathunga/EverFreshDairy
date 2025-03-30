@@ -4,6 +4,7 @@ import { Footer } from "../../../components/Footer";
 import VetSidebar from "../../../components/VetSidebar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import bgImage from "../../../assets/vet2.jpg";
 
 const AddCowRegistration = () => {
   const navigate = useNavigate();
@@ -129,21 +130,21 @@ const AddCowRegistration = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="flex">
+      <div className="flex items-center justify-center min-h-screen bg-screen bg-cover"
+        style = {{ backgroundImage: `url(${bgImage})`}}>
         <div className="ml-4 my-4 rounded-xl overflow-hidden h-[calc(100vh-8rem)]">
           <VetSidebar />
         </div>
         
         <main className="flex-1 p-6">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">Cow Registration</h1>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-sky-50 rounded-lg shadow-md p-6">
               <form onSubmit={handleSubmit} className="space-y-6">
+                <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">Cow Registration</h1>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   {/* Cow ID Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-m font-medium text-gray-700 mb-1">
                       Cow ID <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -163,7 +164,7 @@ const AddCowRegistration = () => {
 
                   {/* Birth Date Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-m font-medium text-gray-700 mb-1">
                       Birth Date <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -183,7 +184,7 @@ const AddCowRegistration = () => {
 
                   {/* Gender Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-m font-medium text-gray-700 mb-1">
                       Gender <span className="text-red-500">*</span>
                     </label>
                     <div className="flex space-x-4 mt-1">
@@ -217,7 +218,7 @@ const AddCowRegistration = () => {
 
                   {/* Age Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-m font-medium text-gray-700 mb-1">
                       Age (years) <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -239,7 +240,7 @@ const AddCowRegistration = () => {
 
                   {/* Location Field */}
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-m font-medium text-gray-700 mb-1">
                       Location <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -259,7 +260,7 @@ const AddCowRegistration = () => {
 
                   {/* Status Field */}
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-m font-medium text-gray-700 mb-1">
                       Status <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -282,17 +283,17 @@ const AddCowRegistration = () => {
                 </div>
 
                 {/* Form Actions */}
-                <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">
+                <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
                   <button
                     type="button"
                     onClick={() => navigate("/Registry")}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                    className="px-8 py-3 text-lg font-medium text-white bg-red-700 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700 transition-colors duration-200"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="px-8 py-3 text-lg font-medium text-white bg-blue-800 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 transition-colors duration-200"
                   >
                     Register Now
                   </button>

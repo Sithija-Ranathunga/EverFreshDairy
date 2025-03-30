@@ -56,39 +56,41 @@ function CowRegistration() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-sky-100">
       <Header />
+      
+            
       <div className="flex flex-1">
         {/* Sidebar with rounded corners and spacing */}
         <div className="ml-4 my-4 rounded-xl overflow-hidden h-[calc(100vh-8rem)]">
           <VetSidebar />
         </div>
 
-        <div className="flex-1 pl-8 pr-4 bg-gray-100">
+        <div className="flex-1 pl-8 pr-4 ">
           <h1 className="mt-10 mb-2 text-3xl font-bold">Welcome Nirasha,</h1>
 
           
 
           {/* Stats Cards with green background */}
           <div className="flex flex-wrap justify-center gap-6 mb-12 mt-6">
-            <div className="flex flex-col items-center py-4 bg-green-100 rounded-lg px-6 shadow-md w-full max-w-xs border border-green-200">
-              <h2 className="text-2xl font-bold text-green-800">{stats.totalCows}</h2>
-              <p className="text-green-700">Total No. of Cows</p>
+            <div className="flex flex-col items-center py-4 bg-zinc-200 rounded-lg px-50 shadow-md w-full max-w-xs border border-sky-200">
+              <h2 className="text-2xl font-bold text-black">{stats.totalCows}</h2>
+              <p className="text-lg text-black">Total No. of Cows</p>
             </div>
 
-            <div className="flex flex-col items-center py-4 bg-green-100 rounded-lg px-6 shadow-md w-full max-w-xs border border-green-200">
-              <div className="w-full bg-green-800 rounded-full h-2.5 mb-2">
+            <div className="flex flex-col items-center py-4 bg-zinc-200 rounded-lg px-10 shadow-md w-full max-w-xs border border-sky-200">
+              <div className="w-full bg-white rounded-full h-2.5 mb-2">
                 <div 
-                  className="bg-green-700 h-2.5 rounded-full" 
+                  className="bg-sky-800 h-2.5 rounded-full" 
                   style={{ width: `${stats.vaccinatedPercentage}%` }}
                 ></div>
               </div>
-              <p className="text-s text-green-700">{stats.vaccinatedPercentage}% Vaccinated</p>
+              <p className="text-lg text-black">{stats.vaccinatedPercentage}% Vaccinated</p>
             </div>
 
-            <div className="flex flex-col items-center py-4 bg-green-100 rounded-lg px-6 shadow-md w-full max-w-xs border border-green-200">
-              <h2 className="text-2xl font-bold text-green-800">{stats.pregnantCows}</h2>
-              <p className="text-green-700">Total Pregnant Cows</p>
+            <div className="flex flex-col items-center py-4 bg-zinc-200 rounded-lg px-6 shadow-md w-full max-w-xs border border-sky-200">
+              <h2 className="text-2xl font-bold text-black">{stats.pregnantCows}</h2>
+              <p className="text-lg text-black">Total Pregnant Cows</p>
             </div>
           </div>
 
@@ -97,7 +99,7 @@ function CowRegistration() {
             <h2 className="text-2xl font-semibold text-center text-gray-800">Registration Details</h2>
             <div className="absolute right-0 top-0">
               <button
-                className="px-6 py-2 text-white bg-green-800 rounded-lg hover:bg-green-700 transition-colors shadow-md"
+                className="px-6 py-2 text-white bg-blue-700 rounded-lg hover:bg-sky-900 transition-colors shadow-md"
                 onClick={() => navigate("/Addregistry")}
               >
                 +  Add Details
@@ -107,7 +109,7 @@ function CowRegistration() {
 
           {/* Registry Table */}
           <div className="w-full mx-auto mt-4 mb-8 bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="grid grid-cols-5 gap-4 p-4 bg-green-700 text-white font-semibold">
+            <div className="grid grid-cols-5 gap-4 p-4 bg-sky-900 text-white font-semibold">
               <div className="text-center">Cow ID</div>
               <div className="text-center">Location</div>
               <div className="text-center">Status</div>
@@ -137,13 +139,13 @@ function CowRegistration() {
                   <div className="flex justify-center space-x-3">
                     <button
                       onClick={() => navigate(`/UpdateRegistry/${cow._id}`)}
-                      className="px-3 py-1 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                      className="px-3 py-1 text-sm bg-yellow-500 text-white rounded-md hover:bg-yellow-300 transition-colors"
                     >
                       Update
                     </button>
                     <button
                       onClick={() => handleDelete(cow._id)}
-                      className="px-3 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                      className="px-3 py-1 text-sm bg-red-700 text-white rounded-md hover:bg-red-300 transition-colors"
                     >
                       Delete
                     </button>
@@ -158,9 +160,11 @@ function CowRegistration() {
           </div>
         </div>
       </div>
+      
       <Footer />
     </div>
   );
 }
 
 export default CowRegistration;
+

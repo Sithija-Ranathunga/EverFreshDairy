@@ -10,7 +10,20 @@ import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/Gras
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
 import Alerts from "./components/Alerts";
+
 import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+
+
+
+import Admin from "./components/admin/AdminDashboard.jsx";
+import AdminLogin from "./components/admin/AdminLogin.jsx";
+import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";
+
+import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+
+/*import AddSession from "./pages/InventoryManager/GrassingSession/AddSession.jsx";
+
+
 import Session from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
 import Report from "./pages/InventoryManager/Report/Report.jsx";
@@ -21,8 +34,27 @@ import UpdateVetRegistry from "./pages/VetSurgeon/Registry/UpdateRegistry.jsx";
 import AddCheckups from "./pages/VetSurgeon/Checkups/AddCheckups.jsx";
 import Checkups from "./pages/VetSurgeon/Checkups/Checkups.jsx";
 import UpdateCheckups from "./pages/VetSurgeon/Checkups/UpdateCheckups.jsx";
+
+import VetLogout from  "./pages/VetSurgeon/Vetlogout/Vetlogout.jsx";
+import VetReport from  "./pages/VetSurgeon/Vetreport/Vetreport.jsx";
+import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
+//import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";
+
 /*import VetProfile from "./pages/VetSurgeon/VetProfile/VetProfile.jsx";
 import UpdateVetProfile from "./pages/VetSurgeon/VetProfile/UpdateVetProfile.jsx";*/
+
+
+import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
+import MLogin from "./pages/MilkingManagement/MLogin/MLogin.jsx";
+import MilkingData from "./pages/MilkingManagement/MilkingData/MilkingData.jsx";
+import AddMilkingData from "./pages/MilkingManagement/MilkingData/AddMilkingData.jsx";
+import MilkingUpdate from "./pages/MilkingManagement/MilkingData/MilkingUpdate.jsx";
+import MilkingSession from "./pages/MilkingManagement/MilkingSession/MilkingSession.jsx";
+import AddMikingSession from "./pages/MilkingManagement/MilkingSession/AddMilkingSession.jsx";
+import UpdateMilkingSession from "./pages/MilkingManagement/MilkingSession/UpdateMilkingSession.jsx";
+import MilkingReport from "./pages/MilkingManagement/Report/MilkingReport.jsx";
+import MProfile  from "./pages/MilkingManagement/MProfile/MProfile.jsx";
+
 
 
 
@@ -30,6 +62,14 @@ const App = () => {
   return (
  <div>
   <Routes>
+
+
+
+    
+    
+      <Route path="/admin" element={<Admin />} />
+   
+
         <Route path="/" element={<Home />} />
         <Route path="/loginInventory" element={<Login />} />
         <Route path="/grassingsession" element={<GrassingSession />} />
@@ -47,11 +87,34 @@ const App = () => {
         <Route path="/AddCheckups" element={<AddCheckups />} />
         <Route path="/Checkups" element={<Checkups />} />
         <Route path="/updatechekups/:id" element={<UpdateCheckups />} />
+
          <Route path="/addsession" element={<AddSession/>}/>
          <Route path="/session" element={<Session/>}/>
          
          <Route path="/report" element={<Report/>}/>
          
+
+        <Route path="/Logout" element={<VetLogout />} />
+        <Route path="/Vetreport" element={<VetReport />} />
+        <Route path="/addsession" element={<AddSession />} />
+        <Route path="/Vetprofile" element={<VetProfile />} />
+
+
+        <Route path='/loginMilking' element={<MLogin/>}/>
+    <Route path='/milkingdata'  element={<MilkingData/>}/>
+    <Route path='/addmilkingdata' element={<AddMilkingData/>}/>
+    <Route path='/updatemilkingdata/:id' element={<MilkingUpdate/>}/>
+    <Route path='/milkingsession' element={<MilkingSession/>}/>
+    <Route path='/addmilkingsession'element={<AddMikingSession/>}/>
+    <Route path='/milkingsessionupdate/:id'element={<UpdateMilkingSession/>}/>
+    <Route path='/milkingreport'element={<MilkingReport/>}/>
+    <Route path='/milkingprofile'element={<MProfile/>}/>
+
+        <Route path="/session" element={<Session />} />
+        <Route path="/report" element={<Report/>} />
+
+
+
        
       </Routes>
  

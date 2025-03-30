@@ -1,8 +1,11 @@
+
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const AppContent = createContext();
+
+export const AppContent = createContext()
+
 
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -72,3 +75,4 @@ export const AppContextProvider = ({ children }) => {
     </AppContent.Provider>
   );
 };
+
