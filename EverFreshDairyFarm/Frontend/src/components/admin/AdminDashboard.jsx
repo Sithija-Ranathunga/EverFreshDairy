@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { FiHome, FiUsers, FiDroplet, FiPackage, FiSettings, FiLogOut, FiBarChart2, FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
-
+import MilkingDataSection from "./MilkingDataSection";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -21,9 +21,8 @@ const AdminDashboard = () => {
           <img 
             src="/images/logo.png" 
             alt="Ever Fresh Dairy Logo" 
-            className={`${sidebarOpen ? 'w-32 h-32' : 'w-12 h-12'} mb-4  `}
+            className={`${sidebarOpen ? 'w-32 h-32' : 'w-12 h-12'} mb-4`}
           />
-          
         </div>
         
         <nav className="flex-1 mt-6">
@@ -113,8 +112,9 @@ const AdminDashboard = () => {
           {activeTab === 'reports' && <ReportsSection />}
         </main>
 
-        {/* Footer matching home page */}
-       <adminFooter/>
+        <footer className="p-4 text-center text-gray-500">
+          © 2025 EverFresh Dairy. All rights reserved.
+        </footer>
       </div>
     </div>
   );
@@ -132,12 +132,13 @@ const NavItem = ({ icon, text, active, onClick, sidebarOpen }) => (
   </li>
 );
 
-// Dashboard Overview Component
+// Dashboard Overview Component (merged version)
 const DashboardOverview = () => {
   const [stats, setStats] = useState({
     milkingRecords: 0,
     inventoryItems: 0,
     users: 0,
+    totalCows: 120,
     recentActivity: []
   });
 
@@ -147,6 +148,7 @@ const DashboardOverview = () => {
       milkingRecords: 142,
       inventoryItems: 28,
       users: 15,
+      totalCows: 120,
       recentActivity: [
         { id: 1, type: 'milking', action: 'New record added', time: '2 mins ago' },
         { id: 2, type: 'inventory', action: 'Milk stock updated', time: '15 mins ago' },
@@ -158,7 +160,13 @@ const DashboardOverview = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <StatCard 
+          title="Total Cows" 
+          value={stats.totalCows} 
+          icon={<FiUsers className="text-green-600" size={24} />} 
+          trend="stable"
+        />
         <StatCard 
           title="Milking Records" 
           value={stats.milkingRecords} 
@@ -172,10 +180,10 @@ const DashboardOverview = () => {
           trend="stable"
         />
         <StatCard 
-          title="Registered Users" 
-          value={stats.users} 
-          icon={<FiUsers className="text-green-600" size={24} />} 
-          trend="up"
+          title="Active Alerts" 
+          value={3} 
+          icon={<FiSettings className="text-green-600" size={24} />} 
+          trend="down"
         />
       </div>
       
@@ -235,261 +243,6 @@ const StatCard = ({ title, value, icon, trend }) => (
     </div>
   </div>
 );
-
-// Milking Data Section with Real API Integration
-const MilkingDataSection = () => {
-    const [milkingData, setMilkingData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [formData, setFormData] = useState({
-      cowId: '',
-      date: '',
-      amount: '',
-      notes: ''
-    });
-  
-    useEffect(() => {
-      // Fetch milking data from API
-      const fetchData = async () => {
-        setIsLoading(true);
-        try {
-          // const response = await fetch('/api/milking');
-          // const data = await response.json();
-          
-          // Mock data
-          const mockData = [
-            { id: '1', cowId: 'C001', date: '2023-05-15T08:30:00', amount: 12.5, notes: 'Morning milking' },
-            { id: '2', cowId: 'C002', date: '2023-05-15T08:45:00', amount: 14.2, notes: 'Morning milking' },
-            { id: '3', cowId: 'C001', date: '2023-05-15T16:30:00', amount: 10.8, notes: 'Evening milking' },
-            { id: '4', cowId: 'C003', date: '2023-05-15T08:35:00', amount: 13.7, notes: 'Morning milking' },
-          ];
-          
-          setMilkingData(mockData);
-        } catch (error) {
-          console.error('Error fetching milking data:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      
-      fetchData();
-    }, []);
-  
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(prev => ({ ...prev, [name]: value }));
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        // const response = await fetch('/api/milking', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(formData)
-        // });
-        // const newRecord = await response.json();
-        
-        // Mock response
-        const newRecord = { 
-          id: String(milkingData.length + 1), 
-          ...formData,
-          date: new Date().toISOString()
-        };
-        
-        setMilkingData(prev => [...prev, newRecord]);
-        setShowAddForm(false);
-        setFormData({ cowId: '', date: '', amount: '', notes: '' });
-      } catch (error) {
-        console.error('Error adding milking record:', error);
-      }
-    };
-  
-    const handleDelete = async (id) => {
-      if (window.confirm('Are you sure you want to delete this record?')) {
-        try {
-          // await fetch(`/api/milking/${id}`, { method: 'DELETE' });
-          setMilkingData(prev => prev.filter(record => record.id !== id));
-        } catch (error) {
-          console.error('Error deleting record:', error);
-        }
-      }
-    };
-
-  return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-2xl font-bold text-green-800 mb-6">Milking Management</h2>
-      <p className="text-gray-600 mb-6">Track daily milk production and analyze trends.</p>
-      
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold">Milking Records</h3>
-        <button 
-          onClick={() => setShowAddForm(true)}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center"
-        >
-          <FiPlus className="mr-2" /> Add Record
-        </button>
-      </div>
-      
-      {showAddForm && (
-        <div className="bg-gray-50 rounded-lg shadow p-6 mb-6">
-          <h4 className="text-lg font-medium mb-4">Add New Milking Record</h4>
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Cow ID</label>
-                <input
-                  type="text"
-                  name="cowId"
-                  value={formData.cowId}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Amount of Milk (L)</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  name="amountofMilk"
-                  value={formData.amountofMilk}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Date & Time</label>
-                <input
-                  type="datetime-local"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Duration (min)</label>
-                <input
-                  type="number"
-                  name="duration"
-                  value={formData.duration}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Milk Yield (L/min)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  name="milkYield"
-                  value={formData.milkYield}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Quality Check</label>
-                <select
-                  name="qualityCheckResult"
-                  value={formData.qualityCheckResult}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  required
-                >
-                  <option value="pass">Pass</option>
-                  <option value="fail">Fail</option>
-                </select>
-              </div>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Special Notes</label>
-              <textarea
-                name="specialNotes"
-                value={formData.specialNotes}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                rows="3"
-              />
-            </div>
-            <div className="flex justify-end space-x-3">
-              <button
-                type="button"
-                onClick={() => setShowAddForm(false)}
-                className="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Saving...' : 'Save Record'}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-      
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cow ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount (L)</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Yield</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quality</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {milkingData.map(record => (
-                <tr key={record._id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{record.cowId}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{record.amountofMilk}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(record.date).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{record.duration} min</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{record.milkYield} L/min</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      record.qualityCheckResult === 'pass' 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
-                    }`}>
-                      {record.qualityCheckResult}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button className="text-green-600 hover:text-green-900 mr-3">
-                      <FiEdit2 className="inline" />
-                    </button>
-                    <button 
-                      onClick={() => handleDelete(record._id)}
-                      className="text-red-600 hover:text-red-900"
-                    >
-                      <FiTrash2 className="inline" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // Inventory Section
 const InventorySection = () => {
