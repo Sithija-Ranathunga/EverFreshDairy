@@ -39,9 +39,29 @@ export const AppContextProvider = ({ children }) => {
     getUserData();
   }, []);
 
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("inventoryUserData");
+    if (storedUserData) {
+      const parsedData = JSON.parse(storedUserData);
+      setUserData(parsedData);
+      setIsLoggedin(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("inventoryUserData");
+    if (storedUserData) {
+      const parsedData = JSON.parse(storedUserData);
+      setUserData(parsedData);
+      setIsLoggedin(true);
+    }
+  }, []);
+
+  // Update the login function
   const login = (userInfo) => {
     setUserData(userInfo);
     setIsLoggedin(true);
+    localStorage.setItem("inventoryUserData", JSON.stringify(userInfo));
   };
 
   const logout = () => {

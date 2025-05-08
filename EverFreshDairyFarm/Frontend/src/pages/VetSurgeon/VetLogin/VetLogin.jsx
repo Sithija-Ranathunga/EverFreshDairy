@@ -56,22 +56,18 @@ function Login() {
       });
   
       if (data.success) {
-        // Store the token
         localStorage.setItem("vettoken", JSON.stringify(data.userDetails.token));
         
-        // Set user data in context without explicit role
         const userInfo = {
           ...data.userDetails,
-          name: data.userDetails.name || email.split('@')[0], // Fallback to email if name not provided
+          name: data.userDetails.name || email.split('@')[0],
         };
         
-        login(userInfo);
+        login(userInfo); // Make sure this is being called
         navigate("/Registry");
       }
     } catch (error) {
       console.error('Login error:', error);
-      // Consider adding error feedback to the user here
-      setErrors({ submit: error.response?.data?.message || 'Login failed' });
     }
   };
 

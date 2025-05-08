@@ -1,14 +1,22 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { AppContent } from "../Content/AppContentvet";
+import { AppContent as VetContent } from "../Content/AppContentvet";
+import { AppContent as InventoryContent } from "../Content/AppContent";
 import { assets } from "../assets/assets";
 
 export function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [profileDropdown, setProfileDropdown] = useState(false);
-  const { userData, logout } = useContext(AppContent);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+
+  // Get both contexts
+  const { userData: vetUserData, logout: vetLogout } = useContext(VetContent);
+  const { userData: inventoryUserData, logout: inventoryLogout } = useContext(InventoryContent);
+  
+  // Determine which user is logged in
+  const userData = inventoryUserData || vetUserData;
+  const logout = inventoryUserData ? inventoryLogout : vetLogout;
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -27,14 +35,27 @@ export function Header() {
     localStorage.removeItem("vettoken");
     localStorage.removeItem("milkingtoken");
     localStorage.removeItem("inventorytoken");
+    localStorage.removeItem("inventoryUserData");
     
-    // Call context logout
+    // Call appropriate logout
     logout();
     
     // Navigate to home
     navigate("/");
     
     // Close dropdown
+    setProfileDropdown(false);
+  };
+
+  const handleDashboardClick = () => {
+    const inventoryToken = localStorage.getItem("inventorytoken");
+    const vetToken = localStorage.getItem("vettoken");
+    
+    if (inventoryToken) {
+      navigate('/inventory');
+    } else if (vetToken) {
+      navigate('/Registry');
+    }
     setProfileDropdown(false);
   };
 
@@ -95,7 +116,7 @@ export function Header() {
                 onMouseLeave={() => setProfileDropdown(false)}
               >
                 <button
-                  onClick={() => navigate('/Registry')}
+                  onClick={handleDashboardClick}
                   className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Dashboard

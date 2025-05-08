@@ -28,34 +28,107 @@ function CheckupsPage() {
 
   const downloadPDF = () => {
     const doc = new jsPDF();
+    
+    // Add company logo and header
+    doc.setFillColor(13, 71, 161); // dark blue header
+    doc.rect(0, 0, doc.internal.pageSize.getWidth(), 40, 'F');
+    
+    // Add company name
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    doc.text("Ever Fresh Dairy Farm", doc.internal.pageSize.getWidth()/2, 20, { align: 'center' });
+    
+    // Add report title
+    doc.setFontSize(18);
+    doc.text("Veterinary Checkups Report", doc.internal.pageSize.getWidth()/2, 35, { align: 'center' });
 
-    // Add a title
-    doc.setFontSize(16);
-    doc.text("Veterinary Checkups Report", 10, 20);
+    // Add metadata
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const today = new Date().toLocaleDateString();
+    doc.text(`Generated on: ${today}`, 10, 50);
+    doc.text(`Total Records: ${checkups.length}`, 10, 57);
 
-    // Set column headers
-    doc.setFontSize(12);
-    const startY = 30;
-    doc.text("Cow ID", 10, startY);
-    doc.text("Location", 50, startY);
-    doc.text("Checkup Reason", 100, startY);
-    doc.text("Diagnosis", 150, startY);
-    doc.text("Date", 180, startY);
+    // Add table headers with styling
+    const startY = 70;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(10, startY - 5, doc.internal.pageSize.getWidth() - 20, 10, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    
+    // Define column widths and positions
+    const columns = {
+      cowID: { x: 15, width: 30 },
+      location: { x: 45, width: 35 },
+      reason: { x: 80, width: 45 },
+      diagnosis: { x: 125, width: 45 },
+      date: { x: 170, width: 30 }
+    };
 
-    // Start printing table rows
+    // Add headers
+    doc.text("Cow ID", columns.cowID.x, startY);
+    doc.text("Location", columns.location.x, startY);
+    doc.text("Reason", columns.reason.x, startY);
+    doc.text("Diagnosis", columns.diagnosis.x, startY);
+    doc.text("Date", columns.date.x, startY);
+
+    // Add table content
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
     let yPosition = startY + 10;
-    checkups.forEach((checkup) => {
-      if (yPosition > doc.internal.pageSize.getHeight() - 10) {
+
+    checkups.forEach((checkup, index) => {
+      // Add alternate row coloring
+      if (index % 2 === 0) {
+        doc.setFillColor(249, 249, 249);
+        doc.rect(10, yPosition - 5, doc.internal.pageSize.getWidth() - 20, 10, 'F');
+      }
+
+      // Add new page if needed
+      if (yPosition > doc.internal.pageSize.getHeight() - 20) {
         doc.addPage();
         yPosition = 20;
+        
+        // Add header to new page
+        doc.setFillColor(13, 71, 161);
+        doc.rect(0, 0, doc.internal.pageSize.getWidth(), 20, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.text("Veterinary Checkups Report (Continued)", doc.internal.pageSize.getWidth()/2, 15, { align: 'center' });
+        
+        // Reset text color for content
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(10);
       }
-      doc.text(`${checkup.cowID}`, 10, yPosition);
-      doc.text(`${checkup.location}`, 50, yPosition);
-      doc.text(`${checkup.CheckupReason}`, 100, yPosition);
-      doc.text(`${checkup.Diagnosis}`, 150, yPosition);
-      doc.text(`${new Date(checkup.Date).toLocaleDateString()}`, 180, yPosition);
-      yPosition += 10;
+
+      // Add row content with word wrap
+      const splitReason = doc.splitTextToSize(checkup.CheckupReason, columns.reason.width);
+      const splitDiagnosis = doc.splitTextToSize(checkup.Diagnosis, columns.diagnosis.width);
+
+      doc.text(`${checkup.cowID}`, columns.cowID.x, yPosition);
+      doc.text(`${checkup.location}`, columns.location.x, yPosition);
+      doc.text(splitReason, columns.reason.x, yPosition);
+      doc.text(splitDiagnosis, columns.diagnosis.x, yPosition);
+      doc.text(`${formatDate(checkup.Date)}`, columns.date.x, yPosition);
+
+      // Calculate maximum height needed for this row
+      const lineHeight = 7;
+      const reasonLines = splitReason.length;
+      const diagnosisLines = splitDiagnosis.length;
+      const maxLines = Math.max(reasonLines, diagnosisLines, 1);
+      
+      yPosition += lineHeight * maxLines;
     });
+
+    // Add footer
+    const pageCount = doc.internal.getNumberOfPages();
+    for(let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.getWidth()/2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+    }
 
     // Save the PDF
     doc.save("Veterinary-Checkups-Report.pdf");

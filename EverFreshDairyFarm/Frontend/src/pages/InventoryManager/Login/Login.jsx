@@ -8,7 +8,7 @@ import { Footer } from "../../../components/Footer";
 
 function Login() {
   const navigate = useNavigate();
-  const { login, id } = useContext(AppContent);
+  const { login } = useContext(AppContent);
 
   const [state, setState] = useState("Sign Up");
   const [name, setName] = useState("");
@@ -44,50 +44,59 @@ function Login() {
     return Object.keys(formErrors).length === 0;
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    try {
+      const { data } = await axios.post("http://localhost:8000/inventoryManager/login", {
+        email,
+        password,
+      });
+
+      if (data.success) {
+        localStorage.setItem("inventorytoken", JSON.stringify(data.userDetails.token));
+        login({
+          name: data.userDetails.name || email.split('@')[0],
+          ...data.userDetails
+        });
+        navigate("/inventory");
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
   const SubmitHandler = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     try {
-      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(
+        "http://localhost:8000/inventoryManager/login",
+        { email, password }
+      );
 
-      if (state === "Sign Up") {
-        const { data } = await axios.post(
-          "http://localhost:8000/inventoryManager/register",
-          {
-            name,
-            NIC,
-            workExperience,
-            email,
-            password,
-          }
+      if (data.success) {
+        // Store token in localStorage
+        localStorage.setItem(
+          "inventorytoken",
+          JSON.stringify(data.userDetails.token)
         );
 
-        if (data.success) {
-          alert("You are registered...");
-        } else {
-          alert(data.message);
-        }
+        // Create user info object
+        const userInfo = {
+          ...data.userDetails,
+          name: data.userDetails.name || email.split('@')[0],
+          role: 'inventory'
+        };
+        
+        // Update context with user info
+        login(userInfo);
+        
+        navigate("/grassing");
       } else {
-        const { data } = await axios.post(
-          "http://localhost:8000/inventoryManager/login",
-          { email, password }
-        );
-        console.log(data.userDetails);
-
-        if (data.userDetails) {
-          localStorage.setItem(
-            "accessToken",
-            JSON.stringify(data.userDetails.token)
-          );
-        }
-
-        if (data.success) {
-          login();
-          navigate("/grassing");
-        } else {
-          alert(data.message);
-        }
+        alert(data.message);
       }
     } catch (error) {
       alert(error.response?.data?.message || "An error occurred");

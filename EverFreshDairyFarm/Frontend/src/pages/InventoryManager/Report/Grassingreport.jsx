@@ -40,45 +40,121 @@ function Grassingreport() {
 
   const downloadPDF = () => {
     const doc = new jsPDF();
+    
+    // Add company logo and header
+    doc.setFillColor(13, 71, 161);
+    doc.rect(0, 0, doc.internal.pageSize.getWidth(), 40, 'F');
+    
+    // Add company name
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    doc.text("Ever Fresh Dairy Farm", doc.internal.pageSize.getWidth()/2, 20, { align: 'center' });
+    
+    // Add report title
+    doc.setFontSize(18);
+    doc.text("Grassing Inventory Report", doc.internal.pageSize.getWidth()/2, 35, { align: 'center' });
 
-    // Add a title
-    doc.setFontSize(16);
-    doc.text("Grassing Report", 10, 20);
+    // Add metadata
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const today = new Date().toLocaleDateString();
+    doc.text(`Generated on: ${today}`, 10, 50);
+    doc.text(`Total Records: ${grass.length}`, 10, 57);
+    doc.text(`Expired Items: ${expiredCount}`, 80, 57);
+    doc.text(`In Store Items: ${inStoreCount}`, 150, 57);
 
-    // Set header text (adjust X coordinates as needed)
-    doc.setFontSize(12);
-    const startY = 30;
-    doc.text("Location", 10, startY);
-    doc.text("Quantity", 60, startY);
-    doc.text("Supplier", 110, startY);
-    doc.text("Last Update", 160, startY);
+    // Add table headers with styling
+    const startY = 70;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(10, startY - 5, doc.internal.pageSize.getWidth() - 20, 10, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    
+    // Define column widths and positions
+    const columns = {
+      location: { x: 20, width: 40 },
+      quantity: { x: 70, width: 30 },
+      supplier: { x: 110, width: 40 },
+      lastUpdate: { x: 160, width: 30 }
+    };
 
-    // Start printing table rows
+    // Add headers
+    doc.text("Location", columns.location.x, startY);
+    doc.text("Quantity", columns.quantity.x, startY);
+    doc.text("Supplier", columns.supplier.x, startY);
+    doc.text("Last Update", columns.lastUpdate.x, startY);
+
+    // Add table content
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
     let yPosition = startY + 10;
-    grass.forEach((g) => {
-      // If we run out of space, add a new page.
-      if (yPosition > doc.internal.pageSize.getHeight() - 10) {
-        doc.addPage();
-        yPosition = 20; // reset yPosition for new page
+
+    grass.forEach((g, index) => {
+      // Add alternate row coloring
+      if (index % 2 === 0) {
+        doc.setFillColor(249, 249, 249);
+        doc.rect(10, yPosition - 5, doc.internal.pageSize.getWidth() - 20, 10, 'F');
       }
-      doc.text(`${g.location}`, 10, yPosition);
-      doc.text(`${g.quantity}`, 60, yPosition);
-      doc.text(`${g.supplier}`, 110, yPosition);
-      const formattedDate = new Intl.DateTimeFormat("en-GB").format(
-        new Date(g.lastUpdate)
-      );
-      doc.text(`${formattedDate}`, 160, yPosition);
+
+      // Check if item is expired
+      const diffDays = (new Date() - new Date(g.lastUpdate)) / (1000 * 3600 * 24);
+      if (diffDays > 5) {
+        doc.setTextColor(255, 0, 0); // Red text for expired items
+      } else {
+        doc.setTextColor(0, 0, 0); // Black text for normal items
+      }
+
+      // Add new page if needed
+      if (yPosition > doc.internal.pageSize.getHeight() - 20) {
+        doc.addPage();
+        yPosition = 20;
+        
+        // Add header to new page
+        doc.setFillColor(13, 71, 161);
+        doc.rect(0, 0, doc.internal.pageSize.getWidth(), 20, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(12);
+        doc.text("Grassing Inventory Report (Continued)", doc.internal.pageSize.getWidth()/2, 15, { align: 'center' });
+        
+        // Reset text color for content
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(10);
+      }
+
+      doc.text(`${g.location}`, columns.location.x, yPosition);
+      doc.text(`${g.quantity}`, columns.quantity.x, yPosition);
+      doc.text(`${g.supplier}`, columns.supplier.x, yPosition);
+      const formattedDate = new Intl.DateTimeFormat("en-GB").format(new Date(g.lastUpdate));
+      doc.text(formattedDate, columns.lastUpdate.x, yPosition);
+      
       yPosition += 10;
     });
 
-    // Optionally add summary information
+    // Add summary section at the end
     yPosition += 10;
-    doc.setFontSize(14);
-    doc.text(`Expired: ${expiredCount}`, 10, yPosition);
-    doc.text(`In Store: ${inStoreCount}`, 80, yPosition);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text("Summary:", 10, yPosition);
+    yPosition += 10;
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Total Grass Records: ${grass.length}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`Expired Items: ${expiredCount}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`Items In Store: ${inStoreCount}`, 20, yPosition);
+
+    // Add footer with page numbers
+    const pageCount = doc.internal.getNumberOfPages();
+    for(let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.getWidth()/2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+    }
 
     // Save the PDF
-    doc.save("grassing-report.pdf");
+    doc.save("grassing-inventory-report.pdf");
   };
 
   return (
