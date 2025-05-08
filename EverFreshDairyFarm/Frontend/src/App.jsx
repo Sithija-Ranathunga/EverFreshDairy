@@ -85,6 +85,7 @@ const App = () => {
         <Route path="/milkingreport" element={<MilkingReport />} />
         <Route path="/milkingprofile" element={<MProfile />} />
 
+
         <Route path="/session" element={<Session />} />
         <Route path="/report" element={<Report />} />
       </Routes>

@@ -101,6 +101,15 @@ function MLogin() {
 
       <div
         className="flex items-center justify-center min-h-screen bg-center bg-cover"
+        style={{
+          backgroundImage: `url(${assets.login1})`,
+          backgroundSize: "cover" // or "cover", "auto", or "100% 100%"
+        }}
+      >
+
+
+      <div
+        className="flex items-center justify-center min-h-screen bg-center bg-cover"
         style={{ backgroundImage: `url(${assets.Mlogin})`}}
         
       >
@@ -235,6 +244,7 @@ function MLogin() {
             </p>
           )}
         </div>
+      </div>
       </div>
 
       <Footer />
