@@ -48,6 +48,8 @@ export const AppContextProvider = ({ children }) => {
     }
   }, []);
 
+  //Test
+
   useEffect(() => {
     const storedUserData = localStorage.getItem("inventoryUserData");
     if (storedUserData) {
