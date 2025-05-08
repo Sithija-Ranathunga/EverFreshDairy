@@ -41,7 +41,7 @@ export function Header() {
         {/* Auth Area */}
          {userData ? (
           // ✅ Wrap with a fragment or a div
-         <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <img className="w-8 h-8 rounded-full object-cover" src="https://img.freepik.com/premium-vector/person-with-blue-shirt-that-says-name-person_1029948-7040.jpg?semt=ais_hybrid" alt="Profile" />
             <div className="text-sm font-medium text-gray-800">
               Hi,  {userData.name}

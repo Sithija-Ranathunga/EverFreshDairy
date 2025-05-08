@@ -8,7 +8,6 @@ import Profile from "./pages/InventoryManager/Profile/Profile.jsx";
 import Report from "./pages/InventoryManager/Report/Report.jsx";
 
 
-
 import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/GrassingSessionUpdate.jsx";
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
 import AddGrassing from "./pages/InventoryManager/Grassing/AddGrassing.jsx";
@@ -80,7 +79,7 @@ const App = () => {
         <Route path="/Vetprofile" element={<VetProfile />} />
 
 
-        <Route path='/MLogin' element={<MLogin/>}/>
+        <Route path='/loginMilking' element={<MLogin/>}/>
     <Route path='/milkingdata'  element={<MilkingData/>}/>
     <Route path='/addmilkingdata' element={<AddMilkingData/>}/>
     <Route path='/updatemilkingdata/:id' element={<MilkingUpdate/>}/>
