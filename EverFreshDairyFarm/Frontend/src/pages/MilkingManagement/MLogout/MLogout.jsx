@@ -1,135 +1,59 @@
-/*import React, { useContext, useState } from 'react';
+{/*import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContentMilk } from '../../../Content/AppContentMilking';
+import { AppContent } from '../../../Content/AppContent';
 import axios from 'axios';
+import { logout } from '../../../../../Backend/controllers/MilkingUser';
 
-function MLogin() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const { login } = useContext(AppContentMilk);
+function MLogout () {
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+    const navigate = useNavigate();
+    const { MLogout} = useContext(AppContent)
 
-    try {
-      const response = await axios.post(
-        'http://localhost:8000/milkingManager/login',
-        { email, password },
-        { withCredentials: true }
-      );
+    const confirmMLogout = async () =>{
+        try{
+            axios.defaults.withCredentials = true
+            const {data} = await axios.post('http://Localhost:8000/milkingManager/logout')
+            logout();
 
-      if (response.data.success) {
-        localStorage.setItem('milkingToken', JSON.stringify(response.data.token));
-        await login(); // Call the context login function
-        navigate('/milkingdata');
-      }
-    } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
-      console.error('Login error:', err);
-    } finally {
-      setLoading(false);
+            navigate('/loginMilking')
+        } catch (error){
+            TransformStream.error(error.message)
+        }
     }
-  };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Milking Manager Login
-          </h2>
+    const cancelMLogout = () => {
+        navigate('milkingdata')
+    };
+
+    return (
+        <div className="flex items-center justify-center min-h-screen">
+      
+        
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="p-6 text-center bg-white shadow-xl rounded-2xl w-80">
+            <h2 className="mb-4 text-lg font-semibold">Confirm Logout</h2>
+            <p className="mb-6">Are you sure you want to logout?</p>
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={confirmMLogout}
+                className="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700"
+              >
+                Yes
+              </button>
+              <button
+                onClick={cancelMLogout}
+                className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400"
+              >
+                No
+              </button>
+            </div>
+          </div>
         </div>
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-            {error}
-          </div>
-        )}
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm space-y-4">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a href="#" className="font-medium text-green-600 hover:text-green-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
-                loading ? 'opacity-70 cursor-not-allowed' : ''
-              }`}
-            >
-              {loading ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing...
-                </>
-              ) : (
-                'Sign in'
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
+     
     </div>
-  );
+
+    );
+
 }
 
-export default MLogin;*/
+export default MLogout;*/}
