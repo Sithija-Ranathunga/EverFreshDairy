@@ -1,12 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from './pages/Home';
+import Home from "./pages/Home";
 import Login from "./pages/InventoryManager/Login/Login";
 import GrassingSession from "./pages/InventoryManager/GrassingSession/GrassingSession.jsx";
 import Grassing from "./pages/InventoryManager/Grassing/Grassing.jsx";
 import Profile from "./pages/InventoryManager/Profile/Profile.jsx";
 import Report from "./pages/InventoryManager/Report/Report.jsx";
-
 
 import GrassingSessionUpdate from "./pages/InventoryManager/GrassingSession/GrassingSessionUpdate.jsx";
 import GrassingUpdate from "./pages/InventoryManager/Grassing/GrassingUpdate.jsx";
@@ -27,10 +26,9 @@ import AddCheckups from "./pages/VetSurgeon/Checkups/AddCheckups.jsx";
 import Checkups from "./pages/VetSurgeon/Checkups/Checkups.jsx";
 import UpdateCheckups from "./pages/VetSurgeon/Checkups/UpdateCheckups.jsx";
 
-import VetLogout from  "./pages/VetSurgeon/Vetlogout/Vetlogout.jsx";
-import VetReport from  "./pages/VetSurgeon/Vetreport/Vetreport.jsx";
+import VetLogout from "./pages/VetSurgeon/Vetlogout/Vetlogout.jsx";
+import VetReport from "./pages/VetSurgeon/Vetreport/Vetreport.jsx";
 import VetProfile from "./pages/VetSurgeon/VetProfile/Vetprofile.jsx";
-
 
 import Logout from "./pages/InventoryManager/Logout/Logout.jsx";
 import MLogin from "./pages/MilkingManagement/MLogin/MLogin.jsx";
@@ -41,28 +39,24 @@ import MilkingSession from "./pages/MilkingManagement/MilkingSession/MilkingSess
 import AddMikingSession from "./pages/MilkingManagement/MilkingSession/AddMilkingSession.jsx";
 import UpdateMilkingSession from "./pages/MilkingManagement/MilkingSession/UpdateMilkingSession.jsx";
 import MilkingReport from "./pages/MilkingManagement/Report/MilkingReport.jsx";
-import MProfile  from "./pages/MilkingManagement/MProfile/MProfile.jsx";
-
-
-
+import MProfile from "./pages/MilkingManagement/MProfile/MProfile.jsx";
 
 const App = () => {
   return (
- <div>
-  <Routes>
+    <div>
+      <Routes>
+        <Route path="/admin" element={<Admin />} />
 
-
-    
-    
-      <Route path="/admin" element={<Admin />} />
-   
         <Route path="/" element={<Home />} />
         <Route path="/loginInventory" element={<Login />} />
         <Route path="/grassingsession" element={<GrassingSession />} />
         <Route path="/grassing" element={<Grassing />} />
         <Route path="/inventory" element={<Profile />} />
-        <Route path="/logout" element={<Logout/>} />
-        <Route path="/grassingsessionupdate/:id" element={<GrassingSessionUpdate />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route
+          path="/grassingsessionupdate/:id"
+          element={<GrassingSessionUpdate />}
+        />
         <Route path="/grassingupdate/:id" element={<GrassingUpdate />} />
         <Route path="/addgrass" element={<AddGrassing />} />
         <Route path="/alerts" element={<Alerts />} />
@@ -78,28 +72,23 @@ const App = () => {
         <Route path="/addsession" element={<AddSession />} />
         <Route path="/Vetprofile" element={<VetProfile />} />
 
-
-        <Route path='/loginMilking' element={<MLogin/>}/>
-    <Route path='/milkingdata'  element={<MilkingData/>}/>
-    <Route path='/addmilkingdata' element={<AddMilkingData/>}/>
-    <Route path='/updatemilkingdata/:id' element={<MilkingUpdate/>}/>
-    <Route path='/milkingsession' element={<MilkingSession/>}/>
-    <Route path='/addmilkingsession'element={<AddMikingSession/>}/>
-    <Route path='/milkingsessionupdate/:id'element={<UpdateMilkingSession/>}/>
-    <Route path='/milkingreport'element={<MilkingReport/>}/>
-    <Route path='/milkingprofile'element={<MProfile/>}/>
+        <Route path="/MLogin" element={<MLogin />} />
+        <Route path="/milkingdata" element={<MilkingData />} />
+        <Route path="/addmilkingdata" element={<AddMilkingData />} />
+        <Route path="/updatemilkingdata/:id" element={<MilkingUpdate />} />
+        <Route path="/milkingsession" element={<MilkingSession />} />
+        <Route path="/addmilkingsession" element={<AddMikingSession />} />
+        <Route
+          path="/milkingsessionupdate/:id"
+          element={<UpdateMilkingSession />}
+        />
+        <Route path="/milkingreport" element={<MilkingReport />} />
+        <Route path="/milkingprofile" element={<MProfile />} />
 
         <Route path="/session" element={<Session />} />
-        <Route path="/report" element={<Report/>} />
-
-
-       
+        <Route path="/report" element={<Report />} />
       </Routes>
- 
-  
- 
-
- </div>
-    
-  )}
-  export default App;
+    </div>
+  );
+};
+export default App;
