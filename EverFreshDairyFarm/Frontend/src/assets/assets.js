@@ -15,6 +15,7 @@ import Checkups_icon from  './Checkups_icon.svg'
 import vetlogin_icon from  './vet3.jpg'
 import milkingdata_icon from './milkingdata_icon.svg'
 import Mlogin_icon from './Mlogin.jpg'
+import login1 from './login1.jpg'
 
 
 
@@ -38,6 +39,7 @@ export const assets = {
     Checkups_icon,
     vetlogin_icon,
     milkingdata_icon,
-    Mlogin_icon
+    Mlogin_icon,
+    login1
    
 }
