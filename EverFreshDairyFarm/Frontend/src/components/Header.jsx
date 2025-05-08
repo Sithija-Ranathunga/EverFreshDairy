@@ -90,23 +90,13 @@ export function Header() {
           </li>
         </ul>
 
-        {/* User Profile Section */}
-        {userData ? (
-          <div className="relative" ref={dropdownRef}>
-            <div 
-              className="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg p-2 transition-colors"
-              onMouseEnter={() => setProfileDropdown(true)}
-              role="button"
-              tabIndex={0}
-            >
-              <img 
-                className="w-8 h-8 rounded-full object-cover"
-                src="https://img.freepik.com/premium-vector/person-avatar-design-illustration-gestures-account-social-media-man_24877-18271.jpg"
-                alt="Profile"
-              />
-              <span className="text-sm font-medium text-gray-800">
-                Hi, {userData.name}
-              </span>
+        {/* Auth Area */}
+         {userData ? (
+          // ✅ Wrap with a fragment or a div
+          <div className="flex items-center gap-2">
+            <img className="w-8 h-8 rounded-full object-cover" src="https://img.freepik.com/premium-vector/person-with-blue-shirt-that-says-name-person_1029948-7040.jpg?semt=ais_hybrid" alt="Profile" />
+            <div className="text-sm font-medium text-gray-800">
+              Hi,  {userData.name}
             </div>
 
             {/* Profile Dropdown */}
@@ -131,7 +121,9 @@ export function Header() {
             )}
           </div>
         ) : (
-          <div className="relative z-50">
+          
+        
+        <div className="relative z-50">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="bg-white text-[#2C3E50] px-4 py-2 rounded-lg shadow-md hover:bg-gray-200 transition"
