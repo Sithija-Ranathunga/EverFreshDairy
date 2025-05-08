@@ -48,11 +48,15 @@ export const AppContextProvider = ({ children }) => {
     getUserData();
   }, []);
 
-  const login = async () => {
-    await getUserData();
+  const login = (userInfo) => {
+    setUserData({
+      ...userInfo,
+      role: userInfo.role || 'vet' // Default to 'vet' if role is not provided
+    });
   };
 
   const logout = () => {
+    setUserData(null);
     setId(null);
     localStorage.removeItem("vettoken");
     navigate("/");
