@@ -79,7 +79,7 @@ const App = () => {
         <Route path="/Vetprofile" element={<VetProfile />} />
 
 
-        <Route path='/loginMilking' element={<MLogin/>}/>
+        <Route path='/MLogin' element={<MLogin/>}/>
     <Route path='/milkingdata'  element={<MilkingData/>}/>
     <Route path='/addmilkingdata' element={<AddMilkingData/>}/>
     <Route path='/updatemilkingdata/:id' element={<MilkingUpdate/>}/>
