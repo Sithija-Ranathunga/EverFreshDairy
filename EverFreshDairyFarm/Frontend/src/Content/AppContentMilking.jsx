@@ -9,19 +9,12 @@ export const AppContextProvider = ({ children }) => {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [userData, setUserData] = useState(null);
   const [id, setId] = useState(null);
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [NIC, setNIC] = useState(null);
-  const [workexpirience, setWorkexpirience] = useState(null);
 
   const getUserData = async () => {
-    const token = localStorage.getItem("milkingToken");
+    const token = localStorage.getItem("milkingtoken");
     if (!token) {
       setId(null);
-      setName(null);
-      setEmail(null);
-      setNIC(null);
-      setWorkexpirience(null);
+      setUserData(null);
       return;
     }
     const parseToken = JSON.parse(token);
@@ -35,10 +28,8 @@ export const AppContextProvider = ({ children }) => {
           },
         }
       );
-      console.log(response);
-      setId(response.data._id);
-      setUserData(response.data);
-      // Do something with response
+      setId(response.data.user._id);
+      setUserData(response.data.user);
     } catch (error) {
       console.error("Error fetching current user:", error);
     }
@@ -48,13 +39,16 @@ export const AppContextProvider = ({ children }) => {
     getUserData();
   }, []);
 
-  const login = async () => {
-    await getUserData();
+  const login = (userInfo) => {
+    setUserData(userInfo);
+    setIsLoggedin(true);
   };
 
   const logout = () => {
+    setUserData(null);
     setId(null);
-    localStorage.removeItem("milkingToken");
+    setIsLoggedin(false);
+    localStorage.removeItem("milkingtoken");
     navigate("/");
   };
 
