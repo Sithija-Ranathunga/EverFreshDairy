@@ -31,10 +31,10 @@ function CheckupsPage() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/checkups/${id}`);
+      await axios.delete(`http://localhost:8000/vetCheckups/${id}`);
       setCheckups(prev => prev.filter(checkup => checkup._id !== id));
     } catch (err) {
-      console.error("Error deleting checkup:", err);
+      console.error("Error deleting checkup:", err.response?.data || err.message);
     }
   };
 

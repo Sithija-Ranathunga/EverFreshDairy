@@ -48,50 +48,30 @@ function Login() {
   const SubmitHandler = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-
+    
     try {
-      axios.defaults.withCredentials = true;
-
-      if (state === "Sign Up") {
-        const { data } = await axios.post(
-          "http://localhost:8000/veterinarySurgeon/register",
-          {
-            name,
-            NIC,
-            workExperience,
-            email,
-            password,
-          }
-        );
-
-        if (data.success) {
-          alert("You are registered...");
-        } else {
-          alert(data.message);
-        }
-      } else {
-        const { data } = await axios.post(
-          "http://localhost:8000/veterinarySurgeon/login",
-          { email, password }
-        );
-        console.log(data.userDetails);
-
-        if (data.userDetails) {
-          localStorage.setItem(
-            "vettoken",
-            JSON.stringify(data.userDetails.token)
-          );
-        }
-
-        if (data.success) {
-          login();
-          navigate("/Registry");
-        } else {
-          alert(data.message);
-        }
+      const { data } = await axios.post("http://localhost:8000/veterinarySurgeon/login", {
+        email,
+        password,
+      });
+  
+      if (data.success) {
+        // Store the token
+        localStorage.setItem("vettoken", JSON.stringify(data.userDetails.token));
+        
+        // Set user data in context without explicit role
+        const userInfo = {
+          ...data.userDetails,
+          name: data.userDetails.name || email.split('@')[0], // Fallback to email if name not provided
+        };
+        
+        login(userInfo);
+        navigate("/Registry");
       }
     } catch (error) {
-      alert(error.response?.data?.message || "An error occurred");
+      console.error('Login error:', error);
+      // Consider adding error feedback to the user here
+      setErrors({ submit: error.response?.data?.message || 'Login failed' });
     }
   };
 
