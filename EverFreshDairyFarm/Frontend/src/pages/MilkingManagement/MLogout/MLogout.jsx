@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContent } from "../../../Content/AppContent";
 import axios from "axios";
-import { logout } from "../../../../../Backend/controllers/MilkingUser";
+import { logout } from "../../../../../Backend/controllers/milkingUser";
 
 function MLogout() {
   const navigate = useNavigate();

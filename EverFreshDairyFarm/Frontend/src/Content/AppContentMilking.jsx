@@ -22,77 +22,76 @@ export const AppContextProvider = ({ children }) => {
         return;
       }
 
-      // Try to use cached data first
+      // Before making API calls, try to use cached data first
       const cachedData = localStorage.getItem("milkingUserData");
       if (cachedData) {
         try {
           const parsedData = JSON.parse(cachedData);
-          // Set login state from cache while we fetch fresh data
           setIsLoggedin(true);
           setUserData(parsedData);
           setId(parsedData.id);
-          console.log("Using cached milking user data");
+
+          // Continue with API call in the background to refresh data
         } catch (parseError) {
           console.error("Error parsing cached data:", parseError);
+          // Continue with API call
         }
       }
 
-      console.log("Fetching milking user data with token:", token);
-
-      // Configure axios for the API request
+      // Configure request headers
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        timeout: 5000, // 5 second timeout
       };
 
-      if (authCheck.data && authCheck.data.success) {
-        // If authenticated, get user data
-        try {
-          // The getUserData endpoint requires authentication
-          const response = await axios.get(
-            "http://Localhost:8000/milkingManager/getUserData",
-            config
-          );
+      // First verify the token is valid
+      try {
+        console.log("Verifying token...");
+        const authCheck = await axios.get(
+          "http://Localhost:8000/milkingManager/verifyToken",
+          config
+        );
+        console.log("Auth check response:", authCheck.data);
 
-          // Update state with fresh data
-          setIsLoggedin(true);
-          setUserData(response.data);
-          setId(response.data._id);
+        if (authCheck.data && authCheck.data.success) {
+          // If authenticated, get user data
+          try {
+            // Use the getUserData endpoint that requires authentication
+            const { data } = await axios.get(
+              "http://Localhost:8000/milkingManager/getUserData",
+              config
+            );
 
-          // Update cache with fresh data
-          localStorage.setItem(
-            "milkingUserData",
-            JSON.stringify(response.data)
-          );
-        } catch (userError) {
-          console.error("Error fetching user details:", userError);
-          // We'll keep using the cached data set earlier
+            // Note: The getUserData endpoint returns the user object directly
+            if (data) {
+              setIsLoggedin(true);
+              setUserData(data);
+              setId(data._id);
+
+              // Update cache with fresh data
+              localStorage.setItem("milkingUserData", JSON.stringify(data));
+            }
+          } catch (userError) {
+            console.error("Error getting user data:", userError);
+            // We already loaded cached data, so no need to do anything here
+          }
+        } else {
+          // Only clear if we didn't successfully load from cache earlier
+          if (!cachedData) {
+            setIsLoggedin(false);
+            setUserData(null);
+            localStorage.removeItem("milkingtoken");
+          }
         }
-      } else {
-        console.log("Authentication check failed");
-        setIsLoggedin(false);
-        setUserData(null);
-        localStorage.removeItem("milkingtoken");
-        localStorage.removeItem("milkingUserData");
+      } catch (authError) {
+        console.error("Token verification failed:", authError);
+        // Don't clear user data here if we have cached data
       }
     } catch (error) {
-      // Don't clear user data on network errors if we have cached data
-      const cachedData = localStorage.getItem("milkingUserData");
-      const token = localStorage.getItem("milkingtoken");
-
-      if (!cachedData || !token) {
-        setIsLoggedin(false);
-        setUserData(null);
-      }
-
-      // Only remove token on auth errors (401), not on network errors
-      if (error.response && error.response.status === 401) {
-        localStorage.removeItem("milkingtoken");
-        localStorage.removeItem("milkingUserData");
-      }
+      console.error("getUserData error:", error);
+      // Don't clear user data here if we have cached data
     }
   };
 
