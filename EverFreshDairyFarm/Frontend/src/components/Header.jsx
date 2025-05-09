@@ -273,13 +273,14 @@ export function Header() {
                     </a>
                   </li>
                   <div className="border-t border-gray-100 my-1"></div>
+                  
                   <li>
                     <a
-                      href="#"
+                      href="/admin-login"
                       className="flex items-center px-4 py-2.5 hover:bg-gray-50 transition duration-150"
                     >
-                      <span className="w-2 h-2 bg-red-500 rounded-full mr-2.5"></span>
-                      <span className="text-sm">Admin login</span>
+                      <span className="w-2 h-2 bg-purple-500 rounded-full mr-2.5"></span>
+                      <span className="text-sm">Admin Login</span>
                     </a>
                   </li>
                 </ul>
