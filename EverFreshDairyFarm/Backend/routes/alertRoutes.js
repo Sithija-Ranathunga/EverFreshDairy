@@ -1,10 +1,10 @@
-import express from "express";
-import { analyzeMilkingTrends, getAlerts, resolveAlert } from "../controllers/alertController.js";
+import express from 'express';
+import { createAlert, getAlerts, resolveAlert } from '../controllers/alertController.js';
 
 const router = express.Router();
 
-router.get("/analyze", analyzeMilkingTrends);
-router.get("/", getAlerts);
-router.put("/:id/resolve", resolveAlert);
+router.post('/', createAlert);
+router.get('/', getAlerts);
+router.put('/:id/resolve', resolveAlert);
 
 export default router;
