@@ -18,10 +18,6 @@ export function Header() {
   const { userData: milkingUserData, logout: milkingLogout } =
     useContext(MilkingContent);
 
-  // Debug logs to check what data is available
-  console.log("Milking user data:", milkingUserData);
-  console.log("Milking token exists:", !!localStorage.getItem("milkingtoken"));
-
   // Determine which user is logged in (priority: inventory > vet > milking)
   const userData = inventoryUserData || vetUserData || milkingUserData;
   const logout = inventoryUserData
