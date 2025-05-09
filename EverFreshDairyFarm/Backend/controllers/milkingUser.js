@@ -4,159 +4,177 @@ import userModel from "../models/MilkingUser.js";
 
 // Register
 export const register = async (req, res) => {
-    const { name, email, password, workExperience, NIC } = req.body;
+  const { name, email, password, workExperience, NIC } = req.body;
 
-    if (!name || !email || !password || !workExperience || !NIC) {
-        return res.status(400).json({ success: false, message: "Missing Details" });
+  if (!name || !email || !password || !workExperience || !NIC) {
+    return res.status(400).json({ success: false, message: "Missing Details" });
+  }
+
+  try {
+    const existingUser = await userModel.findOne({ email });
+
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ success: false, message: "User already exists." });
     }
 
-    try {
-        const existingUser = await userModel.findOne({ email });
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        if (existingUser) {
-            return res.status(409).json({ success: false, message: "User already exists." });
-        }
+    const user = new userModel({
+      name,
+      email,
+      password: hashedPassword,
+      NIC,
+      workExperience,
+    });
+    await user.save();
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
-        const user = new userModel({ name, email, password: hashedPassword, NIC, workExperience });
-        await user.save();
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
-
-        return res.status(201).json({ success: true, message: "Registration successful" });
-
-    } catch (error) {
-        return res.status(500).json({ success: false, message: error.message });
-    }
+    return res
+      .status(201)
+      .json({ success: true, message: "Registration successful" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // Login
 export const login = async (req, res) => {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ success: false, message: "Email and password are required" });
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Email and password are required" });
+  }
+
+  try {
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ success: false, message: "Invalid email" });
     }
 
-    try {
-        const user = await userModel.findOne({ email });
+    const isMatch = await bcrypt.compare(password, user.password);
 
-        if (!user) {
-            return res.status(401).json({ success: false, message: "Invalid email" });
-        }
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid password" });
+    }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
-        if (!isMatch) {
-            return res.status(401).json({ success: false, message: "Invalid password" });
-        }
-
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-
-       /* res.cookie("token", token, {
+    /* res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         }); */
 
-        const userDetails ={
-            id:user._id,
-            name:user.name,
-            email:user.email,
-            NIC: user.NIC,
-            workExperience:user.workExperience,
-            token
-      
-              }
-      
-              return res.status(200).json({success:true,userDetails});
+    const userDetails = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      NIC: user.NIC,
+      workExperience: user.workExperience,
+      token,
+    };
 
-       
-    } catch (error) {
-        return res.status(500).json({ success: false, message: error.message });
-    }
+    return res.status(200).json({ success: true, userDetails });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // Logout
 export const logout = async (req, res) => {
-    try {
-        res.clearCookie("token", {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-        });
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    });
 
-        return res.status(200).json({ success: true, message: "Logged out successfully" });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: error.message });
-    }
+    return res
+      .status(200)
+      .json({ success: true, message: "Logged out successfully" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
 };
-
 
 // Get user data
 export const getUserData = async (req, res) => {
-    try {
-        const user = await userModel.findOne({_id:req.user.id});
+  try {
+    const user = await userModel.findOne({ _id: req.user.id });
 
-        if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' });
-        }
-
-        return res.status(200).json(user);
-
-    } catch (error) {
-        return res.status(500).json({ success: false, message: error.message });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // Get user by ID
 export const getbyIdUser = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const user = await userModel.findById(id);
+  try {
+    const { id } = req.params;
+    const user = await userModel.findById(id);
 
-        if (!user) {
-            return res.status(404).json({ success: false, message: "User not found" });
-        }
-
-        res.status(200).json({ success: true, user });
-
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // Update user data
 export const updateUser = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const user = await userModel.findByIdAndUpdate(id, req.body, { new: true });
+  try {
+    const { id } = req.params;
+    const user = await userModel.findByIdAndUpdate(id, req.body, { new: true });
 
-        if (!user) {
-            return res.status(404).json({ success: false, message: "User Not Updated" });
-        }
-
-        res.status(200).json({ success: true, user });
-
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Updated" });
     }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // Check if user is authenticated
 export const isAuthenticated = async (req, res) => {
-    try {
-        return res.json({ success: true });
-    } catch (error) {
-        res.json({ success: false, message: error.message });
-    }
+  try {
+    return res.json({ success: true });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
 };
