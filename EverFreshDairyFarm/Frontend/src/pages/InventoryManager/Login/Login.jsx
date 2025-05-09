@@ -49,21 +49,27 @@ function Login() {
     if (!validate()) return;
 
     try {
-      const { data } = await axios.post("http://localhost:8000/inventoryManager/login", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        "http://localhost:8000/inventoryManager/login",
+        {
+          email,
+          password,
+        }
+      );
 
       if (data.success) {
-        localStorage.setItem("inventorytoken", JSON.stringify(data.userDetails.token));
+        localStorage.setItem(
+          "inventorytoken",
+          JSON.stringify(data.userDetails.token)
+        );
         login({
-          name: data.userDetails.name || email.split('@')[0],
-          ...data.userDetails
+          name: data.userDetails.name || email.split("@")[0],
+          ...data.userDetails,
         });
         navigate("/inventory");
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
     }
   };
 
@@ -73,28 +79,34 @@ function Login() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/inventoryManager/login",
+        "http://Localhost:8000/inventoryManager/login",
         { email, password }
       );
 
-      if (data.success) {
-        // Store token in localStorage
-        localStorage.setItem(
-          "inventorytoken",
-          JSON.stringify(data.userDetails.token)
-        );
+      console.log("Login response:", data);
 
-        // Create user info object
-        const userInfo = {
-          ...data.userDetails,
-          name: data.userDetails.name || email.split('@')[0],
-          role: 'inventory'
-        };
-        
-        // Update context with user info
-        login(userInfo);
-        
-        navigate("/grassing");
+      if (data.success) {
+        if (data.userDetails && data.userDetails.token) {
+          // Store token
+          localStorage.setItem("inventorytoken", data.userDetails.token);
+
+          // Store user data to avoid API calls on page refresh
+          localStorage.setItem(
+            "inventoryUserData",
+            JSON.stringify(data.userDetails)
+          );
+
+          // Call context login
+          login(data.userDetails);
+
+          // Force header refresh
+          window.dispatchEvent(new Event("login"));
+
+          navigate("/inventory");
+        } else {
+          console.error("Token missing from login response:", data);
+          alert("Login failed: Authentication token missing");
+        }
       } else {
         alert(data.message);
       }
@@ -109,7 +121,7 @@ function Login() {
 
       <div
         className="flex items-center justify-center min-h-screen bg-center bg-cover"
-        style={{ backgroundImage: `url(${assets.login})`}}
+        style={{ backgroundImage: `url(${assets.login})` }}
       >
         <div className="bg-[#8cc5a2] p-10 rounded-[10px] shadow-[0_4px_10px_rgba(0,0,0,0.2)] w-full max-w-[400px] text-gray-200 text-sm text-center">
           <h2 className="mb-3 text-2xl font-semibold text-black">

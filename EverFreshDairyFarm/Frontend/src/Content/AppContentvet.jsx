@@ -51,15 +51,22 @@ export const AppContextProvider = ({ children }) => {
   const login = (userInfo) => {
     setUserData({
       ...userInfo,
-      role: userInfo.role || 'vet' // Default to 'vet' if role is not provided
+      role: userInfo.role || "vet", // Default to 'vet' if role is not provided
     });
   };
 
   const logout = () => {
+    // Clear all state
     setUserData(null);
     setId(null);
+    setName(null);
+    setEmail(null);
+    setIsLoggedin(false);
+    
+    // Remove token
     localStorage.removeItem("vettoken");
-    navigate("/");
+    
+    // Don't navigate here
   };
 
   return (
