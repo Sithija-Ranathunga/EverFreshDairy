@@ -6,7 +6,6 @@ import { AppContent } from "../../../Content/AppContentvet";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 
-
 function Login() {
   const navigate = useNavigate();
   const { login, id } = useContext(AppContent);
@@ -48,40 +47,73 @@ function Login() {
   const SubmitHandler = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    
+
     try {
-      const { data } = await axios.post("http://localhost:8000/veterinarySurgeon/login", {
-        email,
-        password,
-      });
-  
-      if (data.success) {
-        localStorage.setItem("vettoken", JSON.stringify(data.userDetails.token));
-        
-        const userInfo = {
-          ...data.userDetails,
-          name: data.userDetails.name || email.split('@')[0],
-        };
-        
-        login(userInfo); // Make sure this is being called
-        navigate("/Registry");
+      if (state === "Sign Up") {
+        // Registration logic
+        const { data } = await axios.post(
+          "http://localhost:8000/veterinarySurgeon/register",
+          {
+            name,
+            email,
+            NIC,
+            workExperience,
+            password,
+          }
+        );
+
+        if (data.success) {
+          alert("Registration successful! Please login.");
+          setState("Login");
+          setPassword("");
+        } else {
+          alert(data.message || "Registration failed. Please try again.");
+        }
+      } else {
+        // Login logic (existing code)
+        const { data } = await axios.post(
+          "http://localhost:8000/veterinarySurgeon/login",
+          {
+            email,
+            password,
+          }
+        );
+
+        if (data.success) {
+          localStorage.setItem(
+            "vettoken",
+            JSON.stringify(data.userDetails.token)
+          );
+
+          const userInfo = {
+            ...data.userDetails,
+            name: data.userDetails.name || email.split("@")[0],
+          };
+
+          login(userInfo);
+          navigate("/Registry");
+        } else {
+          alert(data.message || "Login failed. Please check your credentials.");
+        }
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Error:", error);
+      const errorMessage =
+        error.response?.data?.message || "An error occurred. Please try again.";
+      alert(errorMessage);
     }
   };
 
   return (
     <div className="min-h-screen">
       <Header />
-       
+
       <div
         className="flex items-center justify-center min-h-screen bg-center bg-cover"
-        style={{ backgroundImage: `url(${assets.vetlogin_icon})`}}
+        style={{ backgroundImage: `url(${assets.vetlogin_icon})` }}
       >
         <div className="bg-emerald-50 p-10 rounded-[10px] shadow-[0_4px_10px_rgba(0,0,0,0.2)] w-full max-w-[400px] text-gray-200 text-sm text-center">
           <h2 className="mb-1 text-3xl font-semibold text-black">
-            
             {state === "Sign Up" ? "Create Account" : "Login"}
           </h2>
           <p className="mb-5 text-sm text-black">
