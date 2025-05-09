@@ -37,7 +37,7 @@ export const AppContextProvider = ({ children }) => {
         const userId = JSON.parse(atob(token.split(".")[1])).id;
 
         const { data: profileResponse } = await axios.post(
-          "http://Localhost:8000/inventoryManager/profile",
+          "http://Localhost:8000/inventoryManager/getUserData",
           { userId },
           config
         );

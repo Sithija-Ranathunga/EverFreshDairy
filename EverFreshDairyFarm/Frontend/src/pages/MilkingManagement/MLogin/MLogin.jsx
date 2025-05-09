@@ -84,21 +84,22 @@ function MLogin() {
 
         if (data.success) {
           if (data.userDetails && data.userDetails.token) {
-            // Store token consistently with lowercase key
+            // Store token consistently
             localStorage.setItem("milkingtoken", data.userDetails.token);
 
-            // Cache user data to avoid API calls
-            localStorage.setItem(
-              "milkingUserData",
-              JSON.stringify(data.userDetails)
-            );
+            // Make sure user data is cached with all necessary fields
+            const userInfo = {
+              ...data.userDetails,
+              id: data.userDetails.id || data.userDetails._id, // Ensure ID is consistent
+            };
+
+            // Cache user data
+            localStorage.setItem("milkingUserData", JSON.stringify(userInfo));
 
             // Call context login function
-            login(data.userDetails);
+            login(userInfo);
 
-            // Force header refresh with multiple methods
-            window.dispatchEvent(new Event("login"));
-
+            // Navigate to dashboard
             navigate("/milkingdata");
           } else {
             console.error("Token missing from login response:", data);
