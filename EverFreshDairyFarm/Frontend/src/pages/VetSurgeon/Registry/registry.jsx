@@ -4,6 +4,7 @@ import { Footer } from "../../../components/Footer";
 import VetSidebar from "../../../components/VetSidebar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FiAlertTriangle } from "react-icons/fi";
 
 function CowRegistration() {
   const navigate = useNavigate();
@@ -13,8 +14,11 @@ function CowRegistration() {
     vaccinatedPercentage: 0,
     pregnantCows: 0
   });
+  const [alerts, setAlerts] = useState([]);
+  const [loadingAlerts, setLoadingAlerts] = useState(true);
 
   useEffect(() => {
+    // Fetch cow data
     axios
       .get("http://localhost:8000/vetCowRegister")
       .then((response) => {
@@ -40,7 +44,40 @@ function CowRegistration() {
         }
       })
       .catch((err) => console.log(err));
+
+    // Fetch alerts
+    const fetchAlerts = async () => {
+      try {
+        const token = localStorage.getItem('vettoken'); // Assuming vets use vettoken
+        const response = await axios.get('http://localhost:8000/alerts', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setAlerts(response.data);
+      } catch (error) {
+        console.error('Error fetching alerts:', error);
+      } finally {
+        setLoadingAlerts(false);
+      }
+    };
+
+    fetchAlerts();
   }, []);
+
+  const handleResolveAlert = async (alertId) => {
+    try {
+      const token = localStorage.getItem('vettoken');
+      await axios.put(`http://localhost:8000/alerts/${alertId}/resolve`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setAlerts(alerts.filter(alert => alert._id !== alertId));
+    } catch (error) {
+      console.error('Error resolving alert:', error);
+    }
+  };
 
   const handleDelete = (id) => {
     axios
@@ -59,20 +96,16 @@ function CowRegistration() {
     <div className="min-h-screen flex flex-col bg-sky-100">
       <Header />
       
-            
       <div className="flex flex-1">
-        {/* Sidebar with rounded corners and spacing */}
         <div className="ml-4 my-4 rounded-xl overflow-hidden h-[calc(100vh-8rem)]">
           <VetSidebar />
         </div>
 
-        <div className="flex-1 pl-8 pr-4 ">
+        <div className="flex-1 pl-8 pr-4">
           <h1 className="mt-10 mb-2 text-3xl font-bold">Welcome Nirasha,</h1>
 
-          
-
           {/* Stats Cards with green background */}
-          <div className="flex flex-wrap justify-center gap-6 mb-12 mt-6">
+          <div className="flex flex-wrap justify-center gap-6 mb-6 mt-6">
             <div className="flex flex-col items-center py-4 bg-zinc-200 rounded-lg px-50 shadow-md w-full max-w-xs border border-sky-200">
               <h2 className="text-2xl font-bold text-black">{stats.totalCows}</h2>
               <p className="text-lg text-black">Total No. of Cows</p>
@@ -94,7 +127,42 @@ function CowRegistration() {
             </div>
           </div>
 
-          {/* Registration Details section with centered heading and right-aligned button */}
+          {/* Alerts Section */}
+          <div className="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 className="text-2xl font-bold text-red-800 mb-4">Health Alerts</h2>
+            
+            {loadingAlerts ? (
+              <p>Loading alerts...</p>
+            ) : alerts.length === 0 ? (
+              <p className="text-gray-600">No active alerts</p>
+            ) : (
+              <div className="space-y-4">
+                {alerts.map(alert => (
+                  <div key={alert._id} className="p-4 border border-red-200 rounded-lg bg-red-50 flex justify-between items-center">
+                    <div className="flex items-center">
+                      <FiAlertTriangle className="text-red-600 mr-3" size={24} />
+                      <div>
+                        <p className="font-semibold">{alert.message}</p>
+                        <p className="text-sm text-gray-600">
+                          {alert.cowId && `Cow ID: ${alert.cowId}`}
+                          {alert.milkAmount && ` | Milk: ${alert.milkAmount}L`}
+                          {alert.temperature && ` | Temp: ${alert.temperature}°C`}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleResolveAlert(alert._id)}
+                      className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                    >
+                      Resolve
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Registration Details section */}
           <div className="relative mb-8">
             <h2 className="text-2xl font-semibold text-center text-gray-800">Registration Details</h2>
             <div className="absolute right-0 top-0">
@@ -167,4 +235,3 @@ function CowRegistration() {
 }
 
 export default CowRegistration;
-

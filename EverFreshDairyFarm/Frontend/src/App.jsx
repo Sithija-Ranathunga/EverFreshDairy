@@ -41,6 +41,9 @@ import UpdateMilkingSession from "./pages/MilkingManagement/MilkingSession/Updat
 import MilkingReport from "./pages/MilkingManagement/Report/MilkingReport.jsx";
 import MProfile from "./pages/MilkingManagement/MProfile/MProfile.jsx";
 
+import AdminLogin from "./components/admin/AdminLogin.jsx";
+import AdminDashboard from "./components/admin/AdminDashboard.jsx";
+
 const App = () => {
   return (
     <div>
@@ -87,6 +90,9 @@ const App = () => {
 
         <Route path="/session" element={<Session />} />
         <Route path="/report" element={<Report />} />
+
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </div>
   );
