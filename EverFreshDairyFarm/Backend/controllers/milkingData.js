@@ -1,10 +1,29 @@
 import MilkingDatamodel from '../models/MilkingData.js';
-
+import Alert from '../models/Alert.js';
 //create a new milking record
 export const createMilkingData = async (req, res) => {
     try {
         const newmilkingData = new MilkingDatamodel(req.body);
         await newmilkingData.save();
+
+        // Check for alerts
+    const milkAmount = parseFloat(newmilkingData.amountofMilk);
+    const temperature = parseFloat(newmilkingData.temperature);
+    
+    if (milkAmount < 5 || temperature < 38) {
+      const alertMessage = milkAmount < 5 
+        ? `Cow ${newmilkingData.cowId} has low milk production (${milkingData.amountofMilk}L)`
+        : `Cow ${newmilkingData.cowId} has abnormal temperature (${milkingData.temperature}°C)`;
+      
+      const alert = new Alert({
+        cowId: newmilkingData.cowId,
+        message: alertMessage,
+        milkAmount: newmilkingData.amountofMilk,
+        temperature: newmilkingData.temperature
+      });
+      
+      await alert.save();
+    }
         res.status(201).json(newmilkingData);
 
     } catch (error) {
